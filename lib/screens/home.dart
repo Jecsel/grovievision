@@ -327,54 +327,12 @@ class MyFAB extends StatefulWidget {
 
 class _MyFABState extends State<MyFAB> {
   static const IconData qr_code_scanner_rounded =
-      IconData(0xf00cc, fontFamily: 'MaterialIcons');
+  IconData(0xf00cc, fontFamily: 'MaterialIcons');
   final picker = ImagePicker();
   File? localImage;
   File? takenImage;
 
   double perceptualResult = 0.0;
-
-  /// Compare two images
-  Future compareTwoImages() async {
-    final perceptual = await compareImages(
-        src1: localImage, src2: takenImage, algorithm: PerceptualHash());
-
-    setState(() {
-      perceptualResult = 100 - (perceptual * 100);
-    });
-    print('Difference: ${perceptualResult}%');
-  }
-
-  /// Get from gallery
-  Future _getFromGallery() async {
-    final pickedFileFromGallery = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    print('pickFile');
-    print(pickedFileFromGallery);
-
-    if (pickedFileFromGallery != null) {
-      setState(() {
-        localImage = File(pickedFileFromGallery.path);
-      });
-    }
-  }
-
-  /// Get Image from Camera
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    print('pickFile');
-    print(pickedFile);
-
-    if (pickedFile != null) {
-      setState(() {
-        takenImage = File(pickedFile.path);
-        // Compare the images here and show the result
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -447,6 +405,48 @@ class _MyFABState extends State<MyFAB> {
       },
       child: const Icon(qr_code_scanner_rounded),
     );
+  }
+
+    /// Compare two images
+  Future compareTwoImages() async {
+    final perceptual = await compareImages(
+        src1: localImage, src2: takenImage, algorithm: PerceptualHash());
+
+    setState(() {
+      perceptualResult = 100 - (perceptual * 100);
+    });
+    print('Difference: ${perceptualResult}%');
+  }
+
+  /// Get from gallery
+  Future _getFromGallery() async {
+    final pickedFileFromGallery = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    print('pickFile');
+    print(pickedFileFromGallery);
+
+    if (pickedFileFromGallery != null) {
+      setState(() {
+        localImage = File(pickedFileFromGallery.path);
+      });
+    }
+  }
+
+  /// Get Image from Camera
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    print('pickFile');
+    print(pickedFile);
+
+    if (pickedFile != null) {
+      setState(() {
+        takenImage = File(pickedFile.path);
+        // Compare the images here and show the result
+      });
+    }
   }
 }
 

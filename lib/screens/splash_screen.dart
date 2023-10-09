@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grovievision/screens/home.dart';
+import 'package:grovievision/screens/user_choice.dart';
 
 class SplashScreen extends StatefulWidget {
   
@@ -21,22 +22,43 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async{
-    await Future.delayed(Duration(milliseconds: 2000), (){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
+    await Future.delayed(Duration(milliseconds: 3000), (){});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UserChoice()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-      child: Column(
-          children: <Widget>[
-              Image.asset(
-              'assets/images/splash_logo.png',
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color.fromARGB(228, 0, 200, 83), Color.fromARGB(236, 0, 214, 50)], // Gradient colors
+            ),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: Image.asset(
+                  'assets/images/splash_img.png',
+                  // Add your image properties here
+                ),
               ),
-          ],
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Image.asset(
+                  'assets/images/splash_bottom.png', // Replace with your second image
+                  // Add your second image properties here
+                ),
+              ),
+            ],
+          ),
         ),
-      )
+      ),
     );
   }
 }
