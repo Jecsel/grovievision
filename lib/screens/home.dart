@@ -6,6 +6,8 @@ import 'package:grovievision/components/treeImageListState.dart';
 import 'package:grovievision/models/image_data.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/mangroove.dart';
+import 'package:grovievision/screens/search.dart';
+import 'package:grovievision/ui/login.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:image_compare/image_compare.dart';
@@ -52,6 +54,13 @@ class _HomeState extends State<Home> {
   String searchQuery = '';
   int _selectedIndex = 0;
   int _selectedIdx = 0;
+  static const IconData qr_code_scanner_rounded =
+  IconData(0xf00cc, fontFamily: 'MaterialIcons');
+  final picker = ImagePicker();
+  File? localImage;
+  File? takenImage;
+
+  double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
 
       // Define a list of ImageData objects
@@ -98,7 +107,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:     Scaffold(
+      home: Scaffold(
       appBar: AppBar(
         title: const Text('Grovievision'),
         backgroundColor: Colors.green, // Set the background color here
@@ -113,12 +122,18 @@ class _HomeState extends State<Home> {
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
               ),
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                });
-              },
+              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage())),
             ),
+          ),
+          SizedBox(height: 40),
+          Center(
+            child: Text(
+              "Scanner",
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.w600
+              ),
+              ),
           ),
           SizedBox(height: 20),
           // Half of the screen with a green gradient
@@ -209,11 +224,67 @@ class _HomeState extends State<Home> {
               // Add more carousel items as needed
             ],
           ),
-          Expanded(
-            child: Center(
-              child: _getSelectedWidget(),
-            ),
-          ),
+          SizedBox(height: 40),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            getFromGallery();
+                          },
+                           style: ElevatedButton.styleFrom(
+                            textStyle: TextStyle(fontSize: 20),
+                            minimumSize: Size(double.infinity, 60)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               Icon(
+                                Icons.camera_alt,
+                                size: 24,
+                              ),
+                              const SizedBox(width: 8),
+                              Text('Take Photo'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16), // Add spacing between buttons
+                    Container(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            getFromGallery();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            textStyle: TextStyle(fontSize: 20),
+                            minimumSize: Size(double.infinity, 60)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               Icon(
+                                Icons.drive_folder_upload,
+                                size: 24,
+                              ),
+                              const SizedBox(width: 8),
+                              Text('Insert Photo'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
         ],
       ),
       drawer: Drawer(
@@ -229,21 +300,16 @@ class _HomeState extends State<Home> {
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'Admin',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Mangroove()));
-                // _drawerItemTapped(1);
-                // Navigator.pushNamed(context, '/mangrooves'); // Navigate to "Mangrooves" screen
-                // Navigator.pop(context);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login()));
               },
             ),
             _buildDrawerItem(
               title: 'About Us',
               index: 2,
               onTap: () {
-                // _drawerItemTapped(2);
-                // Navigator.pop(context);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AboutUs()));
               },
             ),
@@ -267,47 +333,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-Widget _getSelectedWidget() {
-  switch (_selectedIndex) {
-    case 0:
-      // return TreeImageList(database: database);
-      // Filter the imageDataList based on the searchQuery
-      final filteredDataList = imageDataList
-          .where((data) =>
-              data.name.toLowerCase().contains(searchQuery.toLowerCase()) ||
-              data.description.toLowerCase().contains(searchQuery.toLowerCase()))
-          .toList();
-
-      return ListView.separated(
-        itemCount: filteredDataList.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            const Divider(),
-        itemBuilder: (BuildContext context, int index) {
-          final imageData = filteredDataList[index];
-          return ListTile(
-            leading: Container(
-              width: 100, // Adjust the width as needed
-              height: 100, // Adjust the height as needed
-              child: Image.asset(
-                imageData.imagePath,
-                fit: BoxFit.cover
-                ),
-            ),
-            title: Text(imageData.name),
-            subtitle: Text(imageData.description),
-          );
-        },
-      );
-    case 1:
-      return Mangroove();
-    case 2:
-      return AboutUs();
-    default:
-      return Text('Unknown Page');
-  }
-}
-
-   Widget _buildDrawerItem({
+  Widget _buildDrawerItem({
     required String title,
     required int index,
     VoidCallback? onTap,
@@ -317,6 +343,45 @@ Widget _getSelectedWidget() {
       selected: _selectedIndex == index,
       onTap: onTap,
     );
+  }
+  
+  Future compareTwoImages() async {  /// Compare two images
+    final perceptual = await compareImages(
+        src1: localImage, src2: takenImage, algorithm: PerceptualHash());
+
+    setState(() {
+      perceptualResult = 100 - (perceptual * 100);
+    });
+    print('Difference: ${perceptualResult}%');
+  }
+
+  Future getFromGallery() async {
+    final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    print('pickFile');
+    print(pickedFileFromGallery);
+
+    if (pickedFileFromGallery != null) {
+      setState(() {
+        localImage = File(pickedFileFromGallery.path);
+      });
+    }
+  }
+
+  Future getImageFromCamera() async {    /// Get Image from Camera
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    print('pickFile');
+    print(pickedFile);
+
+    if (pickedFile != null) {
+      setState(() {
+        takenImage = File(pickedFile.path);
+        // Compare the images here and show the result
+      });
+    }
   }
 }
 

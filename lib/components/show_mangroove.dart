@@ -46,12 +46,33 @@ class _ShowMangrooveState  extends State<ShowMangroove> {
           child: Column(
             children:<Widget>[
               Image.asset(
-                'assets/images/coconut.jpeg',
+                'assets/images/aegiceras.png',
               ),
               SizedBox(height: 10),
-              Text("Description:"),
+              Text(
+                "Aegiceras corniculatum",
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 25
+                ),
+              ),
               SizedBox(height: 10),
-              Text("A coconut is an iconic drupe with a distinctive appearance. It typically features a round or oval shape, a tough, brown, fibrous husk, and a smooth, glossy, brown or green shell. The inner fruit, or 'endosperm,' is the edible part of the coconut and has a white, luscious flesh with a mildly sweet flavor.")
+              Row(
+                children: [
+                  Text(
+                    "Local Names: ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  Text(
+                    "saging-saging, tayokan, kawilan(Visayan), tinduk-tindukan(Tagalog)"
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Text("Shrubs to small trees typically 2-3 m tall but may reach 5 m. The species grows in isolated clumps never forming extensive stands along tidal creeks and river mouths. Widely distributed in Panay but has never been found together with its sister species A. floridum (see following). Substrate is sandy to compact mud. The leaves are often notched and have a prominent midrib on the undersurface which merges with the pinkish petiole. The strongly curved fruits hang in clusters like small bananas (hence the local names referring to banana varieties) and are pale green to pinkish-red. In Panay, the species is used for firewood and the bark for tanning and fish poison. Elsewhere in the Philippines, the wood is made into knife handles.")
             ],
           ),
         ),
