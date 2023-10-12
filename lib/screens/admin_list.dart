@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
 
@@ -62,9 +63,14 @@ class _AdminListState extends State<AdminList> {
               child: ListView.builder(
                 itemCount: speciesList.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShowMangroove()));
+                    },
+                    child: ListTile(
                     title: Text(speciesList[index]),
                     trailing: Icon(Icons.arrow_forward_ios), // Right icon
+                    )
                   );
                 },
               ),

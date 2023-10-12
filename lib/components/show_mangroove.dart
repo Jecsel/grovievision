@@ -37,7 +37,7 @@ class _ShowMangrooveState  extends State<ShowMangroove> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Grovievision'),
+        title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
       ),
       body: Padding(
@@ -62,17 +62,46 @@ class _ShowMangrooveState  extends State<ShowMangroove> {
                   Text(
                     "Local Names: ",
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600
                     ),
                   ),
-                  Text(
-                    "saging-saging, tayokan, kawilan(Visayan), tinduk-tindukan(Tagalog)"
+                  Expanded(
+                    child: Text(
+                      "saging-saging, tayokan, kawilan(Visayan), tinduk-tindukan(Tagalog)"
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: 10),
-              Text("Shrubs to small trees typically 2-3 m tall but may reach 5 m. The species grows in isolated clumps never forming extensive stands along tidal creeks and river mouths. Widely distributed in Panay but has never been found together with its sister species A. floridum (see following). Substrate is sandy to compact mud. The leaves are often notched and have a prominent midrib on the undersurface which merges with the pinkish petiole. The strongly curved fruits hang in clusters like small bananas (hence the local names referring to banana varieties) and are pale green to pinkish-red. In Panay, the species is used for firewood and the bark for tanning and fish poison. Elsewhere in the Philippines, the wood is made into knife handles.")
+              Text("Shrubs to small trees typically 2-3 m tall but may reach 5 m. The species grows in isolated clumps never forming extensive stands along tidal creeks and river mouths. Widely distributed in Panay but has never been found together with its sister species A. floridum (see following). Substrate is sandy to compact mud. The leaves are often notched and have a prominent midrib on the undersurface which merges with the pinkish petiole. The strongly curved fruits hang in clusters like small bananas (hence the local names referring to banana varieties) and are pale green to pinkish-red. In Panay, the species is used for firewood and the bark for tanning and fish poison. Elsewhere in the Philippines, the wood is made into knife handles."),
+              SizedBox(height: 10),
+              Row(children: [
+                Expanded(child: 
+                  Column(
+                    children: [
+                      Text(
+                        "Leaves",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      Row(children: [
+                        Text("Arrangement"),
+                        Expanded(child: 
+                        Text("simple, alternate")
+                        )
+                      ],)
+                    ],
+                  )
+                ),
+                Image.asset(
+                'assets/images/aegiceras.png',
+                width: 110,
+                height: 110,
+              ),
+              ],),
+              
             ],
           ),
         ),
@@ -85,30 +114,20 @@ class _ShowMangrooveState  extends State<ShowMangroove> {
               title: 'Home',
               index: 0,
               onTap: () {
-                _drawerItemTapped(0);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'About Us',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Mangroove()));
-              },
-            ),
-            _buildDrawerItem(
-              title: 'About Us',
-              index: 2,
-              onTap: () {
-                _drawerItemTapped(2);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AboutUs()));
               },
             ),
             _buildDrawerItem(
               title: 'Exit',
-              index: 3,
+              index: 2,
               onTap: () {
-                _drawerItemTapped(3);
                 Navigator.pop(context);
               },
             ),

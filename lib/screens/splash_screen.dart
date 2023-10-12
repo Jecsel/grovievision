@@ -30,6 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Search Tree'),
+          backgroundColor: Colors.green, // Set the background color here
+        ),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

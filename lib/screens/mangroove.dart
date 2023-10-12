@@ -282,30 +282,20 @@ class _MyDropdownDemoState extends State<MyDropdownDemo> {
               title: 'Home',
               index: 0,
               onTap: () {
-                _drawerItemTapped(0);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'About Us',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Mangroove()));
-              },
-            ),
-            _buildDrawerItem(
-              title: 'About Us',
-              index: 2,
-              onTap: () {
-                _drawerItemTapped(2);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AboutUs()));
               },
             ),
             _buildDrawerItem(
               title: 'Exit',
-              index: 3,
+              index: 2,
               onTap: () {
-                _drawerItemTapped(3);
                 Navigator.pop(context);
               },
             ),

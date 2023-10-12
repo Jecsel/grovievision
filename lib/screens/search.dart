@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
     return MaterialApp(
     home: Scaffold(
         appBar: AppBar(
-          title: Text("Search Page"),
+          title: Text("Search Tree"),
         ),
         body: Column(
           children: [
