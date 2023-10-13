@@ -138,326 +138,326 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      "Mangrove Fruit",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    localImage != null
-                        ? Image.file(
-                            localImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _getFromGallery();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Upload Mangrove Image'),
-                              Icon(Icons.add)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: scientificNameController,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Image'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Mangrove Leaf",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    localImage != null
-                        ? Image.file(
-                            localImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _getFromGallery();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Upload Mangrove Image'),
-                              Icon(Icons.add)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: scientificNameController,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Image'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Mangrove Trunk",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    localImage != null
-                        ? Image.file(
-                            localImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _getFromGallery();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Upload Mangrove Image'),
-                              Icon(Icons.add)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: scientificNameController,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Image'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Mangrove Flower",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    localImage != null
-                        ? Image.file(
-                            localImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _getFromGallery();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Upload Mangrove Image'),
-                              Icon(Icons.add)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: scientificNameController,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Image'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Mangrove Root",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    localImage != null
-                        ? Image.file(
-                            localImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
-                    SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _getFromGallery();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Upload Mangrove Image'),
-                              Icon(Icons.add)
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: scientificNameController,
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Image'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
-                    SizedBox(height: 20),
+                    // Text(
+                    //   "Mangrove Fruit",
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // localImage != null
+                    //     ? Image.file(
+                    //         localImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //     child: ElevatedButton(
+                    //       onPressed: () {
+                    //         _getFromGallery();
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //           textStyle: TextStyle(fontSize: 20),
+                    //           minimumSize: Size(double.infinity, 60)),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Upload Mangrove Image'),
+                    //           Icon(Icons.add)
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: localNameController,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: scientificNameController,
+                    //     decoration: InputDecoration(labelText: 'Description'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: descriptionController,
+                    //     decoration: InputDecoration(labelText: 'Image'),
+                    //     maxLines: 4, // You can adjust the number of lines
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Text(
+                    //   "Mangrove Leaf",
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // localImage != null
+                    //     ? Image.file(
+                    //         localImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //     child: ElevatedButton(
+                    //       onPressed: () {
+                    //         _getFromGallery();
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //           textStyle: TextStyle(fontSize: 20),
+                    //           minimumSize: Size(double.infinity, 60)),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Upload Mangrove Image'),
+                    //           Icon(Icons.add)
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: localNameController,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: scientificNameController,
+                    //     decoration: InputDecoration(labelText: 'Description'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: descriptionController,
+                    //     decoration: InputDecoration(labelText: 'Image'),
+                    //     maxLines: 4, // You can adjust the number of lines
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Text(
+                    //   "Mangrove Trunk",
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // localImage != null
+                    //     ? Image.file(
+                    //         localImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //     child: ElevatedButton(
+                    //       onPressed: () {
+                    //         _getFromGallery();
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //           textStyle: TextStyle(fontSize: 20),
+                    //           minimumSize: Size(double.infinity, 60)),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Upload Mangrove Image'),
+                    //           Icon(Icons.add)
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: localNameController,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: scientificNameController,
+                    //     decoration: InputDecoration(labelText: 'Description'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: descriptionController,
+                    //     decoration: InputDecoration(labelText: 'Image'),
+                    //     maxLines: 4, // You can adjust the number of lines
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Text(
+                    //   "Mangrove Flower",
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // localImage != null
+                    //     ? Image.file(
+                    //         localImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //     child: ElevatedButton(
+                    //       onPressed: () {
+                    //         _getFromGallery();
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //           textStyle: TextStyle(fontSize: 20),
+                    //           minimumSize: Size(double.infinity, 60)),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Upload Mangrove Image'),
+                    //           Icon(Icons.add)
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: localNameController,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: scientificNameController,
+                    //     decoration: InputDecoration(labelText: 'Description'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: descriptionController,
+                    //     decoration: InputDecoration(labelText: 'Image'),
+                    //     maxLines: 4, // You can adjust the number of lines
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Text(
+                    //   "Mangrove Root",
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // localImage != null
+                    //     ? Image.file(
+                    //         localImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    // SizedBox(height: 10),
+                    // Container(
+                    //   width: double.infinity,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //     child: ElevatedButton(
+                    //       onPressed: () {
+                    //         _getFromGallery();
+                    //       },
+                    //       style: ElevatedButton.styleFrom(
+                    //           textStyle: TextStyle(fontSize: 20),
+                    //           minimumSize: Size(double.infinity, 60)),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Upload Mangrove Image'),
+                    //           Icon(Icons.add)
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: localNameController,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: scientificNameController,
+                    //     decoration: InputDecoration(labelText: 'Description'),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: descriptionController,
+                    //     decoration: InputDecoration(labelText: 'Image'),
+                    //     maxLines: 4, // You can adjust the number of lines
+                    //   ),
+                    // ),
+                    // SizedBox(height: 20),
                   ],
                 ),
               ),

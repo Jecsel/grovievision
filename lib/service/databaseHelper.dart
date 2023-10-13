@@ -1,34 +1,78 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:flutter/services.dart';
+import 'package:grovievision/models/image_data.dart';
+import 'package:grovievision/models/mangroove_data.dart';
 import 'package:path/path.dart';
-import 'package:sqflite_common/sqlite_api.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
+  static final DatabaseHelper instance = DatabaseHelper._init();
+  static Database? _database;
 
-  Future<void> copyDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final dbFile = join(dbPath, "mangrove.db");
+  DatabaseHelper._init();
 
-    // Check if the database already exists in the desired location
-    if (await File(dbFile).exists()) {
-      return;
-    }
-
-    // Copy the database from assets to the desired location
-    final ByteData data = await rootBundle.load("assets/database/mangrove.db");
-    final List<int> bytes = data.buffer.asUint8List();
-    await File(dbFile).writeAsBytes(bytes, flush: true);
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDB();
+    return _database!;
   }
 
-  Future<List<Map<String, dynamic>>?> fetchData() async {
-  final dbPath = await getDatabasesPath();
-  final database = await databaseFactoryFfi.openDatabase(join(dbPath, "mangrove.db"));
+  Future<Database> _initDB() async {
+    final String path = join(await getDatabasesPath(), 'mangrove.db');
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: _createDB,
+    );
+  }
 
-  final result = await database.query("Mangroove");
-  return result;
-}
+  Future<void> _createDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+
+    await db.execute('''
+      CREATE TABLE mangrove (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        imageBlob BLOB,
+        name TEXT,
+        description TEXT
+      )
+    ''');
+  }
+
+  Future<MangrooveData> insertImageData(MangrooveData mangrooveData) async {
+    final db = await database;
+    final id = await db.insert('mangrove', mangrooveData.toMap());
+    return mangrooveData.copy(id: id);
+  }
+
+  Future<List<MangrooveData>> getImageDataList() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('mangrove');
+    return List.generate(maps.length, (i) {
+      return MangrooveData.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> updateImageData(MangrooveData mangrooveData) async {
+    final db = await database;
+    await db.update(
+      'mangrove',
+      mangrooveData.toMap(),
+      where: 'id = ?',
+      whereArgs: [mangrooveData.id],
+    );
+  }
+
+  Future<void> deleteImageData(int id) async {
+    final db = await database;
+    await db.delete(
+      'mangrove',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> close() async {
+    final db = await database;
+    db.close();
+  }
 }
