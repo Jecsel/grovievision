@@ -4,9 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'dart:typed_data';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class TreeImageList extends StatefulWidget {
 
@@ -20,38 +18,38 @@ class _TreeImageListState extends State<TreeImageList> {
   @override
   void initState() {
     super.initState();
-    copyDatabase(); // Call the method to copy the database
-    loadTreeData(); // Load data from the Tree table when the widget is created
+    // copyDatabase(); // Call the method to copy the database
+    // loadTreeData(); // Load data from the Tree table when the widget is created
   }
 
-  Future<void> copyDatabase() async {
-    // Get a reference to the database
-    final databasePath = await getDatabasesPath();
-    final path = join(databasePath, 'mangroove_main_db.db');
+  // Future<void> copyDatabase() async {
+  //   // Get a reference to the database
+  //   final databasePath = await getDatabasesPath();
+  //   final path = join(databasePath, 'mangroove_main_db.db');
 
-    // Check if the database file already exists
-    if (FileSystemEntity.typeSync(path) == FileSystemEntityType.notFound) {
-      // Copy the database from assets to the device's local storage
-      final ByteData data = await rootBundle.load('assets/databases/mangroove_main_db.db');
-      final List<int> bytes = data.buffer.asUint8List();
-      await File(path).writeAsBytes(bytes, flush: true);
-    }
-  }
+  //   // Check if the database file already exists
+  //   if (FileSystemEntity.typeSync(path) == FileSystemEntityType.notFound) {
+  //     // Copy the database from assets to the device's local storage
+  //     final ByteData data = await rootBundle.load('assets/databases/mangroove_main_db.db');
+  //     final List<int> bytes = data.buffer.asUint8List();
+  //     await File(path).writeAsBytes(bytes, flush: true);
+  //   }
+  // }
 
 
-  Future<void> loadTreeData() async {
-    // Open the database
-    final database = await openDatabase(
-      join(await getDatabasesPath(), 'mangroove_main_db.db'),
-    );
+  // Future<void> loadTreeData() async {
+  //   // Open the database
+  //   final database = await openDatabase(
+  //     join(await getDatabasesPath(), 'mangroove_main_db.db'),
+  //   );
 
-    // Query the Tree table
-    final List<Map<String, dynamic>> trees = await database.query('Tree');
+  //   // Query the Tree table
+  //   final List<Map<String, dynamic>> trees = await database.query('Tree');
 
-    setState(() {
-      treeDataList = trees;
-    });
-  }
+  //   setState(() {
+  //     treeDataList = trees;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/screens/add_species.dart';
 import 'package:grovievision/screens/admin_list.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
@@ -24,6 +25,10 @@ class _AdminScreenState extends State<AdminScreen> {
 
   _gotoAdminList() async{
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AdminList()));
+  }
+
+  _gotoAddSpecies() async{
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddSpecies()));
   }
 
   @override
@@ -97,7 +102,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                           child: ElevatedButton(
                             onPressed: () {
-                              
+                              _gotoAddSpecies();
                             },
                             style: ElevatedButton.styleFrom(
                               textStyle: TextStyle(fontSize: 20),

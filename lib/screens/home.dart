@@ -14,27 +14,15 @@ import 'package:image_compare/image_compare.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:sqflite_common/sqlite_api.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 Future<void> main() async {
-  sqfliteFfiInit(); // Initialize the sqflite_ffi library
-  databaseFactory = databaseFactoryFfi; // Initialize the databaseFactory
-
-  // Open the database and perform any necessary setup
-  final databasePath = await getDatabasesPath();
-  final path = join(databasePath, 'mangroove_main_db.db');
-
-  final database = await openDatabase(path);
 
   // Run your app within the runApp function
-  runApp(MyApp(database: database));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final Database database;
 
-  MyApp({required this.database});
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  path: ^2.0.3
+  path: ^1.8.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -43,7 +43,6 @@ dev_dependencies:
     sdk: flutter
   image_picker: ^0.8.4+4
   image_compare: ^1.1.2
-  sqflite: ^2.0.0
   flutter_native_splash: ^1.2.0
   carousel_slider: ^4.2.1
   sqflite_common_ffi: ^2.3.0+2

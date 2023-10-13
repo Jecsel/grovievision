@@ -1,6 +1,11 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
+import 'package:grovievision/service/databaseHelper.dart';
+import 'package:path/path.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:path/path.dart';
 
 class SearchPage extends StatefulWidget {
 
@@ -12,6 +17,27 @@ class _SearchPageState extends State<SearchPage> {
   String query = "";
   List<String> searchResults = [];
 
+  final DatabaseHelper dbHelper = DatabaseHelper();
+  List<Map<String, dynamic>> mangrooveData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+    dbHelper.copyDatabase();
+  }
+
+
+  Future<void> fetchData() async {
+    // final result = await dbHelper.fetchData();
+    // print("============");
+    // print res
+    // setState(() {
+    //   mangrooveData = result;
+    // });
+  }
+
   void search(String keyword) {
     // Implement your search logic here.
     // For now, let's just filter a list of dummy data.
@@ -21,8 +47,6 @@ class _SearchPageState extends State<SearchPage> {
           .where((item) => item.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
     });
-
-    
   }
 
   @override
@@ -70,6 +94,16 @@ class _SearchPageState extends State<SearchPage> {
                 },
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: mangrooveData.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Mangrove: ${mangrooveData[index]}')
+                  );
+                },
+              )
+            )
           ],
         ),
       )
