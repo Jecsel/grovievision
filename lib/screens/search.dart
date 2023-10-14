@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/models/mangroove_data.dart';
+import 'package:grovievision/models/mangroove_model.dart';
+import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/update_image_screen.dart';
 import 'package:grovievision/service/databaseHelper.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -18,40 +21,56 @@ class _SearchPageState extends State<SearchPage> {
   String query = "";
   List<String> searchResults = [];
 
-  late DatabaseHelper dbHelper;
-  List<MangrooveData> mangrooveData = [];
+  late MangroveDatabaseHelper dbHelper;
+  List<MangrooveModel> mangrooveData = [];
 
   @override
   void initState() {
     super.initState();
-    dbHelper = DatabaseHelper.instance;
+    dbHelper = MangroveDatabaseHelper.instance;
     fetchData();
   }
 
   Future<void> fetchData() async {
-    List<MangrooveData> result = await dbHelper.getImageDataList();
+    List<MangrooveModel> result = await dbHelper.getImageDataList();
     setState(() {
       mangrooveData = result;
     });
   }
 
+  // void search(String keyword) {
+  //   List<String> dummyData = ["Apple", "Banana", "Cherry", "Date", "Grape"];
+  //   setState(() {
+  //     searchResults = dummyData
+  //         .where((item) => item.toLowerCase().contains(keyword.toLowerCase()))
+  //         .toList();
+  //   });
+  // }
+
   void search(String keyword) {
-    // Implement your search logic here.
-    // For now, let's just filter a list of dummy data.
-    List<String> dummyData = ["Apple", "Banana", "Cherry", "Date", "Grape"];
-    setState(() {
-      searchResults = dummyData
-          .where((item) => item.toLowerCase().contains(keyword.toLowerCase()))
-          .toList();
-    });
-  }
+  fetchData();
+  setState(() {
+    mangrooveData = mangrooveData
+        .where((item) =>
+            item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
+            item.scientific_name.toLowerCase().contains(keyword.toLowerCase()))
+        .toList();
+  });
+}
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
+      home: Scaffold(
       appBar: AppBar(
-        title: Text("Search Tree"),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back), // Add your arrow icon here
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => Home()));
+            },
+          ),
+          title: Text('Search Tree'), // Add your app title here
       ),
       body: Column(
         children: [
@@ -68,29 +87,6 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UpdateImageScreen(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(fontSize: 20),
-                    minimumSize: Size(double.infinity, 60)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text('Upload Mangrove Image'), Icon(Icons.add)],
-                ),
-              ),
-            ),
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: mangrooveData.length,
@@ -98,7 +94,8 @@ class _SearchPageState extends State<SearchPage> {
                 final imageData = mangrooveData[index];
 
                 return ListTile(
-                  title: Text('Mangrove: ${imageData.name}'),
+                  title: Text('Local Name: ${imageData.local_name}'),
+                  subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
                   leading: Image.memory(
                     imageData.imageBlob,
                     width: 60,

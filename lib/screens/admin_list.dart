@@ -66,6 +66,14 @@ class _AdminListState extends State<AdminList> {
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShowMangroove()));
+                      // Define the action to be performed when the item is tapped.
+                      // For example, you can navigate to a detailed view or show a dialog.
+                      // In this example, we'll simply show a snackbar.
+                      final imageData = speciesList[index];
+                      final snackBar = SnackBar(
+                        content: Text('Tapped on ${imageData}'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: ListTile(
                     title: Text(speciesList[index]),

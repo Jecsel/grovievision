@@ -1,7 +1,11 @@
 // lib/main.dart
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grovievision/models/mangroove_model.dart';
+import 'package:grovievision/screens/admin.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddSpecies extends StatefulWidget {
@@ -39,9 +43,45 @@ class _AddSpeciesState extends State<AddSpecies> {
   TextEditingController fruitDescInput = TextEditingController();
   TextEditingController fruitImputInput = TextEditingController();
 
+  late MangroveDatabaseHelper dbHelper;
+  List<MangrooveModel> insertedDataList = [];
+
   @override
   void initState() {
     super.initState();
+    dbHelper = MangroveDatabaseHelper.instance;
+  }
+
+  Future<Uint8List> fileToUint8List(File file) async {
+    final List<int> bytes = await file.readAsBytes();
+    return Uint8List.fromList(bytes);
+  }
+
+  Future<void> _insertImage() async {
+    // final ByteData assetData = await rootBundle.load('assets/images/splash_logo.png');
+    final Uint8List imageBytes = await fileToUint8List(localImage!);
+
+    final newMangroove = MangrooveModel(
+      imageBlob: imageBytes, 
+      local_name: localNameController.text,
+      scientific_name: scientificNameController.text,
+      description: descriptionController.text,
+    );
+
+    final id = await dbHelper.insertImageData(newMangroove);
+    print("=================== ${id}");
+    // final mangrooveModel = newMangroove.copy(id: id);
+
+    setState(() {
+      // insertedDataList.add(MangrooveModel);
+    });
+  }
+
+  Future<void> _fetchInsertedData() async {
+    final data = await dbHelper.getImageDataList();
+    setState(() {
+      insertedDataList = data.cast<MangrooveModel>();
+    });
   }
 
   Future _getFromGallery() async {
@@ -64,10 +104,17 @@ class _AddSpeciesState extends State<AddSpecies> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Add Species"),
+      home: Scaffold(
+        appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back), // Add your arrow icon here
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AdminScreen()));
+              },
             ),
+            title: Text('Search Tree'), // Add your app title here
+        ),
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -138,6 +185,10 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
+                    ElevatedButton(
+                      child: Text("Fetch Inserted Data"),
+                      onPressed:() => _insertImage(),
+                    ),
                     // Text(
                     //   "Mangrove Fruit",
                     //   style:
