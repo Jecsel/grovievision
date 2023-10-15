@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
+import 'package:grovievision/screens/view_species.dart';
 
 class AdminList extends StatefulWidget {
   static String routeName = "/admin";
@@ -65,7 +66,7 @@ class _AdminListState extends State<AdminList> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShowMangroove()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
                       // Define the action to be performed when the item is tapped.
                       // For example, you can navigate to a detailed view or show a dialog.
                       // In this example, we'll simply show a snackbar.

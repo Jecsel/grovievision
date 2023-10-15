@@ -55,7 +55,6 @@ class _HomeState extends State<Home> {
   {'name': 'TREE', 'image': 'assets/images/tree.png'},
   {'name': 'FLOWER', 'image': 'assets/images/flower.png'},
   {'name': 'LEAF', 'image': 'assets/images/leaf.png'},
-  {'name': 'TRUNK', 'image': 'assets/images/trunk.png'},
   {'name': 'ROOT', 'image': 'assets/images/root.png'},
   {'name': 'FRUIT', 'image': 'assets/images/fruits.png'},
 ];

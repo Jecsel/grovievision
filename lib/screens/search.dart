@@ -32,20 +32,11 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> fetchData() async {
-    List<MangrooveModel> result = await dbHelper.getImageDataList();
+    List<MangrooveModel> result = await dbHelper.getMangroveDataList();
     setState(() {
       mangrooveData = result;
     });
   }
-
-  // void search(String keyword) {
-  //   List<String> dummyData = ["Apple", "Banana", "Cherry", "Date", "Grape"];
-  //   setState(() {
-  //     searchResults = dummyData
-  //         .where((item) => item.toLowerCase().contains(keyword.toLowerCase()))
-  //         .toList();
-  //   });
-  // }
 
   void search(String keyword) {
     // Create a new list to store the filtered data

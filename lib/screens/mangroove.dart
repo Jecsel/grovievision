@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/home.dart';
+import 'package:grovievision/screens/view_species.dart';
 
 class Mangroove extends StatefulWidget {
   const Mangroove({super.key});
@@ -93,7 +94,7 @@ class _MyDropdownDemoState extends State<MyDropdownDemo> {
               onChanged: (DropdownItem? newValue) {
                 setState(() {
                   // selectedDropdownItem = newValue;
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShowMangroove()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
                 });
               },
               items: dropdownItems.map((DropdownItem item) {
