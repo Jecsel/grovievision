@@ -30,7 +30,6 @@ class MangroveDatabaseHelper {
   }
 
   Future<void> _createDB(Database db, int version) async {
-
     await db.execute('''
       CREATE TABLE mangrove (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,66 +38,82 @@ class MangroveDatabaseHelper {
         scientific_name TEXT,
         description TEXT
       )
+    ''');
 
+    await db.execute('''
       CREATE TABLE root (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mangroveId INTEGER,
         imageBlob BLOB,
         name TEXT,
-        description TEXT
+        description TEXT,
+        FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
+    ''');
 
+    await db.execute('''
       CREATE TABLE flower (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mangroveId INTEGER,
         imageBlob BLOB,
         name TEXT,
-        description TEXT
+        description TEXT,
+        FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
+    ''');
 
+    await db.execute('''
       CREATE TABLE leaf (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mangroveId INTEGER,
         imageBlob BLOB,
         name TEXT,
-        description TEXT
+        description TEXT,
+        FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
+    ''');
 
+    await db.execute('''
       CREATE TABLE fruit (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mangroveId INTEGER,
         imageBlob BLOB,
         name TEXT,
-        description TEXT
+        description TEXT,
+        FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
-
     ''');
   }
+
 
   Future<MangrooveModel> insertDBMangroveData(MangrooveModel mangrooveData) async {
     final db = await database;
     final id = await db.insert('mangrove', mangrooveData.toMap());
-    return mangrooveData.copy(id: id);
+    return mangrooveData;
   }
 
   Future<RootModel> insertDBRootData(RootModel rootData) async {
     final db = await database;
     final id = await db.insert('root', rootData.toMap());
-    return rootData.copy(id: id);
+    return rootData;
   }
 
   Future<FlowerModel> insertDBFlowerData(FlowerModel flowerData) async {
     final db = await database;
     final id = await db.insert('flower', flowerData.toMap());
-    return flowerData.copy(id: id);
+    return flowerData;
   }
 
   Future<LeafModel> insertDBLeafData(LeafModel leafData) async {
     final db = await database;
     final id = await db.insert('leaf', leafData.toMap());
-    return leafData.copy(id: id);
+    return leafData;
   }
 
   Future<FruitModel> insertDBFruitData(FruitModel fruitData) async {
     final db = await database;
     final id = await db.insert('fruit', fruitData.toMap());
-    return fruitData.copy(id: id);
+    return fruitData;
   }
 
   Future<List<MangrooveModel>> getMangroveDataList() async {
@@ -107,6 +122,74 @@ class MangroveDatabaseHelper {
     return List.generate(maps.length, (i) {
       return MangrooveModel.fromMap(maps[i]);
     });
+  }
+
+  Future<List<RootModel>> getRootDataList() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('root');
+    return List.generate(maps.length, (i) {
+      return RootModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<FlowerModel>> getFlowerDataList() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('flower');
+    return List.generate(maps.length, (i) {
+      return FlowerModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<LeafModel>> getLeafDataList() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('leaf');
+    return List.generate(maps.length, (i) {
+      return LeafModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<FruitModel>> getFruitDataList() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('fruit');
+    return List.generate(maps.length, (i) {
+      return FruitModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<Map<String, dynamic>>?> getMangroveAndRootData(int mangroveId) async {
+    final db = await database;
+
+    // Query the Mangrove table based on the mangroveId
+    final mangroveData = await db.query('mangrove',
+        where: 'id = ?',
+        whereArgs: [mangroveId]);
+
+    // Query the Root table based on the mangroveId
+    final rootData = await db.query('root',
+        where: 'mangroveId = ?',
+        whereArgs: [mangroveId]);
+    
+    final flowerData = await db.query('flower',
+        where: 'mangroveId = ?',
+        whereArgs: [mangroveId]);
+
+    final leafData = await db.query('leaf',
+        where: 'mangroveId = ?',
+        whereArgs: [mangroveId]);
+  
+    final fruitData = await db.query('fruit',
+        where: 'mangroveId = ?',
+        whereArgs: [mangroveId]);
+
+    // Combine the Mangrove and Root data into a single list
+    List<Map<String, dynamic>> combinedData = [];
+    combinedData.add(mangroveData.first);
+    combinedData.addAll(rootData);
+    combinedData.addAll(flowerData);
+    combinedData.addAll(leafData);
+    combinedData.addAll(fruitData);
+
+    return combinedData;
   }
 
   Future<void> updateMangroveData(MangrooveModel mangrooveData) async {

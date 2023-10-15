@@ -46,7 +46,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   TextEditingController fruitDescInput = TextEditingController();
   TextEditingController fruitImputInput = TextEditingController();
 
-  late MangroveDatabaseHelper dbHelper;
+  MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
   List<MangrooveModel> mangroveDataList = [];
   List<FruitModel> fruitDataList = [];
   List<LeafModel> leafDataList = [];
@@ -56,7 +56,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   @override
   void initState() {
     super.initState();
-    dbHelper = MangroveDatabaseHelper.instance;
+    // dbHelper = MangroveDatabaseHelper.instance;
   }
 
   Future<Uint8List> fileToUint8List(File file) async {
@@ -78,31 +78,36 @@ class _AddSpeciesState extends State<AddSpecies> {
       description: descriptionController.text,
     );
 
+    final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
+
     final newRoot = RootModel(
+      mangroveId: insertedMangrove.id ?? 0,
       imageBlob: rootImageBytes, 
       name: rootNameInput.text,
       description: rootDescInput.text,
     );
 
     final newFlower = FlowerModel(
+      mangroveId: insertedMangrove.id ?? 0,
       imageBlob: flowerImageBytes, 
       name: flowerNameInput.text,
-      description: flowerDescInput.text,
+      description: flowerDescInput.text
     );
 
     final newLeaf = LeafModel(
+      mangroveId: insertedMangrove.id ?? 0,
       imageBlob: leafImageBytes, 
       name: leafNameInput.text,
       description: leafDescInput.text,
     );
 
     final newFruit = FruitModel(
+      mangroveId: insertedMangrove.id ?? 0,
       imageBlob: fruitImageBytes, 
       name: fruitNameInput.text,
       description: fruitDescInput.text,
     );
 
-    final mangrove_id = await dbHelper.insertDBMangroveData(newMangroove);
     final root_id = await dbHelper.insertDBRootData(newRoot);
     final flower_id = await dbHelper.insertDBFlowerData(newFlower);
     final leaf_id = await dbHelper.insertDBLeafData(newLeaf);
@@ -472,7 +477,9 @@ class _AddSpeciesState extends State<AddSpecies> {
 
                     ElevatedButton(
                       child: Text("Fetch Inserted Data"),
-                      onPressed:() => _insertMangrooveData(),
+                      onPressed: () {
+                        _insertMangrooveData();
+                      },
                     ),
                   ],
                 ),

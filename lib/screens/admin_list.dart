@@ -66,10 +66,7 @@ class _AdminListState extends State<AdminList> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
-                      // Define the action to be performed when the item is tapped.
-                      // For example, you can navigate to a detailed view or show a dialog.
-                      // In this example, we'll simply show a snackbar.
+                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(1)));
                       final imageData = speciesList[index];
                       final snackBar = SnackBar(
                         content: Text('Tapped on ${imageData}'),

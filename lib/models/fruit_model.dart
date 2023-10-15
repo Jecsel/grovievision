@@ -2,12 +2,14 @@ import 'dart:typed_data';
 
 class FruitModel {
   final int? id;
+  final int mangroveId; // Reference ID
   final Uint8List imageBlob;
   final String name;
   final String description;
 
   FruitModel({
     this.id,
+    required this.mangroveId,
     required this.imageBlob,
     required this.name,
     required this.description,
@@ -16,6 +18,7 @@ class FruitModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'mangroveId': mangroveId,
       'imageBlob': imageBlob,
       'name': name,
       'description': description,
@@ -25,23 +28,10 @@ class FruitModel {
   factory FruitModel.fromMap(Map<String, dynamic> map) {
     return FruitModel(
       id: map['id'],
+      mangroveId: map['mangroveId'],
       imageBlob: map['imageBlob'],
       name: map['name'],
       description: map['description'],
-    );
-  }
-
-  FruitModel copy({
-    int? id,
-    Uint8List? imageBlob,
-    String? name,
-    String? description,
-  }) {
-    return FruitModel(
-      id: id ?? this.id,
-      imageBlob: imageBlob ?? this.imageBlob,
-      name: name ?? this.name,
-      description: description ?? this.description,
     );
   }
 }

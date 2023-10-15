@@ -94,7 +94,7 @@ class _MyDropdownDemoState extends State<MyDropdownDemo> {
               onChanged: (DropdownItem? newValue) {
                 setState(() {
                   // selectedDropdownItem = newValue;
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
                 });
               },
               items: dropdownItems.map((DropdownItem item) {

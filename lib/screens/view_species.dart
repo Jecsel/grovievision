@@ -7,6 +7,10 @@ import 'package:grovievision/screens/mangroove.dart';
 
 class ViewSpecies extends StatefulWidget {
 
+  final int mangroveId; // Define the data type you want to pass
+
+  ViewSpecies({required this.mangroveId}); // Constructor that accepts data
+
   @override
   State<StatefulWidget> createState() => _ViewSpeciesState();
 

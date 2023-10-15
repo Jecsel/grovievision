@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/models/mangroove_data.dart';
 import 'package:grovievision/models/mangroove_model.dart';
+import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/update_image_screen.dart';
+import 'package:grovievision/screens/view_species.dart';
 import 'package:grovievision/service/databaseHelper.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:path/path.dart';
@@ -90,8 +92,18 @@ class _SearchPageState extends State<SearchPage> {
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
                 final imageData = mangrooveData[index];
+                final mangroveId= mangrooveData[index].id;
 
-                return ListTile(
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0)));
+                      final imageData = mangrooveData[index];
+                      final snackBar = SnackBar(
+                        content: Text('Tapped on ${imageData}'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: ListTile(
                   title: Text('Local Name: ${imageData.local_name}'),
                   subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
                   leading: Image.memory(
@@ -99,6 +111,7 @@ class _SearchPageState extends State<SearchPage> {
                     width: 60,
                     height: 60,
                   ),
+                )
                 );
               },
             ),
