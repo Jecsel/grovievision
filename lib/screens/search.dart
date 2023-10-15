@@ -38,6 +38,10 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       mangrooveData = result;
     });
+
+    setState(() {
+      mangrooveData = result;
+    });
   }
 
   void search(String keyword) {

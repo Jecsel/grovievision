@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.green.shade300, Colors.green.shade700],
+                    colors: [const Color.fromARGB(255, 129, 176, 199), Color.fromARGB(255, 56, 76, 142)],
                   ),
                 ),
                 child: Center(

@@ -80,41 +80,43 @@ class _AddSpeciesState extends State<AddSpecies> {
 
     final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
 
-    final newRoot = RootModel(
-      mangroveId: insertedMangrove.id ?? 0,
-      imageBlob: rootImageBytes, 
-      name: rootNameInput.text,
-      description: rootDescInput.text,
-    );
+      print('========insertedMangrove.id========');
+      print(insertedMangrove);
+      final newRoot = RootModel(
+        mangroveId: insertedMangrove ?? 0,
+        imageBlob: rootImageBytes, 
+        name: rootNameInput.text,
+        description: rootDescInput.text,
+      );
 
-    final newFlower = FlowerModel(
-      mangroveId: insertedMangrove.id ?? 0,
-      imageBlob: flowerImageBytes, 
-      name: flowerNameInput.text,
-      description: flowerDescInput.text
-    );
+      final newFlower = FlowerModel(
+        mangroveId: insertedMangrove ?? 0,
+        imageBlob: flowerImageBytes, 
+        name: flowerNameInput.text,
+        description: flowerDescInput.text
+      );
 
-    final newLeaf = LeafModel(
-      mangroveId: insertedMangrove.id ?? 0,
-      imageBlob: leafImageBytes, 
-      name: leafNameInput.text,
-      description: leafDescInput.text,
-    );
+      final newLeaf = LeafModel(
+        mangroveId: insertedMangrove ?? 0,
+        imageBlob: leafImageBytes, 
+        name: leafNameInput.text,
+        description: leafDescInput.text,
+      );
 
-    final newFruit = FruitModel(
-      mangroveId: insertedMangrove.id ?? 0,
-      imageBlob: fruitImageBytes, 
-      name: fruitNameInput.text,
-      description: fruitDescInput.text,
-    );
+      final newFruit = FruitModel(
+        mangroveId: insertedMangrove ?? 0,
+        imageBlob: fruitImageBytes, 
+        name: fruitNameInput.text,
+        description: fruitDescInput.text,
+      );
 
-    final root_id = await dbHelper.insertDBRootData(newRoot);
-    final flower_id = await dbHelper.insertDBFlowerData(newFlower);
-    final leaf_id = await dbHelper.insertDBLeafData(newLeaf);
-    final fruit_id = await dbHelper.insertDBFruitData(newFruit);
-
+      final root_id = dbHelper.insertDBRootData(newRoot);
+      final flower_id = dbHelper.insertDBFlowerData(newFlower);
+      final leaf_id = dbHelper.insertDBLeafData(newLeaf);
+      final fruit_id = dbHelper.insertDBFruitData(newFruit);
+      
     setState(() {
-      // mangroveDataList.add(MangrooveModel);
+
     });
   }
 

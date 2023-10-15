@@ -86,10 +86,10 @@ class MangroveDatabaseHelper {
   }
 
 
-  Future<MangrooveModel> insertDBMangroveData(MangrooveModel mangrooveData) async {
+  Future<int> insertDBMangroveData(MangrooveModel mangrooveData) async {
     final db = await database;
-    final id = await db.insert('mangrove', mangrooveData.toMap());
-    return mangrooveData;
+    final mangrooveReturnData = await db.insert('mangrove', mangrooveData.toMap());
+    return mangrooveReturnData;
   }
 
   Future<RootModel> insertDBRootData(RootModel rootData) async {
@@ -156,7 +156,72 @@ class MangroveDatabaseHelper {
     });
   }
 
-  Future<List<Map<String, dynamic>>?> getMangroveAndRootData(int mangroveId) async {
+  Future<MangrooveModel?> getOneMangroveData(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> mangroveData = await db.query('mangrove',
+      where: 'id = ?',
+      whereArgs: [mangroveId]);
+
+    if (mangroveData.isNotEmpty) {
+      return MangrooveModel.fromMap(mangroveData[0]);
+    } else {
+      return null; // Return null if no data is found for the given mangroveId
+    }
+  }
+
+Future<RootModel?> getOneRootData(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> mangroveData = await db.query('root',
+      where: 'mangroveId = ?',
+      whereArgs: [mangroveId]);
+
+    if (mangroveData.isNotEmpty) {
+      return RootModel.fromMap(mangroveData[0]);
+    } else {
+      return null; // Return null if no data is found for the given mangroveId
+    }
+  }
+
+  Future<FlowerModel?> getOneFlowerData(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> mangroveData = await db.query('flower',
+      where: 'mangroveId = ?',
+      whereArgs: [mangroveId]);
+
+    if (mangroveData.isNotEmpty) {
+      return FlowerModel.fromMap(mangroveData[0]);
+    } else {
+      return null; // Return null if no data is found for the given mangroveId
+    }
+  }
+
+  Future<LeafModel?> getOneLeafData(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> mangroveData = await db.query('leaf',
+      where: 'mangroveId = ?',
+      whereArgs: [mangroveId]);
+
+    if (mangroveData.isNotEmpty) {
+      return LeafModel.fromMap(mangroveData[0]);
+    } else {
+      return null; // Return null if no data is found for the given mangroveId
+    }
+  }
+
+    Future<FruitModel?> getOneFruitData(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> mangroveData = await db.query('fruit',
+      where: 'mangroveId = ?',
+      whereArgs: [mangroveId]);
+
+    if (mangroveData.isNotEmpty) {
+      return FruitModel.fromMap(mangroveData[0]);
+    } else {
+      return null; // Return null if no data is found for the given mangroveId
+    }
+  }
+
+  Future<List<Map<String, dynamic>>?> getMangroveAndData(int mangroveId) async {
     final db = await database;
 
     // Query the Mangrove table based on the mangroveId
