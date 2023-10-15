@@ -48,15 +48,22 @@ class _SearchPageState extends State<SearchPage> {
   // }
 
   void search(String keyword) {
-  fetchData();
-  setState(() {
-    mangrooveData = mangrooveData
-        .where((item) =>
-            item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
-            item.scientific_name.toLowerCase().contains(keyword.toLowerCase()))
-        .toList();
-  });
-}
+    // Create a new list to store the filtered data
+    List<MangrooveModel> filteredData = [];
+
+    // Iterate through the original data and add matching items to the filtered list
+    for (var item in mangrooveData) {
+      if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
+          item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
+        filteredData.add(item);
+      }
+    }
+
+    setState(() {
+      // Update the mangrooveData with the filtered data
+      mangrooveData = filteredData;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

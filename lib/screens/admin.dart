@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/screens/add_species.dart';
 import 'package:grovievision/screens/admin_list.dart';
 import 'package:grovievision/screens/home.dart';
+import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/user_choice.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AdminScreenState extends State<AdminScreen> {
   }
 
   _gotoAdminList() async{
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AdminList()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage()));
   }
 
   _gotoAddSpecies() async{

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/mangroove.dart';
 
@@ -42,7 +43,7 @@ class AboutUsState extends State<AboutUs> {
             child: Column(
               children: <Widget>[
                 // Image.asset(
-                //   'assets/images/banner.png',
+                //   'assets/images/banner.jpg',
                 // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(60, 20, 60, 20),
@@ -75,7 +76,21 @@ class AboutUsState extends State<AboutUs> {
                           Padding(
                             padding: const EdgeInsets.only(right: 20, left: 20),
                             child: Image.asset(
-                              'assets/images/flower.png',
+                              'assets/images/lovely.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Lovely Gadon")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/angelica.jpg',
                               width: 100,
                               height: 100,
                             ),
@@ -89,12 +104,12 @@ class AboutUsState extends State<AboutUs> {
                           Padding(
                             padding: const EdgeInsets.only(right: 20, left: 20),
                             child: Image.asset(
-                              'assets/images/flower.png',
+                              'assets/images/john.jpg',
                               width: 100,
                               height: 100,
                             ),
                           ),
-                          Text("Mika Ella Liezel Mariano")
+                          Text("John Reymundo Fabella")
                         ],
                       ),
                       SizedBox(height: 20),
@@ -103,12 +118,26 @@ class AboutUsState extends State<AboutUs> {
                           Padding(
                             padding: const EdgeInsets.only(right: 20, left: 20),
                             child: Image.asset(
-                              'assets/images/flower.png',
+                              'assets/images/aiza.jpg',
                               width: 100,
                               height: 100,
                             ),
                           ),
                           Text("Aiza Padua")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/mika.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Mika Ella Leizel Francisco")
                         ],
                       )
                     ],
@@ -133,11 +162,11 @@ class AboutUsState extends State<AboutUs> {
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'Admin',
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Mangroove()));
+                    MaterialPageRoute(builder: (context) => AdminScreen()));
               },
             ),
             _buildDrawerItem(

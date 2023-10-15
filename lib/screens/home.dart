@@ -51,20 +51,15 @@ class _HomeState extends State<Home> {
   double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
 
-      // Define a list of ImageData objects
-    List<ImageData> imageDataList = [
-      ImageData(
-        imagePath: "assets/images/coconut.jpeg",
-        name: "Image 1",
-        description: "This is the first image.",
-      ),
-      ImageData(
-        imagePath: "assets/images/narra.jpeg",
-        name: "Image 2",
-        description: "This is the second image.",
-      ),
-      // add more images here...
-    ];
+  List<Map<String, dynamic>> carouselItems = [
+  {'name': 'TREE', 'image': 'assets/images/tree.png'},
+  {'name': 'FLOWER', 'image': 'assets/images/flower.png'},
+  {'name': 'LEAF', 'image': 'assets/images/leaf.png'},
+  {'name': 'TRUNK', 'image': 'assets/images/trunk.png'},
+  {'name': 'ROOT', 'image': 'assets/images/root.png'},
+  {'name': 'FRUIT', 'image': 'assets/images/fruits.png'},
+];
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -135,9 +130,8 @@ class _HomeState extends State<Home> {
               autoPlayCurve: Curves.fastOutSlowIn, // Animation curve
               scrollDirection: Axis.horizontal, // Set to Axis.horizontal for a horizontal carousel
             ),
-            items: [
-              // Add your carousel items here
-              Container(
+            items: carouselItems.map((item) {
+              return Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -146,71 +140,31 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 child: Center(
-                  child: Text('Tree'),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue.shade300, Colors.blue.shade700],
+                  child: Stack(
+                    children: [
+                      Container( // Background
+                        width: double.infinity,
+                        child: Image.asset(
+                          item['image'],
+                        ),
+                      ),
+                      Align( // Centered content
+                        alignment: Alignment.center,
+                        child: Text(
+                          item['name'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            backgroundColor: Colors.white38
+
+                          ),
+                          ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Center(
-                  child: Text('Root'),
-                ),   
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue.shade300, Colors.green.shade700],
-                  ),
-                ),
-                child: Center(
-                  child: Text('Flower'),
-                ),   
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue.shade300, Colors.blue.shade700],
-                  ),
-                ),
-                child: Center(
-                  child: Text('Trunk'),
-                ),   
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue.shade300, Colors.green.shade700],
-                  ),
-                ),
-                child: Center(
-                  child: Text('Leaf'),
-                ),   
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue.shade300, Colors.blue.shade700],
-                  ),
-                ),
-                child: Center(
-                  child: Text('Fruit'),
-                ),   
-              ),
-              // Add more carousel items as needed
-            ],
+              );
+            }).toList(),
           ),
           SizedBox(height: 40),
               Center(
@@ -312,7 +266,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      floatingActionButton: MyFAB(),
     ),
     routes: {
         '/mangrooves': (context) => Mangroove(),
