@@ -1,6 +1,9 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
+import 'package:grovievision/models/flower_model.dart';
+import 'package:grovievision/models/fruit_model.dart';
+import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_data.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/root_model.dart';
@@ -28,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
   List<String> searchResults = [];
 
   late MangroveDatabaseHelper dbHelper;
-  List<MangrooveModel> mangrooveData = [];
+  List<dynamic> mangrooveData = [];
 
   @override
   void initState() {
@@ -38,13 +41,35 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> fetchData() async {
+    String searchKey = widget.searchKey;
     List<MangrooveModel> result = await dbHelper.getMangroveDataList();
+    List<FruitModel> fruits = await dbHelper.getFruitDataList();
+    List<LeafModel> leaves = await dbHelper.getLeafDataList();
+    List<RootModel> roots = await dbHelper.getRootDataList();
+    List<FlowerModel> flowers = await dbHelper.getFlowerDataList();
+    
+    
     setState(() {
-      mangrooveData = result;
-    });
-
-    setState(() {
-      mangrooveData = result;
+      switch (searchKey) {
+        case 'TREE':
+            mangrooveData = result;
+          break;
+        case 'ROOT':
+            mangrooveData = roots;
+          break;
+        case 'FRUIT':
+            mangrooveData = fruits;
+          break;
+        case 'LEAF':
+            mangrooveData = leaves;
+          break;
+        case 'FLOWER':
+            mangrooveData = flowers;
+          break;
+        default:
+          mangrooveData = result;
+      }
+      
     });
   }
 
@@ -68,6 +93,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    String searchKey = widget.searchKey;
+
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
@@ -96,7 +123,8 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            child: searchKey == 'TREE' 
+            ? ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
                 final imageData = mangrooveData[index];
@@ -122,8 +150,34 @@ class _SearchPageState extends State<SearchPage> {
                 )
                 );
               },
-            ),
-          ),
+            )
+            : ListView.builder(
+              itemCount: mangrooveData.length,
+              itemBuilder: (context, index) {
+                final imageData = mangrooveData[index];
+                final mangroveId= mangrooveData[index].mangroveId;
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0)));
+                      final imageData = mangrooveData[index];
+                      final snackBar = SnackBar(
+                        content: Text('Tapped on ${imageData}'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                  child: ListTile(
+                  title: Text('Name: ${imageData.name}'),
+                  leading: Image.memory(
+                    imageData.imageBlob,
+                    width: 60,
+                    height: 60,
+                  ),
+                )
+                );
+              },
+            )
+          )
         ],
       ),
     ));
