@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
               ),
-              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage())),
+              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE',))),
             ),
           ),
           SizedBox(height: 40),
@@ -130,7 +130,11 @@ class _HomeState extends State<Home> {
               scrollDirection: Axis.horizontal, // Set to Axis.horizontal for a horizontal carousel
             ),
             items: carouselItems.map((item) {
-              return Container(
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: item['name'])));
+                },
+                child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -162,7 +166,9 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-              );
+              ),
+            );
+              
             }).toList(),
           ),
           SizedBox(height: 40),

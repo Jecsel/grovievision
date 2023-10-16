@@ -30,7 +30,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
   FlowerModel? flowerData;
   FruitModel? fruitData;
   LeafModel? leafData;
-  
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +39,8 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   Future<void> fetchData() async {
     int mangroveId = widget.mangroveId;
-    MangrooveModel? mangroveResultData = await dbHelper.getOneMangroveData(mangroveId);
+    MangrooveModel? mangroveResultData =
+        await dbHelper.getOneMangroveData(mangroveId);
     RootModel? rootResultData = await dbHelper.getOneRootData(mangroveId);
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
@@ -77,7 +78,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mangroove Info'),
@@ -111,10 +111,8 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
-                      child: Text(
-                          mangroveData?.local_name ?? 'No Scientific Name'
-                      )
-                    ),
+                        child: Text(
+                            mangroveData?.local_name ?? 'No Scientific Name')),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -126,26 +124,24 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
-                      child: Text(mangroveData?.description ?? 'No Description')
-                    ),
+                        child: Text(
+                            mangroveData?.description ?? 'No Description')),
                   ],
                 ),
-                
-                
+
                 SizedBox(height: 30),
+                Text(
+                  "Leaves",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 Row(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Text(leafData?.name ?? 'No Name'),
+                    ),
                     Expanded(
-                      child: Column(
-                      children: [
-                        Text(
-                          "Leaves",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Text('Name: ${leafData?.name}' ?? 'No Name'),
-                        Expanded(child: Text( 'Description: ${leafData?.description}' ?? 'No Description'))
-                      ],
-                    )),
+                        child: Text(leafData?.description ?? 'No Description')),
                     Image.memory(
                       leafData?.imageBlob ?? Uint8List(0),
                       width: 80,
@@ -154,20 +150,19 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   ],
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 30),
+                Text(
+                  "Fruit",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 Row(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Text(fruitData?.name ?? 'No Name'),
+                    ),
                     Expanded(
-                        child: Column(
-                      children: [
-                        Text(
-                          "Fruit",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Text('Name: ${fruitData?.name}' ?? 'No Name'),
-                        Expanded(child: Text( 'Description: ${fruitData?.description}' ?? 'No Description'))
-                      ],
-                    )),
+                        child: Text(fruitData?.description ?? 'No Description')),
                     Image.memory(
                       fruitData?.imageBlob ?? Uint8List(0),
                       width: 80,
@@ -176,20 +171,19 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   ],
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 30),
+                Text(
+                  "Flower",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 Row(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Text(flowerData?.name ?? 'No Name'),
+                    ),
                     Expanded(
-                        child: Column(
-                      children: [
-                        Text(
-                          "Flower",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Text('Name: ${flowerData?.name}' ?? 'No Name'),
-                        Expanded(child: Text( 'Description: ${flowerData?.description}' ?? 'No Description'))
-                      ],
-                    )),
+                        child: Text(flowerData?.description ?? 'No Description')),
                     Image.memory(
                       flowerData?.imageBlob ?? Uint8List(0),
                       width: 80,
@@ -198,20 +192,19 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   ],
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 30),
+                Text(
+                  "Root",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
                 Row(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Text(rootData?.name ?? 'No Name'),
+                    ),
                     Expanded(
-                        child: Column(
-                      children: [
-                        Text(
-                          "Root",
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Text('Name: ${rootData?.name}' ?? 'No Name'),
-                        Expanded(child: Text( 'Description: ${rootData?.description}' ?? 'No Description'))
-                      ],
-                    )),
+                        child: Text(rootData?.description ?? 'No Description')),
                     Image.memory(
                       rootData?.imageBlob ?? Uint8List(0),
                       width: 80,
