@@ -11,6 +11,7 @@ import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/mangroove.dart';
+import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class ViewSpecies extends StatefulWidget {
@@ -58,10 +59,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     });
   }
 
+  Future<void> deleteMangroveData() async {
+    int mangroveId = widget.mangroveId;
+    await dbHelper.deleteFlowerData(mangroveId);
+    await dbHelper.deleteFruitData(mangroveId);
+    await dbHelper.deleteLeafData(mangroveId);
+    await dbHelper.deleteRootData(mangroveId);
+    await dbHelper.deleteMangroveData(mangroveId);
+  }
+
   _drawerItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  _gotoSearchList() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
   }
 
   Widget _buildDrawerItem({
@@ -82,6 +96,19 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       appBar: AppBar(
         title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              deleteMangroveData();
+              _gotoSearchList();
+              final snackBar = SnackBar(
+                content: Text('Mangrove Delete!'),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -89,9 +116,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           child: Center(
             child: Column(
               children: <Widget>[
-                // Image.asset(
-                //   'assets/images/aegiceras.png',
-                // ),
                 Image.memory(
                   mangroveData?.imageBlob ?? Uint8List(0),
                   width: 300, // Set the width and height as needed
@@ -108,11 +132,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     Text(
                       "Local Names: ",
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
-                        child: Text(
-                            mangroveData?.local_name ?? 'No Scientific Name')),
+                      child: Text(
+                        mangroveData?.local_name ?? 'No Scientific Name')),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -121,11 +145,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     Text(
                       "Description: ",
                       style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    ),
+                    Expanded(
+                      child: Text(
+                        mangroveData?.description ?? 'No Description')),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Summary: ",
+                      style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
-                        child: Text(
-                            mangroveData?.description ?? 'No Description')),
+                      child: Text(
+                        mangroveData?.description ?? '--------------')),
                   ],
                 ),
 

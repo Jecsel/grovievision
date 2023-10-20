@@ -98,8 +98,9 @@ class _SearchPageState extends State<SearchPage> {
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.green,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Add your arrow icon here
+          icon: Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => Home()));

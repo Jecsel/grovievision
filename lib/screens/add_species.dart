@@ -9,6 +9,7 @@ import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/admin.dart';
+import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,6 +32,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController summaryController = TextEditingController();
   //For Root
   TextEditingController rootNameInput = TextEditingController();
   TextEditingController rootDescInput = TextEditingController();
@@ -76,6 +78,7 @@ class _AddSpeciesState extends State<AddSpecies> {
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
       description: descriptionController.text,
+      summary: summaryController.text
     );
 
     final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
@@ -114,7 +117,7 @@ class _AddSpeciesState extends State<AddSpecies> {
       final flower_id = dbHelper.insertDBFlowerData(newFlower);
       final leaf_id = dbHelper.insertDBLeafData(newLeaf);
       final fruit_id = dbHelper.insertDBFruitData(newFruit);
-      
+
     setState(() {
 
     });
@@ -125,6 +128,10 @@ class _AddSpeciesState extends State<AddSpecies> {
     setState(() {
       mangroveDataList = data.cast<MangrooveModel>();
     });
+  }
+
+  _gotoSearchList() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
   }
 
   Future _getFromGallery(fromField) async {
@@ -172,9 +179,23 @@ class _AddSpeciesState extends State<AddSpecies> {
                 Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => AdminScreen()));
               },
+              
             ),
             title: Text('Search Tree'), // Add your app title here
-        ),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    _insertMangrooveData();
+                    _gotoSearchList();
+                    final snackBar = SnackBar(
+                              content: Text('Mangrove Saved!'),
+                      );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -241,6 +262,15 @@ class _AddSpeciesState extends State<AddSpecies> {
                       child: TextField(
                         controller: descriptionController,
                         decoration: InputDecoration(labelText: 'Description'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: summaryController,
+                        decoration: InputDecoration(labelText: 'Summary'),
                         maxLines: 4, // You can adjust the number of lines
                       ),
                     ),
@@ -299,7 +329,7 @@ class _AddSpeciesState extends State<AddSpecies> {
                       child: TextField(
                         controller: rootDescInput,
                         decoration: InputDecoration(labelText: 'Description'),
-                        maxLines: 4, // You can adjust the number of lines
+                        maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
@@ -357,7 +387,7 @@ class _AddSpeciesState extends State<AddSpecies> {
                       child: TextField(
                         controller: flowerDescInput,
                         decoration: InputDecoration(labelText: 'Description'),
-                        maxLines: 4, // You can adjust the number of lines
+                        maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
@@ -415,7 +445,7 @@ class _AddSpeciesState extends State<AddSpecies> {
                       child: TextField(
                         controller: leafDescInput,
                         decoration: InputDecoration(labelText: 'Description'),
-                        maxLines: 4, // You can adjust the number of lines
+                        maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
@@ -473,19 +503,20 @@ class _AddSpeciesState extends State<AddSpecies> {
                       child: TextField(
                         controller: fruitDescInput,
                         decoration: InputDecoration(labelText: 'Description'),
-                        maxLines: 4, // You can adjust the number of lines
+                        maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    ElevatedButton(
-                      child: Text("Fetch Inserted Data"),
-                      onPressed: () {
-                        _insertMangrooveData();
-                      },
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     _insertMangrooveData();
+                    //     _gotoSearchList();
+                    //   },
+                    //   child: Text("Upload Mangroove"),
+                    // ),
                   ],
                 ),
               ),
             )));
   }
-}
+  }

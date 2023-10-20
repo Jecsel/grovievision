@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/models/UserModel.dart';
 import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // import 'home.dart';
@@ -17,15 +19,34 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  var isLogin = false;
 
   bool _obscurePassword = true;
   final Box _boxLogin = Hive.box("login");
   final Box _boxAccounts = Hive.box("accounts");
+
+    Future<void> _login() async {
+    isLogin = await dbHelper.loginUser(_controllerUsername.text, _controllerPassword.text);
+
+    if (isLogin) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return AdminScreen();
+          },
+        ),
+      );
+    }
+    print("==========isLogin===========");
+    print(isLogin);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,26 +162,22 @@ class _LoginState extends State<Login> {
                           minimumSize: Size(double.infinity, 60)
                         ),
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return AdminScreen();
-                                },
-                              ),
-                            );
-                          // if (_formKey.currentState?.validate() ?? false) {
-                          //   _boxLogin.put("loginStatus", true);
-                          //   _boxLogin.put("userName", _controllerUsername.text);
-        
-                          //   Navigator.pushReplacement(
+                          // Navigator.pushReplacement(
                           //     context,
                           //     MaterialPageRoute(
                           //       builder: (context) {
-                          //         return Home();
+                          //         return AdminScreen();
                           //       },
                           //     ),
                           //   );
+                          _login();
+
+                          // if (isLogin) {
+                          //   _boxLogin.put("loginStatus", true);
+                          //   _boxLogin.put("userName", _controllerUsername.text);
+        
+
+                            
                           // }
                         },
                         child: const Text("Login"),

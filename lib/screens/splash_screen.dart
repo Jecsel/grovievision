@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class SplashScreen extends StatefulWidget {
   
@@ -13,6 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
 
   @override
   void initState() {

@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
   {'name': 'FLOWER', 'image': 'assets/images/flower.png'},
   {'name': 'LEAF', 'image': 'assets/images/leaf.png'},
   {'name': 'ROOT', 'image': 'assets/images/root.png'},
-  {'name': 'FRUIT', 'image': 'assets/images/fruits.png'},
+  {'name': 'FRUIT', 'image': 'assets/images/fruit.png'},
 ];
 
 
@@ -149,6 +149,7 @@ class _HomeState extends State<Home> {
                         width: double.infinity,
                         child: Image.asset(
                           item['image'],
+                          width: double.infinity,
                         ),
                       ),
                       Align( // Centered content
@@ -182,7 +183,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: ElevatedButton(
                           onPressed: () {
-                            getFromGallery();
+                            getImageFromCamera();
                           },
                            style: ElevatedButton.styleFrom(
                             textStyle: TextStyle(fontSize: 20),
@@ -388,7 +389,7 @@ class _MyFABState extends State<MyFAB> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: getImageFromCamera,
+                      onPressed: _getFromGallery,
                       child: Text('Take Image'),
                     ),
                   ],
@@ -442,20 +443,6 @@ class _MyFABState extends State<MyFAB> {
     if (pickedFileFromGallery != null) {
       setState(() {
         localImage = File(pickedFileFromGallery.path);
-      });
-    }
-  }
-
-  /// Get Image from Camera
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    print('pickFile');
-    print(pickedFile);
-
-    if (pickedFile != null) {
-      setState(() {
-        takenImage = File(pickedFile.path);
-        // Compare the images here and show the result
       });
     }
   }

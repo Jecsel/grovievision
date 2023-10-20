@@ -1,3 +1,4 @@
+import 'package:grovievision/models/UserModel.dart';
 import 'package:grovievision/models/flower_model.dart';
 import 'package:grovievision/models/fruit_model.dart';
 import 'package:grovievision/models/image_data.dart';
@@ -36,7 +37,8 @@ class MangroveDatabaseHelper {
         imageBlob BLOB,
         local_name TEXT,
         scientific_name TEXT,
-        description TEXT
+        description TEXT,
+        summary TEXT
       )
     ''');
 
@@ -83,6 +85,45 @@ class MangroveDatabaseHelper {
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
     ''');
+  
+    await db.execute('''
+      CREATE TABLE user (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
+        password TEXT
+      )
+    ''');
+  }
+
+  Future<int> registerUser(UserModel userData) async {
+    final db = await database;
+    final userReturnData = await db.insert('user', userData.toMap());
+    return userReturnData;
+  }
+
+  Future<List<UserModel>> getAllUser() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('user');
+    return List.generate(maps.length, (i) {
+      return UserModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<bool> loginUser(String username, String password) async {
+    final db = await database;
+
+    final List<Map<String, dynamic>> userData = await db.query('user',
+      where: 'username = ? AND password = ?',
+      whereArgs: [username, password]
+    );
+
+    // if (userResult.isNotEmpty) {
+    //   return UserModel.fromMap(userResult.first);
+    // } else {
+    //   return null;
+    // }e
+
+    return userData.length > 0;
   }
 
 

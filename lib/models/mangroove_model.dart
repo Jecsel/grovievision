@@ -6,6 +6,7 @@ class MangrooveModel {
   final String local_name;
   final String scientific_name;
   final String description;
+  final String summary;
 
   MangrooveModel({
     this.id,
@@ -13,6 +14,7 @@ class MangrooveModel {
     required this.local_name,
     required this.scientific_name,
     required this.description,
+    required this.summary
   });
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class MangrooveModel {
       'local_name': local_name,
       'scientific_name': scientific_name,
       'description': description,
+      'summary': summary
     };
   }
 
@@ -32,6 +35,7 @@ class MangrooveModel {
       local_name: map['local_name'],
       scientific_name: map['scientific_name'],
       description: map['description'],
+      summary: map['summary']
     );
   }
 
@@ -41,6 +45,7 @@ class MangrooveModel {
     String? local_name,
     String? scientific_name,
     String? description,
+    String? summary
   }) {
     return MangrooveModel(
       id: id ?? this.id,
@@ -48,6 +53,7 @@ class MangrooveModel {
       local_name: local_name ?? this.local_name,
       scientific_name: scientific_name ?? this.scientific_name,
       description: description ?? this.description,
+      summary: summary ?? this.summary
     );
   }
 }

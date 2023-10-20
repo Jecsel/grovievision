@@ -81,7 +81,7 @@ class AboutUsState extends State<AboutUs> {
                               height: 100,
                             ),
                           ),
-                          Text("Lovely Gadon")
+                          Text("Lovely Gabaldon")
                         ],
                       ),
                       SizedBox(height: 20),
@@ -109,7 +109,7 @@ class AboutUsState extends State<AboutUs> {
                               height: 100,
                             ),
                           ),
-                          Text("John Reymundo Fabella")
+                          Text("Jhon Reymond Fabella")
                         ],
                       ),
                       SizedBox(height: 20),
@@ -137,7 +137,7 @@ class AboutUsState extends State<AboutUs> {
                               height: 100,
                             ),
                           ),
-                          Text("Mika Ella Leizel Francisco")
+                          Text("Mika Ella Liezel Francisco")
                         ],
                       )
                     ],
