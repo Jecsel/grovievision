@@ -1,21 +1,13 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/models/flower_model.dart';
 import 'package:grovievision/models/fruit_model.dart';
 import 'package:grovievision/models/leaf_model.dart';
-import 'package:grovievision/models/mangroove_data.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/home.dart';
-import 'package:grovievision/screens/update_image_screen.dart';
 import 'package:grovievision/screens/view_species.dart';
-import 'package:grovievision/service/databaseHelper.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
-import 'package:path/path.dart';
-import 'package:sqflite_common/sqlite_api.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:path/path.dart';
 
 class SearchPage extends StatefulWidget {
   String searchKey;

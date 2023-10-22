@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+
+import 'package:flutter/services.dart';
 import 'package:grovievision/models/UserModel.dart';
 import 'package:grovievision/models/flower_model.dart';
 import 'package:grovievision/models/fruit_model.dart';
-import 'package:grovievision/models/image_data.dart';
 import 'package:grovievision/models/leaf_model.dart';
-import 'package:grovievision/models/mangroove_data.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:path/path.dart';
@@ -396,5 +399,117 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
   Future<void> close() async {
     final db = await database;
     db.close();
+  }
+
+
+  Future<void> initiateUserData(MangroveDatabaseHelper dbHelper) async {
+    // MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
+    final newUser = UserModel(username: 'admin', password: '123123123');
+    final registeredUser = await dbHelper.registerUser(newUser);
+
+  }
+
+  Future<Uint8List> fileToUint8List(File file) async {
+    final List<int> bytes = await file.readAsBytes();
+    return Uint8List.fromList(bytes);
+  }
+
+  Future<Uint8List> loadImageAsUint8List(path) async {
+    // Load the image data from the asset
+    final ByteData data = await rootBundle.load(path);
+
+    // Convert the ByteData to a Uint8List
+    Uint8List uint8List = data.buffer.asUint8List();
+
+    return uint8List;
+  }
+
+  Future<void> initiateMangrooveData(MangroveDatabaseHelper dbHelper) async {
+
+    List<dynamic> mangrove_datas = [
+      {
+        'path': 'assets/images/splash_img.png',
+        'local_name': 'Sample Local Name',
+        'scientific_name': 'Sample Scientific Name',
+        'description': 'Sample Description',
+        'summary': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in felis vitae purus dignissim malesuada vel vitae ex. Mauris at purus ac urna dapibus hendrerit. Suspendisse tristique diam porta, mattis odio id, bibendum erat. Aliquam molestie metus aliquet ipsum condimentum, in fermentum leo varius. Suspendisse ante ante, tempus nec diam quis, aliquet ornare libero. Suspendisse finibus lectus enim, vel lobortis neque egestas nec. Phasellus semper mauris vel efficitur sollicitudin. In tempor justo id sapien hendrerit, et tincidunt enim condimentum. In volutpat nisl in ipsum malesuada suscipit. Duis magna lacus, fringilla malesuada nisi sit amet, lacinia pharetra diam. Maecenas mollis a nibh bibendum pellentesque.',
+        'root': {
+          'path': 'assets/images/root.png',
+          'name': '',
+          'description': ''
+        },
+        'flower': {
+          'path': 'assets/images/flower.png',
+          'name': '',
+          'description': ''
+        },
+        'leaf': {
+          'path': 'assets/images/leaf.png',
+          'name': '',
+          'description': ''
+        },
+        'fruit': {
+          'path': 'assets/images/fruit.png',
+          'name': '',
+          'description': ''
+        },
+      }
+    ];
+
+    for (var mangrove in mangrove_datas) {
+      final Uint8List mangroveImageBytes = await loadImageAsUint8List(mangrove['path']);
+      final Uint8List fruitImageBytes = await loadImageAsUint8List(mangrove['path']);
+      final Uint8List rootImageBytes = await loadImageAsUint8List(mangrove['path']);
+      final Uint8List leafImageBytes = await loadImageAsUint8List(mangrove['path']);
+      final Uint8List flowerImageBytes = await loadImageAsUint8List(mangrove['path']);
+
+      // final Uint8List mangroveImageBytes = await fileToUint8List(File(mangrove['path']));
+
+      var newMangroove = MangrooveModel(
+        imageBlob: mangroveImageBytes, 
+        local_name: mangrove['local_name'], 
+        scientific_name: mangrove['scientific_name'], 
+        description: mangrove['description'], 
+        summary: mangrove['summary']
+      );
+
+      int newMangrooveId = await dbHelper.insertDBMangroveData(newMangroove);
+
+      print("============newMangrooveId========");
+      print(newMangrooveId);
+
+      final newRoot = RootModel(
+        mangroveId: newMangrooveId ?? 0,
+        imageBlob: rootImageBytes, 
+        name: mangrove.root.name,
+        description: mangrove.root.description,
+      );
+
+      final newFlower = FlowerModel(
+        mangroveId: newMangrooveId ?? 0,
+        imageBlob: flowerImageBytes, 
+        name: mangrove.flower.name,
+        description: mangrove.flower.description
+      );
+
+      final newLeaf = LeafModel(
+        mangroveId: newMangrooveId ?? 0,
+        imageBlob: leafImageBytes, 
+        name: mangrove.leaf.name,
+        description: mangrove.leaf.description
+      );
+
+      final newFruit = FruitModel(
+        mangroveId: newMangrooveId ?? 0,
+        imageBlob:  fruitImageBytes, 
+        name: mangrove.fruit.name,
+        description: mangrove.fruit.description
+      );
+
+      final root_id = dbHelper.insertDBRootData(newRoot);
+      final flower_id = dbHelper.insertDBFlowerData(newFlower);
+      final leaf_id = dbHelper.insertDBLeafData(newLeaf);
+      final fruit_id = dbHelper.insertDBFruitData(newFruit);
+    }
   }
 }

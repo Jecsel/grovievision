@@ -12,21 +12,39 @@ import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
-class AddSpecies extends StatefulWidget {
+class UpdateSpecies extends StatefulWidget {
+  final int mangroveId; // Define the data type you want to pass
+
+  UpdateSpecies({required this.mangroveId}); // Constructor that accepts data
+
   @override
-  _AddSpeciesState createState() => _AddSpeciesState();
+  _UpdateSpeciesState createState() => _UpdateSpeciesState();
 }
 
-class _AddSpeciesState extends State<AddSpecies> {
+class _UpdateSpeciesState extends State<UpdateSpecies> {
   final picker = ImagePicker();
+
+  Uint8List? mangroveImg;
+  Uint8List? fruitImg;
+  Uint8List? leafImg;
+  Uint8List? flowerImg;
+  Uint8List? rootImg;
+  Uint8List? takenImg;
+
   File? mangroveImage;
   File? fruitImage;
   File? leafImage;
   File? flowerImage;
   File? rootImage;
-
   File? takenImage;
+
+  MangrooveModel? mangroveData;
+  RootModel? rootData;
+  FlowerModel? flowerData;
+  LeafModel? leafData;
+  FruitModel? fruitData;
 
   //For Main Tree
   TextEditingController localNameController = TextEditingController();
@@ -42,11 +60,9 @@ class _AddSpeciesState extends State<AddSpecies> {
   //For Leaf
   TextEditingController leafNameInput = TextEditingController();
   TextEditingController leafDescInput = TextEditingController();
-  TextEditingController leafImputInput = TextEditingController();
   //For fruit
   TextEditingController fruitNameInput = TextEditingController();
   TextEditingController fruitDescInput = TextEditingController();
-  TextEditingController fruitImputInput = TextEditingController();
 
   MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
   List<MangrooveModel> mangroveDataList = [];
@@ -59,6 +75,79 @@ class _AddSpeciesState extends State<AddSpecies> {
   void initState() {
     super.initState();
     // dbHelper = MangroveDatabaseHelper.instance;
+    fetchData();
+    
+  }
+
+  Future<void> fetchData() async{
+    int mangroveId = widget.mangroveId;
+
+    MangrooveModel? mangroveResultData = await dbHelper.getOneMangroveData(mangroveId);
+    RootModel? rootResultData = await dbHelper.getOneRootData(mangroveId);
+    FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
+    LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
+    FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
+
+    // print('============mangroveImg============');
+
+    // var mangroveImg = await uint8ListToFile(mangroveResultData!.imageBlob, 'mangroove.png');
+    // var fruitImg = await uint8ListToFile(fruitResultData!.imageBlob, 'fruit');
+    // var leafImg = await uint8ListToFile(leafResultData!.imageBlob, 'leaf');
+    // var flowerImg = await uint8ListToFile(flowerResultData!.imageBlob, 'flowwer');
+    // var rootImg = await uint8ListToFile(rootResultData!.imageBlob, 'root');
+
+    // print('============mangroveImg============');
+    // print(mangroveImg);
+
+    setState(() {
+      mangroveData = mangroveResultData;
+      rootData = rootResultData;
+      flowerData = flowerResultData;
+      leafData = leafResultData;
+      fruitData = fruitResultData;
+
+      mangroveImg = mangroveResultData!.imageBlob;
+
+      print('============mangroveResultData============');
+      print(mangroveResultData?.imageBlob);
+
+      // mangroveImage = mangroveImg;
+      // fruitImage = fruitImg;
+      // leafImage = leafImg;
+      // flowerImage = flowerImg;
+      // rootImage = rootImg;
+
+      localNameController.text = mangroveResultData!.local_name;
+      scientificNameController.text = mangroveResultData!.scientific_name;
+      descriptionController.text = mangroveResultData!.description;
+      summaryController.text = mangroveResultData!.summary;
+
+      rootNameInput.text = rootResultData!.name;
+      rootDescInput.text = rootResultData!.description;
+
+      flowerNameInput.text = flowerResultData!.name;
+      flowerDescInput.text = flowerResultData!.description;
+
+      leafNameInput.text = leafResultData!.name;
+      leafDescInput.text = leafResultData!.description;
+
+      fruitNameInput.text = fruitResultData!.name;
+      fruitDescInput.text = fruitResultData!.description;
+    });
+  }
+
+  Future<File> uint8ListToFile(Uint8List uint8list, String fileName) async {
+    print('============fileName============ ${fileName}');
+    print('============uint8list============ ${uint8list}');
+    final tempDir = await getTemporaryDirectory();
+    print('============tempDir============ ${tempDir}');
+    final file = File('${tempDir.path}/$fileName');
+    print('============file============ ${file}');
+    
+    await file.writeAsBytes(uint8list);
+    print('============filewriteAsBytes============ ${file}');
+    
+    return file;
   }
 
   Future<Uint8List> fileToUint8List(File file) async {
@@ -170,6 +259,10 @@ class _AddSpeciesState extends State<AddSpecies> {
 
   @override
   Widget build(BuildContext context) {
+
+    print('========mangroveData====================');
+    print(mangroveData);
+    
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -210,15 +303,21 @@ class _AddSpeciesState extends State<AddSpecies> {
                       height: 10,
                     ),
                     mangroveImage != null
-                        ? Image.file(
-                            mangroveImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
+                      ? Image.file(
+                        mangroveImage!,
+                        height: 150,
+                      )
+                      : mangroveData?.imageBlob != null
+                      ? Image.memory(
+                        mangroveData?.imageBlob ?? Uint8List(0),
+                        width: 150,
+                        height: 150,
+                      )
+                      : Image.asset(
+                        'assets/images/default_placeholder.png',
+                        height: 150,
+                        width: 150,
+                    ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,

@@ -12,6 +12,7 @@ import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/search.dart';
+import 'package:grovievision/screens/update_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class ViewSpecies extends StatefulWidget {
@@ -78,6 +79,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
   }
 
+  _gotoUpdateSpecies() {
+    int mangroveId = widget.mangroveId;
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
+  }
+
   Widget _buildDrawerItem({
     required String title,
     required int index,
@@ -97,6 +103,12 @@ class _ViewSpeciesState extends State<ViewSpecies> {
         title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              _gotoUpdateSpecies();
+            },
+          ),
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
@@ -166,89 +178,115 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
 
                 SizedBox(height: 30),
-                Text(
-                  "Leaves",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Visibility(
+                  visible: leafData?.imageBlob != null,
+                    child: Text(
+                    "Leaves",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(leafData?.name ?? 'No Name'),
-                    ),
-                    Expanded(
-                        child: Text(leafData?.description ?? 'No Description')),
-                    Image.memory(
-                      leafData?.imageBlob ?? Uint8List(0),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 30),
-                Text(
-                  "Fruit",
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(fruitData?.name ?? 'No Name'),
-                    ),
-                    Expanded(
-                        child: Text(fruitData?.description ?? 'No Description')),
-                    Image.memory(
-                      fruitData?.imageBlob ?? Uint8List(0),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ],
+                Visibility(
+                  visible: leafData?.imageBlob != null,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Text(leafData?.name ?? 'No Name'),
+                      ),
+                      Expanded(
+                        child: Text(leafData?.description ?? 'No Description'),
+                      ),
+                      Image.memory(
+                        leafData?.imageBlob ?? Uint8List(0),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(height: 30),
-                Text(
-                  "Flower",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Visibility(
+                  visible: fruitData?.imageBlob != null,
+                    child: Text(
+                    "Fruit",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(flowerData?.name ?? 'No Name'),
-                    ),
-                    Expanded(
-                        child: Text(flowerData?.description ?? 'No Description')),
-                    Image.memory(
-                      flowerData?.imageBlob ?? Uint8List(0),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ],
+                Visibility(
+                  visible: fruitData?.imageBlob != null,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Text(fruitData?.name ?? 'No Name'),
+                      ),
+                      Expanded(
+                          child: Text(fruitData?.description ?? 'No Description')),
+                      Image.memory(
+                        fruitData?.imageBlob ?? Uint8List(0),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(height: 30),
-                Text(
-                  "Root",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Visibility(
+                  visible: flowerData?.imageBlob != null,
+                    child: Text(
+                    "Flower",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(rootData?.name ?? 'No Name'),
-                    ),
-                    Expanded(
-                        child: Text(rootData?.description ?? 'No Description')),
-                    Image.memory(
-                      rootData?.imageBlob ?? Uint8List(0),
-                      width: 80,
-                      height: 80,
-                    ),
-                  ],
-                ),
+                Visibility(
+                  visible: flowerData?.imageBlob != null,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Text(flowerData?.name ?? 'No Name'),
+                      ),
+                      Expanded(
+                          child: Text(flowerData?.description ?? 'No Description')),
+                      Image.memory(
+                        flowerData?.imageBlob ?? Uint8List(0),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
+                  ),
 
+                ),
+                
+                SizedBox(height: 30),
+                Visibility(
+                  visible: rootData?.imageBlob != null,
+                    child: Text(
+                    "Root",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Visibility(
+                  visible: rootData?.imageBlob != null,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Text(rootData?.name ?? 'No Name'),
+                      ),
+                      Expanded(
+                          child: Text(rootData?.description ?? 'No Description')),
+                      Image.memory(
+                        rootData?.imageBlob ?? Uint8List(0),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ],
+                  ),
+                ),
+                
               ],
             ),
           ),
