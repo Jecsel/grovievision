@@ -160,9 +160,32 @@ class MangroveDatabaseHelper {
     return fruitData;
   }
 
-  Future<List<MangrooveModel>> getMangroveDataList() async {
+  // Future<List<MangrooveModel>> getMangroveDataList() async {
+  //   final db = await database;
+  //   print('========= db ======= ${db}');
+  //   final List<Map<String, dynamic>> maps = await db.query('mangrove');
+  //   return List.generate(maps.length, (i) {
+  //     return MangrooveModel.fromMap(maps[i]);
+  //   });
+  // }
+
+  Future<List<MangrooveModel>> getMangroveDataList(int page, int pageSize) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('mangrove');
+
+    // Calculate the offset based on the page and page size to implement pagination.
+    final int offset = (page - 1) * pageSize;
+
+    // Replace 'column1', 'column2', etc. with the actual column names you want to select.
+    final List<Map<String, dynamic>> maps = await db.query(
+      'mangrove',
+      columns: ['id', 'imageBlob', 'local_name', 'scientific_name', 'description', 'summary'],
+      offset: offset,
+      limit: pageSize, // Specify the page size
+    );
+
+    print("======== map ========");
+    print(maps);
+
     return List.generate(maps.length, (i) {
       return MangrooveModel.fromMap(maps[i]);
     });

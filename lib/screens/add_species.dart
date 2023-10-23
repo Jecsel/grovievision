@@ -48,7 +48,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   TextEditingController fruitDescInput = TextEditingController();
   TextEditingController fruitImputInput = TextEditingController();
 
-  MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
+  MangroveDatabaseHelper? dbHelper;
   List<MangrooveModel> mangroveDataList = [];
   List<FruitModel> fruitDataList = [];
   List<LeafModel> leafDataList = [];
@@ -58,30 +58,57 @@ class _AddSpeciesState extends State<AddSpecies> {
   @override
   void initState() {
     super.initState();
-    // dbHelper = MangroveDatabaseHelper.instance;
+    dbHelper = MangroveDatabaseHelper.instance;
   }
 
   Future<Uint8List> fileToUint8List(File file) async {
     final List<int> bytes = await file.readAsBytes();
+    print('======== bytes ========');
+    print(bytes);
+
+    print('========  Uint8List.fromList(bytes) ========');
+    print( Uint8List.fromList(bytes));
     return Uint8List.fromList(bytes);
   }
 
   Future<void> _insertMangrooveData() async {
-    final Uint8List mangroveImageBytes = await fileToUint8List(mangroveImage!);
-    final Uint8List rootImageBytes = await fileToUint8List(rootImage!);
-    final Uint8List flowerImageBytes = await fileToUint8List(flowerImage!);
-    final Uint8List leafImageBytes = await fileToUint8List(leafImage!);
-    final Uint8List fruitImageBytes = await fileToUint8List(fruitImage!);
+    print('======== mangroveImage ========');
+    print(mangroveImage);
 
-    final newMangroove = MangrooveModel(
-      imageBlob: mangroveImageBytes, 
-      local_name: localNameController.text,
-      scientific_name: scientificNameController.text,
-      description: descriptionController.text,
-      summary: summaryController.text
-    );
+    if(mangroveImage != null){
+      print('======== mangroveImages is not null ========');
 
-    final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
+      final List<int> bytes = await mangroveImage!.readAsBytes();
+      final List<int> rootBytes = await mangroveImage!.readAsBytes();
+      final List<int> flowerBytes = await mangroveImage!.readAsBytes();
+      final List<int> leafBytes = await mangroveImage!.readAsBytes();
+      final List<int> fruitBytes = await mangroveImage!.readAsBytes();
+      
+      final Uint8List mangroveImageBytes = Uint8List.fromList(bytes);
+      final Uint8List rootImageBytes =  Uint8List.fromList(rootBytes);
+      final Uint8List flowerImageBytes =  Uint8List.fromList(flowerBytes);
+      final Uint8List leafImageBytes =  Uint8List.fromList(leafBytes);
+      final Uint8List fruitImageBytes =  Uint8List.fromList(fruitBytes);
+
+      print('======== mangroveImageBytes ========');
+      print(mangroveImageBytes);
+
+      final newMangroove = MangrooveModel(
+        imageBlob: mangroveImageBytes, 
+        local_name: localNameController.text,
+        scientific_name: scientificNameController.text,
+        description: descriptionController.text,
+        summary: summaryController.text
+      );
+
+      print('======== dbHelper ========');
+      print(dbHelper);
+
+      print('======== newMangroove ========');
+      print(newMangroove);
+      
+
+      final insertedMangrove = await dbHelper?.insertDBMangroveData(newMangroove);
 
       print('========insertedMangrove.id========');
       print(insertedMangrove);
@@ -113,21 +140,11 @@ class _AddSpeciesState extends State<AddSpecies> {
         description: fruitDescInput.text,
       );
 
-      final root_id = dbHelper.insertDBRootData(newRoot);
-      final flower_id = dbHelper.insertDBFlowerData(newFlower);
-      final leaf_id = dbHelper.insertDBLeafData(newLeaf);
-      final fruit_id = dbHelper.insertDBFruitData(newFruit);
-
-    setState(() {
-
-    });
-  }
-
-  Future<void> _fetchInsertedData() async {
-    final data = await dbHelper.getMangroveDataList();
-    setState(() {
-      mangroveDataList = data.cast<MangrooveModel>();
-    });
+      final root_id = dbHelper?.insertDBRootData(newRoot);
+      final flower_id = dbHelper?.insertDBFlowerData(newFlower);
+      final leaf_id = dbHelper?.insertDBLeafData(newLeaf);
+      final fruit_id = dbHelper?.insertDBFruitData(newFruit);
+    }
   }
 
   _gotoSearchList() {
@@ -146,7 +163,11 @@ class _AddSpeciesState extends State<AddSpecies> {
       setState(() {
         switch (fromField) {
           case "mangrove":
+            print('===******===== pickedFileFromGallery.path ===*****=====');
+            print(pickedFileFromGallery.path);
             mangroveImage = File(pickedFileFromGallery.path);
+             print('===******===== mangroveImage ===*****=====');
+            print(mangroveImage);
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);

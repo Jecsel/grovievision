@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 class MangrooveModel {
   final int? id;
-  final Uint8List imageBlob;
+  final Uint8List? imageBlob;
   final String local_name;
   final String scientific_name;
   final String description;
@@ -10,7 +10,7 @@ class MangrooveModel {
 
   MangrooveModel({
     this.id,
-    required this.imageBlob,
+    this.imageBlob,
     required this.local_name,
     required this.scientific_name,
     required this.description,

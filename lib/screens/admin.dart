@@ -4,6 +4,7 @@ import 'package:grovievision/screens/admin_list.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/user_choice.dart';
+import 'package:grovievision/screens/view_species.dart';
 
 class AdminScreen extends StatefulWidget {
   
@@ -26,6 +27,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   _gotoAdminList() async{
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: 2)));
   }
 
   _gotoAddSpecies() async{

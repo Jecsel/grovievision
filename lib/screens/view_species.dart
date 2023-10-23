@@ -81,7 +81,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   _gotoUpdateSpecies() {
     int mangroveId = widget.mangroveId;
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
   }
 
   Widget _buildDrawerItem({

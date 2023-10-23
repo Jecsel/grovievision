@@ -28,17 +28,22 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    print("======= initState ===========");
     dbHelper = MangroveDatabaseHelper.instance;
     fetchData();
   }
 
   Future<void> fetchData() async {
     String searchKey = widget.searchKey;
-    List<MangrooveModel> result = await dbHelper.getMangroveDataList();
+    print("======= Result Start ===========");
+    List<MangrooveModel> result = await dbHelper.getMangroveDataList(1, 10);
+    print(result);
+    print("======= Result End ===========");
+
     List<FruitModel> fruits = await dbHelper.getFruitDataList();
     List<LeafModel> leaves = await dbHelper.getLeafDataList();
     List<RootModel> roots = await dbHelper.getRootDataList();
-    List<FlowerModel> flowers = await dbHelper.getFlowerDataList();
+    List<FlowerModel> flowers = await  dbHelper.getFlowerDataList();
     
     
     setState(() {
