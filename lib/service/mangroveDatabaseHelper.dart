@@ -160,36 +160,36 @@ class MangroveDatabaseHelper {
     return fruitData;
   }
 
-  // Future<List<MangrooveModel>> getMangroveDataList() async {
-  //   final db = await database;
-  //   print('========= db ======= ${db}');
-  //   final List<Map<String, dynamic>> maps = await db.query('mangrove');
-  //   return List.generate(maps.length, (i) {
-  //     return MangrooveModel.fromMap(maps[i]);
-  //   });
-  // }
-
-  Future<List<MangrooveModel>> getMangroveDataList(int page, int pageSize) async {
+  Future<List<MangrooveModel>> getMangroveDataList() async {
     final db = await database;
-
-    // Calculate the offset based on the page and page size to implement pagination.
-    final int offset = (page - 1) * pageSize;
-
-    // Replace 'column1', 'column2', etc. with the actual column names you want to select.
-    final List<Map<String, dynamic>> maps = await db.query(
-      'mangrove',
-      columns: ['id', 'imageBlob', 'local_name', 'scientific_name', 'description', 'summary'],
-      offset: offset,
-      limit: pageSize, // Specify the page size
-    );
-
-    print("======== map ========");
-    print(maps);
-
+    print('========= db ======= ${db}');
+    final List<Map<String, dynamic>> maps = await db.query('mangrove');
     return List.generate(maps.length, (i) {
       return MangrooveModel.fromMap(maps[i]);
     });
   }
+
+  // Future<List<MangrooveModel>> getMangroveDataList(int page, int pageSize) async {
+  //   final db = await database;
+
+  //   // Calculate the offset based on the page and page size to implement pagination.
+  //   final int offset = (page - 1) * pageSize;
+
+  //   // Replace 'column1', 'column2', etc. with the actual column names you want to select.
+  //   final List<Map<String, dynamic>> maps = await db.query(
+  //     'mangrove',
+  //     columns: ['id', 'imageBlob', 'local_name', 'scientific_name', 'description', 'summary'],
+  //     offset: offset,
+  //     limit: pageSize, // Specify the page size
+  //   );
+
+  //   print("======== map ========");
+  //   print(maps);
+
+  //   return List.generate(maps.length, (i) {
+  //     return MangrooveModel.fromMap(maps[i]);
+  //   });
+  // }
 
   Future<List<RootModel>> getRootDataList() async {
     final db = await database;
@@ -458,23 +458,23 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         'summary': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in felis vitae purus dignissim malesuada vel vitae ex. Mauris at purus ac urna dapibus hendrerit. Suspendisse tristique diam porta, mattis odio id, bibendum erat. Aliquam molestie metus aliquet ipsum condimentum, in fermentum leo varius. Suspendisse ante ante, tempus nec diam quis, aliquet ornare libero. Suspendisse finibus lectus enim, vel lobortis neque egestas nec. Phasellus semper mauris vel efficitur sollicitudin. In tempor justo id sapien hendrerit, et tincidunt enim condimentum. In volutpat nisl in ipsum malesuada suscipit. Duis magna lacus, fringilla malesuada nisi sit amet, lacinia pharetra diam. Maecenas mollis a nibh bibendum pellentesque.',
         'root': {
           'path': 'assets/images/root.png',
-          'name': '',
-          'description': ''
+          'name': 'Root',
+          'description': 'Sample Description'
         },
         'flower': {
           'path': 'assets/images/flower.png',
-          'name': '',
-          'description': ''
+          'name': 'Flower',
+          'description': 'Sample Description'
         },
         'leaf': {
           'path': 'assets/images/leaf.png',
-          'name': '',
-          'description': ''
+          'name': 'Leaf',
+          'description': 'Sample Description'
         },
         'fruit': {
           'path': 'assets/images/fruit.png',
-          'name': '',
-          'description': ''
+          'name': 'Fruit',
+          'description': 'Sample Description'
         },
       }
     ];
@@ -504,29 +504,29 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
       final newRoot = RootModel(
         mangroveId: newMangrooveId ?? 0,
         imageBlob: rootImageBytes, 
-        name: mangrove.root.name,
-        description: mangrove.root.description,
+        name: mangrove['root']['name'],
+        description: mangrove['root']['description'],
       );
 
       final newFlower = FlowerModel(
         mangroveId: newMangrooveId ?? 0,
         imageBlob: flowerImageBytes, 
-        name: mangrove.flower.name,
-        description: mangrove.flower.description
+        name: mangrove['flower']['name'],
+        description: mangrove['flower']['description']
       );
 
       final newLeaf = LeafModel(
         mangroveId: newMangrooveId ?? 0,
         imageBlob: leafImageBytes, 
-        name: mangrove.leaf.name,
-        description: mangrove.leaf.description
+        name: mangrove['leaf']['name'],
+        description: mangrove['leaf']['description']
       );
 
       final newFruit = FruitModel(
         mangroveId: newMangrooveId ?? 0,
         imageBlob:  fruitImageBytes, 
-        name: mangrove.fruit.name,
-        description: mangrove.fruit.description
+        name: mangrove['fruit']['name'],
+        description: mangrove['fruit']['description']
       );
 
       final root_id = dbHelper.insertDBRootData(newRoot);

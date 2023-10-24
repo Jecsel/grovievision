@@ -28,16 +28,16 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    print("======= initState ===========");
-    dbHelper = MangroveDatabaseHelper.instance;
-    fetchData();
+      print("======= initState ===========");
+      dbHelper = MangroveDatabaseHelper.instance;
+      fetchData();
   }
 
   Future<void> fetchData() async {
     String searchKey = widget.searchKey;
     print("======= Result Start ===========");
-    List<MangrooveModel> result = await dbHelper.getMangroveDataList(1, 10);
-    print(result);
+    List<MangrooveModel> result = await dbHelper.getMangroveDataList();
+    print(result.length);
     print("======= Result End ===========");
 
     List<FruitModel> fruits = await dbHelper.getFruitDataList();
@@ -66,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
         default:
           mangrooveData = result;
       }
-      
+    
     });
   }
 
@@ -140,11 +140,11 @@ class _SearchPageState extends State<SearchPage> {
                   child: ListTile(
                   title: Text('Local Name: ${imageData.local_name}'),
                   subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
-                  leading: Image.memory(
-                    imageData.imageBlob,
-                    width: 60,
-                    height: 60,
-                  ),
+                  // leading: Image.memory(
+                  //   imageData.imageBlob,
+                  //   width: 60,
+                  //   height: 60,
+                  // ),
                 )
                 );
               },
@@ -166,11 +166,11 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: ListTile(
                   title: Text('Name: ${imageData.name}'),
-                  leading: Image.memory(
-                    imageData.imageBlob,
-                    width: 60,
-                    height: 60,
-                  ),
+                  // leading: Image.memory(
+                  //   imageData?.imageBlob,
+                  //   width: 60,
+                  //   height: 60,
+                  // ),
                 )
                 );
               },

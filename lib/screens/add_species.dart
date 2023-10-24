@@ -93,8 +93,15 @@ class _AddSpeciesState extends State<AddSpecies> {
       print('======== mangroveImageBytes ========');
       print(mangroveImageBytes);
 
+      // final newMangroove = MangrooveModel(
+      //   imageBlob: mangroveImageBytes, 
+      //   local_name: localNameController.text,
+      //   scientific_name: scientificNameController.text,
+      //   description: descriptionController.text,
+      //   summary: summaryController.text
+      // );
+
       final newMangroove = MangrooveModel(
-        imageBlob: mangroveImageBytes, 
         local_name: localNameController.text,
         scientific_name: scientificNameController.text,
         description: descriptionController.text,
@@ -114,31 +121,54 @@ class _AddSpeciesState extends State<AddSpecies> {
       print(insertedMangrove);
       final newRoot = RootModel(
         mangroveId: insertedMangrove ?? 0,
-        imageBlob: rootImageBytes, 
         name: rootNameInput.text,
         description: rootDescInput.text,
       );
 
       final newFlower = FlowerModel(
         mangroveId: insertedMangrove ?? 0,
-        imageBlob: flowerImageBytes, 
         name: flowerNameInput.text,
         description: flowerDescInput.text
       );
 
       final newLeaf = LeafModel(
         mangroveId: insertedMangrove ?? 0,
-        imageBlob: leafImageBytes, 
         name: leafNameInput.text,
         description: leafDescInput.text,
       );
 
       final newFruit = FruitModel(
         mangroveId: insertedMangrove ?? 0,
-        imageBlob: fruitImageBytes, 
         name: fruitNameInput.text,
         description: fruitDescInput.text,
       );
+      // final newRoot = RootModel(
+      //   mangroveId: insertedMangrove ?? 0,
+      //   imageBlob: rootImageBytes, 
+      //   name: rootNameInput.text,
+      //   description: rootDescInput.text,
+      // );
+
+      // final newFlower = FlowerModel(
+      //   mangroveId: insertedMangrove ?? 0,
+      //   imageBlob: flowerImageBytes, 
+      //   name: flowerNameInput.text,
+      //   description: flowerDescInput.text
+      // );
+
+      // final newLeaf = LeafModel(
+      //   mangroveId: insertedMangrove ?? 0,
+      //   imageBlob: leafImageBytes, 
+      //   name: leafNameInput.text,
+      //   description: leafDescInput.text,
+      // );
+
+      // final newFruit = FruitModel(
+      //   mangroveId: insertedMangrove ?? 0,
+      //   imageBlob: fruitImageBytes, 
+      //   name: fruitNameInput.text,
+      //   description: fruitDescInput.text,
+      // );
 
       final root_id = dbHelper?.insertDBRootData(newRoot);
       final flower_id = dbHelper?.insertDBFlowerData(newFlower);

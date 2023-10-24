@@ -3,14 +3,14 @@ import 'dart:typed_data';
 class LeafModel {
   final int? id;
   final int mangroveId; // Reference ID
-  final Uint8List imageBlob;
+  final Uint8List? imageBlob;
   final String name;
   final String description;
 
   LeafModel({
     this.id,
     required this.mangroveId,
-    required this.imageBlob,
+    this.imageBlob,
     required this.name,
     required this.description,
   });
