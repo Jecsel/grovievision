@@ -77,17 +77,18 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<Widget> loadImageFromFile(String filePath) async {
-  if (filePath.startsWith('assets/')) {
-    // If the path starts with 'assets/', load from assets
-    return Image.asset(filePath, width: 60, height: 60);
-  } else {
-    final file = File(filePath);
+    print('============ loadImageFromFile ===== ${filePath}');
+    if (filePath.startsWith('assets/')) {
+      // If the path starts with 'assets/', load from assets
+      return Image.asset(filePath, width: 60, height: 60);
+    } else {
+      final file = File(filePath);
 
-    if (await file.exists()) {
-      // If the file exists in local storage, load it
-      return Image.file(file, width: 60, height: 60,);
+      if (await file.exists()) {
+        // If the file exists in local storage, load it
+        return Image.file(file, width: 60, height: 60,);
+      }
     }
-  }
 
   // If no valid image is found, return a default placeholder
   return Image.asset("assets/images/default_placeholder.png", width: 60, height: 60,); // You can replace this with your placeholder image
@@ -172,23 +173,6 @@ class _SearchPageState extends State<SearchPage> {
                       }
                     },
                   ),
-
-                  // leading: FutureBuilder<Widget>(
-                  // future: loadImageFromFile(imageData.imagePath),
-                  //   builder: (context, snapshot) {
-                  //     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                  //       return snapshot.data ?? CircularProgressIndicator();
-                  //     } else {
-                  //       return CircularProgressIndicator(); // Or another loading indicator
-                  //     }
-                  //   },
-                  // ),
-
-                  // leading: Image.memory(
-                  //   imageData.imageBlob,
-                  //   width: 60,
-                  //   height: 60,
-                  // ),
                 )
                 );
               },
@@ -210,11 +194,16 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   child: ListTile(
                   title: Text('Name: ${imageData.name}'),
-                  // leading: Image.memory(
-                  //   imageData?.imageBlob,
-                  //   width: 60,
-                  //   height: 60,
-                  // ),
+                  leading: FutureBuilder<Widget>(
+                    future: loadImageFromFile(imageData.imagePath),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return snapshot.data ?? CircularProgressIndicator();
+                      } else {
+                        return CircularProgressIndicator(); // Or another loading indicator
+                      }
+                    },
+                  ),
                 )
                 );
               },

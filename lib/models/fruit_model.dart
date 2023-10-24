@@ -4,6 +4,7 @@ class FruitModel {
   final int? id;
   final int mangroveId; // Reference ID
   final Uint8List? imageBlob;
+  final String? imagePath;
   final String name;
   final String description;
 
@@ -11,6 +12,7 @@ class FruitModel {
     this.id,
     required this.mangroveId,
     this.imageBlob,
+    this.imagePath,
     required this.name,
     required this.description,
   });
@@ -20,6 +22,7 @@ class FruitModel {
       'id': id,
       'mangroveId': mangroveId,
       'imageBlob': imageBlob,
+      'imagePath': imagePath,
       'name': name,
       'description': description,
     };
@@ -30,6 +33,7 @@ class FruitModel {
       id: map['id'],
       mangroveId: map['mangroveId'],
       imageBlob: map['imageBlob'],
+      imagePath: map['imagePath'],
       name: map['name'],
       description: map['description'],
     );

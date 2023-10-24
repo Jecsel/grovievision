@@ -96,17 +96,6 @@ class _AddSpeciesState extends State<AddSpecies> {
       final Uint8List leafImageBytes =  Uint8List.fromList(leafBytes);
       final Uint8List fruitImageBytes =  Uint8List.fromList(fruitBytes);
 
-      print('======== mangroveImageBytes ========');
-      print(mangroveImageBytes);
-
-      // final newMangroove = MangrooveModel(
-      //   imageBlob: mangroveImageBytes, 
-      //   local_name: localNameController.text,
-      //   scientific_name: scientificNameController.text,
-      //   description: descriptionController.text,
-      //   summary: summaryController.text
-      // );
-
       final newMangroove = MangrooveModel(
         imagePath: mangroveImagePath,
         local_name: localNameController.text,
@@ -114,68 +103,36 @@ class _AddSpeciesState extends State<AddSpecies> {
         description: descriptionController.text,
         summary: summaryController.text
       );
-
-      print('======== dbHelper ========');
-      print(dbHelper);
-
-      print('======== newMangroove ========');
-      print(newMangroove);
       
-
       final insertedMangrove = await dbHelper?.insertDBMangroveData(newMangroove);
 
-      print('========insertedMangrove.id========');
-      print(insertedMangrove);
       final newRoot = RootModel(
+        imagePath: rootImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: rootNameInput.text,
         description: rootDescInput.text,
       );
 
       final newFlower = FlowerModel(
+        imagePath: flowerImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: flowerNameInput.text,
         description: flowerDescInput.text
       );
 
       final newLeaf = LeafModel(
+        imagePath: leafImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: leafNameInput.text,
         description: leafDescInput.text,
       );
 
       final newFruit = FruitModel(
+        imagePath: fruitImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: fruitNameInput.text,
         description: fruitDescInput.text,
       );
-      // final newRoot = RootModel(
-      //   mangroveId: insertedMangrove ?? 0,
-      //   imageBlob: rootImageBytes, 
-      //   name: rootNameInput.text,
-      //   description: rootDescInput.text,
-      // );
-
-      // final newFlower = FlowerModel(
-      //   mangroveId: insertedMangrove ?? 0,
-      //   imageBlob: flowerImageBytes, 
-      //   name: flowerNameInput.text,
-      //   description: flowerDescInput.text
-      // );
-
-      // final newLeaf = LeafModel(
-      //   mangroveId: insertedMangrove ?? 0,
-      //   imageBlob: leafImageBytes, 
-      //   name: leafNameInput.text,
-      //   description: leafDescInput.text,
-      // );
-
-      // final newFruit = FruitModel(
-      //   mangroveId: insertedMangrove ?? 0,
-      //   imageBlob: fruitImageBytes, 
-      //   name: fruitNameInput.text,
-      //   description: fruitDescInput.text,
-      // );
 
       final root_id = dbHelper?.insertDBRootData(newRoot);
       final flower_id = dbHelper?.insertDBFlowerData(newFlower);
@@ -207,18 +164,23 @@ class _AddSpeciesState extends State<AddSpecies> {
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);
+            rootImagePath = pickedFileFromGallery.path;
             break;
           case "flower":
             flowerImage = File(pickedFileFromGallery.path);
+            flowerImagePath = pickedFileFromGallery.path;
             break;
           case "leaf":
             leafImage = File(pickedFileFromGallery.path);
+            leafImagePath = pickedFileFromGallery.path;
             break;
           case "fruit":
             fruitImage = File(pickedFileFromGallery.path);
+            fruitImagePath = pickedFileFromGallery.path;
             break;
           default:
             mangroveImage = File(pickedFileFromGallery.path);
+            mangroveImagePath = pickedFileFromGallery.path;
         }
         
       });
