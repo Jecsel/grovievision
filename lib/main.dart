@@ -5,12 +5,10 @@ import 'package:grovievision/screens/splash_screen.dart';
 import 'package:grovievision/theme.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sqflite_common/sqlite_api.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 
 void main() async {
   await _initHive();
-  sqfliteFfiInit();
   runApp(const MainApp());
 }
 

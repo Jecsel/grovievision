@@ -38,6 +38,7 @@ class MangroveDatabaseHelper {
       CREATE TABLE mangrove (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         imageBlob BLOB,
+        imagePath TEXT,
         local_name TEXT,
         scientific_name TEXT,
         description TEXT,
@@ -50,6 +51,7 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         mangroveId INTEGER,
         imageBlob BLOB,
+        imagePath TEXT,
         name TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
@@ -61,6 +63,7 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         mangroveId INTEGER,
         imageBlob BLOB,
+        imagePath TEXT,
         name TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
@@ -72,6 +75,7 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         mangroveId INTEGER,
         imageBlob BLOB,
+        imagePath TEXT,
         name TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
@@ -83,6 +87,7 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         mangroveId INTEGER,
         imageBlob BLOB,
+        imagePath TEXT,
         name TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
@@ -490,6 +495,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
 
       var newMangroove = MangrooveModel(
         imageBlob: mangroveImageBytes, 
+        imagePath: mangrove['path'],
         local_name: mangrove['local_name'], 
         scientific_name: mangrove['scientific_name'], 
         description: mangrove['description'], 

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
@@ -84,6 +85,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
   }
 
+    Future<Widget> loadImageFromFile(String filePath) async {
+      if (filePath.startsWith('assets/')) {
+        // If the path starts with 'assets/', load from assets
+        return Image.asset(filePath);
+      } else {
+        final file = File(filePath);
+
+        if (await file.exists()) {
+          // If the file exists in local storage, load it
+          return Image.file(file);
+        }
+      }
+
+      // If no valid image is found, return a default placeholder
+      return Image.asset("assets/images/default_placeholder.png"); // You can replace this with your placeholder image
+    }
+
   Widget _buildDrawerItem({
     required String title,
     required int index,
@@ -128,10 +146,15 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           child: Center(
             child: Column(
               children: <Widget>[
-                Image.memory(
-                  mangroveData?.imageBlob ?? Uint8List(0),
-                  width: 300, // Set the width and height as needed
-                  height: 300,
+                FutureBuilder<Widget>(
+                  future: loadImageFromFile(mangroveData?.imagePath ?? ''),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return snapshot.data ?? CircularProgressIndicator();;
+                    } else {
+                      return CircularProgressIndicator(); // Or another loading indicator
+                    }
+                  },
                 ),
                 SizedBox(height: 10),
                 Text(

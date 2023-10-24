@@ -1,4 +1,10 @@
 // lib/main.dart
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as img; // This is for decoding the image
+
 import 'package:flutter/material.dart';
 import 'package:grovievision/models/flower_model.dart';
 import 'package:grovievision/models/fruit_model.dart';
@@ -70,6 +76,22 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  Future<Widget> loadImageFromFile(String filePath) async {
+  if (filePath.startsWith('assets/')) {
+    // If the path starts with 'assets/', load from assets
+    return Image.asset(filePath, width: 60, height: 60);
+  } else {
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      // If the file exists in local storage, load it
+      return Image.file(file, width: 60, height: 60,);
+    }
+  }
+
+  // If no valid image is found, return a default placeholder
+  return Image.asset("assets/images/default_placeholder.png", width: 60, height: 60,); // You can replace this with your placeholder image
+}
   void search(String keyword) {
     // Create a new list to store the filtered data
     List<MangrooveModel> filteredData = [];
@@ -140,6 +162,28 @@ class _SearchPageState extends State<SearchPage> {
                   child: ListTile(
                   title: Text('Local Name: ${imageData.local_name}'),
                   subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
+                  leading: FutureBuilder<Widget>(
+                    future: loadImageFromFile(imageData.imagePath),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return snapshot.data ?? CircularProgressIndicator();
+                      } else {
+                        return CircularProgressIndicator(); // Or another loading indicator
+                      }
+                    },
+                  ),
+
+                  // leading: FutureBuilder<Widget>(
+                  // future: loadImageFromFile(imageData.imagePath),
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                  //       return snapshot.data ?? CircularProgressIndicator();
+                  //     } else {
+                  //       return CircularProgressIndicator(); // Or another loading indicator
+                  //     }
+                  //   },
+                  // ),
+
                   // leading: Image.memory(
                   //   imageData.imageBlob,
                   //   width: 60,

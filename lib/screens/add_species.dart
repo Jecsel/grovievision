@@ -28,6 +28,12 @@ class _AddSpeciesState extends State<AddSpecies> {
 
   File? takenImage;
 
+  String? mangroveImagePath = 'assets/images/default_placeholder.png';
+  String? fruitImagePath = 'assets/images/default_placeholder.png';
+  String? leafImagePath = 'assets/images/default_placeholder.png';
+  String? flowerImagePath = 'assets/images/default_placeholder.png';
+  String? rootImagePath = 'assets/images/default_placeholder.png';
+
   //For Main Tree
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
@@ -102,6 +108,7 @@ class _AddSpeciesState extends State<AddSpecies> {
       // );
 
       final newMangroove = MangrooveModel(
+        imagePath: mangroveImagePath,
         local_name: localNameController.text,
         scientific_name: scientificNameController.text,
         description: descriptionController.text,
@@ -196,8 +203,7 @@ class _AddSpeciesState extends State<AddSpecies> {
             print('===******===== pickedFileFromGallery.path ===*****=====');
             print(pickedFileFromGallery.path);
             mangroveImage = File(pickedFileFromGallery.path);
-             print('===******===== mangroveImage ===*****=====');
-            print(mangroveImage);
+            mangroveImagePath = pickedFileFromGallery.path;
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);
