@@ -18,8 +18,9 @@ import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class ViewSpecies extends StatefulWidget {
   final int mangroveId; // Define the data type you want to pass
+  final String category;
 
-  ViewSpecies({required this.mangroveId}); // Constructor that accepts data
+  ViewSpecies({required this.mangroveId, required this.category}); // Constructor that accepts data
 
   @override
   State<StatefulWidget> createState() => _ViewSpeciesState();
@@ -82,7 +83,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   _gotoUpdateSpecies() {
     int mangroveId = widget.mangroveId;
-    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UpdateSpecies(mangroveId: mangroveId)));
   }
 
     Future<Widget> loadImageFromFile(String filePath) async {
@@ -100,6 +101,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
       // If no valid image is found, return a default placeholder
       return Image.asset("assets/images/default_placeholder.png"); // You can replace this with your placeholder image
+    }
+
+    Future<Widget> loadImage(String filePath) async {
+      if (filePath.startsWith('assets/')) {
+        // If the path starts with 'assets/', load from assets
+        return Image.asset(filePath, width: 80, height: 80);
+      } else {
+        final file = File(filePath);
+
+        if (await file.exists()) {
+          // If the file exists in local storage, load it
+          return Image.file(file, width: 80, height: 80);
+        }
+      }
+
+      // If no valid image is found, return a default placeholder
+      return Image.asset("assets/images/default_placeholder.png", width: 80, height: 80); // You can replace this with your placeholder image
     }
 
   Widget _buildDrawerItem({
@@ -202,14 +220,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: leafData?.imageBlob != null,
+                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
                     child: Text(
                     "Leaves",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: leafData?.imageBlob != null,
+                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
                   child: Row(
                     children: [
                       Padding(
@@ -219,25 +237,35 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       Expanded(
                         child: Text(leafData?.description ?? 'No Description'),
                       ),
-                      Image.memory(
-                        leafData?.imageBlob ?? Uint8List(0),
-                        width: 80,
-                        height: 80,
+                      FutureBuilder<Widget>(
+                        future: loadImage(leafData?.imagePath ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data ?? CircularProgressIndicator();;
+                          } else {
+                            return CircularProgressIndicator(); // Or another loading indicator
+                          }
+                        },
                       ),
+                      // Image.memory(
+                      //   leafData?.imageBlob ?? Uint8List(0),
+                      //   width: 80,
+                      //   height: 80,
+                      // ),
                     ],
                   ),
                 ),
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: fruitData?.imageBlob != null,
+                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
                     child: Text(
                     "Fruit",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: fruitData?.imageBlob != null,
+                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
                   child: Row(
                     children: [
                       Padding(
@@ -245,26 +273,37 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         child: Text(fruitData?.name ?? 'No Name'),
                       ),
                       Expanded(
-                          child: Text(fruitData?.description ?? 'No Description')),
-                      Image.memory(
-                        fruitData?.imageBlob ?? Uint8List(0),
-                        width: 80,
-                        height: 80,
+                        child: Text(fruitData?.description ?? 'No Description')
                       ),
+                      FutureBuilder<Widget>(
+                        future: loadImage(fruitData?.imagePath ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data ?? CircularProgressIndicator();;
+                          } else {
+                            return CircularProgressIndicator(); // Or another loading indicator
+                          }
+                        },
+                      ), 
+                      // Image.memory(
+                      //   fruitData?.imageBlob ?? Uint8List(0),
+                      //   width: 80,
+                      //   height: 80,
+                      // ),
                     ],
                   ),
                 ),
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imageBlob != null,
+                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
                     child: Text(
                     "Flower",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: flowerData?.imageBlob != null,
+                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
                   child: Row(
                     children: [
                       Padding(
@@ -272,12 +311,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         child: Text(flowerData?.name ?? 'No Name'),
                       ),
                       Expanded(
-                          child: Text(flowerData?.description ?? 'No Description')),
-                      Image.memory(
-                        flowerData?.imageBlob ?? Uint8List(0),
-                        width: 80,
-                        height: 80,
+                        child: Text(flowerData?.description ?? 'No Description')
                       ),
+                      FutureBuilder<Widget>(
+                        future: loadImage(flowerData?.imagePath ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data ?? CircularProgressIndicator();;
+                          } else {
+                            return CircularProgressIndicator(); // Or another loading indicator
+                          }
+                        },
+                      ),
+                      // Image.memory(
+                      //   flowerData?.imageBlob ?? Uint8List(0),
+                      //   width: 80,
+                      //   height: 80,
+                      // ),
                     ],
                   ),
 
@@ -285,14 +335,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: rootData?.imageBlob != null,
+                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
                     child: Text(
                     "Root",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: rootData?.imageBlob != null,
+                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
                   child: Row(
                     children: [
                       Padding(
@@ -300,12 +350,23 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         child: Text(rootData?.name ?? 'No Name'),
                       ),
                       Expanded(
-                          child: Text(rootData?.description ?? 'No Description')),
-                      Image.memory(
-                        rootData?.imageBlob ?? Uint8List(0),
-                        width: 80,
-                        height: 80,
+                        child: Text(rootData?.description ?? 'No Description')
                       ),
+                      FutureBuilder<Widget>(
+                        future: loadImage(rootData?.imagePath ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data ?? CircularProgressIndicator();;
+                          } else {
+                            return CircularProgressIndicator(); // Or another loading indicator
+                          }
+                        },
+                      ),
+                      // Image.memory(
+                      //   rootData?.imageBlob ?? Uint8List(0),
+                      //   width: 80,
+                      //   height: 80,
+                      // ),
                     ],
                   ),
                 ),

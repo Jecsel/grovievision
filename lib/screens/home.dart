@@ -7,6 +7,7 @@ import 'package:grovievision/models/image_data.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/search.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:grovievision/ui/login.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -14,6 +15,8 @@ import 'package:image_compare/image_compare.dart';
 import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:sqflite_common/sqlite_api.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 Future<void> main() async {
 
@@ -47,6 +50,9 @@ class _HomeState extends State<Home> {
   final picker = ImagePicker();
   File? localImage;
   File? takenImage;
+  List<Map>? mangroveImages;
+  late MangroveDatabaseHelper dbHelper;
+  List<Map> similarImages = [];
 
   double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
@@ -59,6 +65,17 @@ class _HomeState extends State<Home> {
   {'name': 'FRUIT', 'image': 'assets/images/fruit.png'},
 ];
 
+  @override
+  void initState() {
+    super.initState();
+      print("======= initState ===========");
+      dbHelper = MangroveDatabaseHelper.instance;
+      fetchData();
+  }
+
+  Future<void> fetchData() async {
+    mangroveImages = await dbHelper.getImagesFromMangrove();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -81,10 +98,10 @@ class _HomeState extends State<Home> {
   }
 
   _drawerItemTapped(int index) {
-  setState(() {
-    _selectedIndex = index;
-  });
-}
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,6 +250,14 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+          ListView.builder(
+            itemCount: similarImages.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(similarImages[index]['imagePath']),
+              );
+            },
+          )
         ],
       ),
       drawer: Drawer(
@@ -309,13 +334,54 @@ class _HomeState extends State<Home> {
       maxHeight: 1800,
     );
     print('pickFile');
-    print(pickedFileFromGallery);
+    print(pickedFileFromGallery?.path);
+
+    localImage = File(pickedFileFromGallery!.path);
+
+    for (Map mangroveImage in mangroveImages!) {
+      String imagePath = mangroveImage['imagePath'];
+
+      print('mANGROVE IMAGES');
+      print(imagePath);
+
+
+      double similarityScore = await compareImages(src1: localImage, src2: checkImagePath(imagePath), algorithm: PerceptualHash());
+
+      if (similarityScore >= 0.5) {
+        print("Gallery image is similar to $similarityScore.");
+        similarImages.add(mangroveImage);
+      }{
+        print("Gallery image is BELOW similar to $similarityScore.");
+      }
+    }
+
 
     if (pickedFileFromGallery != null) {
       setState(() {
         localImage = File(pickedFileFromGallery.path);
+        similarImages = similarImages;
       });
     }
+  }
+
+  Future<File> getImageFileFromAsset(String assetPath) async {
+    final ByteData data = await rootBundle.load(assetPath);
+    final List<int> bytes = data.buffer.asUint8List();
+    final String tempFileName = assetPath.split('/').last;
+
+    final Directory tempDir = await getTemporaryDirectory();
+    final File tempFile = File('${tempDir.path}/$tempFileName');
+    
+    await tempFile.writeAsBytes(bytes, flush: true);
+    return tempFile;
+  }
+
+  checkImagePath(filePath) {
+    if (!filePath.startsWith('assets/')) {
+      return File(filePath);
+    }
+
+    return filePath;
   }
 
   Future getImageFromCamera() async {    /// Get Image from Camera
@@ -327,122 +393,6 @@ class _HomeState extends State<Home> {
       setState(() {
         takenImage = File(pickedFile.path);
         // Compare the images here and show the result
-      });
-    }
-  }
-}
-
-class MyFAB extends StatefulWidget {
-  @override
-  _MyFABState createState() => _MyFABState();
-}
-
-class _MyFABState extends State<MyFAB> {
-  static const IconData qr_code_scanner_rounded =
-  IconData(0xf00cc, fontFamily: 'MaterialIcons');
-  final picker = ImagePicker();
-  File? localImage;
-  File? takenImage;
-
-  double perceptualResult = 0.0;
-
-  @override
-  Widget build(BuildContext context) {
-
-    return FloatingActionButton(
-      onPressed: () {
-        // Add your action here when the FAB is tapped.
-        // For example, you can open a dialog to add items to the list.
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Select'),
-              content: SingleChildScrollView(
-                // Wrap the Column with SingleChildScrollView
-                child: Column(
-                  children: [
-                    localImage != null
-                    ? Image.file(
-                        localImage!,
-                        height: 150,
-                      )
-                    : Text('Local Image Placeholder'),
-                    SizedBox(height: 10),
-                    takenImage != null
-                    ? Image.file(
-                        takenImage!,
-                        height: 150,
-                      )
-                    : Text('Taken Image Placeholder'),
-                    SizedBox(height: 10),
-                    Text('PerceptualHash ${perceptualResult.toInt().toString()} %'),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: compareTwoImages,
-                      child: Text('Compare Images'),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: _getFromGallery,
-                      child: Text('Take Local Image'),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: _getFromGallery,
-                      child: Text('Take Image'),
-                    ),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text('Add'),
-                  onPressed: () {
-                    // Add your logic to add the item to the list here.
-                    // You can update the list using a Stateful widget or a state management solution like Provider or Riverpod.
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-      child: const Icon(qr_code_scanner_rounded),
-    );
-  }
-
-    /// Compare two images
-  Future compareTwoImages() async {
-    final perceptual = await compareImages(
-        src1: localImage, src2: takenImage, algorithm: PerceptualHash());
-
-    setState(() {
-      perceptualResult = 100 - (perceptual * 100);
-    });
-    print('Difference: ${perceptualResult}%');
-  }
-
-  /// Get from gallery
-  Future _getFromGallery() async {
-    final pickedFileFromGallery = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    print('pickFile');
-    print(pickedFileFromGallery);
-
-    if (pickedFileFromGallery != null) {
-      setState(() {
-        localImage = File(pickedFileFromGallery.path);
       });
     }
   }

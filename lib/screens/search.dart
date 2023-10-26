@@ -153,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, category: searchKey)));
                       final imageData = mangrooveData[index];
                       final snackBar = SnackBar(
                         content: Text('Tapped on ${imageData}'),
@@ -180,22 +180,21 @@ class _SearchPageState extends State<SearchPage> {
             : ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
-                final imageData = mangrooveData[index];
-                final mangroveId= mangrooveData[index].mangroveId;
+                final imageDt = mangrooveData[index];
+                final mangId= mangrooveData[index].mangroveId;
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0)));
-                      final imageData = mangrooveData[index];
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, category: searchKey)));
                       final snackBar = SnackBar(
-                        content: Text('Tapped on ${imageData}'),
+                        content: Text('Tapped on ${mangId}'),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
-                  child: ListTile(
-                  title: Text('Name: ${imageData.name}'),
+                  child: ListTile(  
+                  title: Text('Name: ${imageDt.name}'),
                   leading: FutureBuilder<Widget>(
-                    future: loadImageFromFile(imageData.imagePath),
+                    future: loadImageFromFile(imageDt.imagePath),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return snapshot.data ?? CircularProgressIndicator();

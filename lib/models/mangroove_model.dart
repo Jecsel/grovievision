@@ -3,7 +3,7 @@ import 'dart:typed_data';
 class MangrooveModel {
   final int? id;
   final Uint8List? imageBlob;
-  final String? imagePath;
+  String? imagePath;
   final String local_name;  
   final String scientific_name;
   final String description;

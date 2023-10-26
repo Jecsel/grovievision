@@ -33,6 +33,12 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
   Uint8List? rootImg;
   Uint8List? takenImg;
 
+  String? mangroveImagePath = 'assets/images/default_placeholder.png';
+  String? fruitImagePath = 'assets/images/default_placeholder.png';
+  String? leafImagePath = 'assets/images/default_placeholder.png';
+  String? flowerImagePath = 'assets/images/default_placeholder.png';
+  String? rootImagePath = 'assets/images/default_placeholder.png';
+
   File? mangroveImage;
   File? fruitImage;
   File? leafImage;
@@ -163,6 +169,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     final Uint8List fruitImageBytes = await fileToUint8List(fruitImage!);
 
     final newMangroove = MangrooveModel(
+      id: mangroveData?.id,
       imageBlob: mangroveImageBytes, 
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
@@ -173,15 +180,17 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
 
       print('========insertedMangrove.id========');
-      print(insertedMangrove);
+      print(mangroveData?.id);
       final newRoot = RootModel(
-        mangroveId: insertedMangrove ?? 0,
+        id: rootData?.id,
+        mangroveId: mangroveData?.id ?? 0,
         imageBlob: rootImageBytes, 
         name: rootNameInput.text,
         description: rootDescInput.text,
       );
 
       final newFlower = FlowerModel(
+        id: flowerData?.id,
         mangroveId: insertedMangrove ?? 0,
         imageBlob: flowerImageBytes, 
         name: flowerNameInput.text,
@@ -189,6 +198,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       );
 
       final newLeaf = LeafModel(
+        id: leafData?.id,
         mangroveId: insertedMangrove ?? 0,
         imageBlob: leafImageBytes, 
         name: leafNameInput.text,
@@ -196,6 +206,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       );
 
       final newFruit = FruitModel(
+        id: fruitData?.id,
         mangroveId: insertedMangrove ?? 0,
         imageBlob: fruitImageBytes, 
         name: fruitNameInput.text,
@@ -212,12 +223,83 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     // });
   }
 
+  Future<void> _updateMangrove() async {
+    print('======== mangroveImage ========');
+    print(mangroveImage);
+
+    final newMangroove = MangrooveModel(
+      id: mangroveData?.id,
+      imagePath: mangroveImagePath,
+      local_name: localNameController.text,
+      scientific_name: scientificNameController.text,
+      description: descriptionController.text,
+      summary: summaryController.text
+    );
+
+    final insertedMangrove = await dbHelper?.updateMangroveData(newMangroove);
+
+    final newRoot = RootModel(
+      id: rootData?.id,
+      imagePath: rootImagePath,
+      mangroveId: mangroveData?.id ?? 1,
+      name: rootNameInput.text,
+      description: rootDescInput.text,
+    );
+
+    final newFlower = FlowerModel(
+      id: flowerData?.id,
+      imagePath: flowerImagePath,
+      mangroveId: mangroveData?.id ?? 1,
+      name: flowerNameInput.text,
+      description: flowerDescInput.text
+    );
+
+    final newLeaf = LeafModel(
+      id: leafData?.id,
+      imagePath: leafImagePath,
+      mangroveId: mangroveData?.id ?? 1,
+      name: leafNameInput.text,
+      description: leafDescInput.text,
+    );
+
+    final newFruit = FruitModel(
+      id: fruitData?.id,
+      imagePath: fruitImagePath,
+      mangroveId: mangroveData?.id ?? 1,
+      name: fruitNameInput.text,
+      description: fruitDescInput.text,
+    );
+
+    final root_id = dbHelper?.updateRootData(newRoot);
+    final flower_id = dbHelper?.updateFlowerData(newFlower);
+    final leaf_id = dbHelper?.updateLeafData(newLeaf);
+    final fruit_id = dbHelper?.updateFruitData(newFruit);
+  }
+
+
   Future<void> _fetchInsertedData() async {
     final data = await dbHelper.getMangroveDataList();
     setState(() {
       mangroveDataList = data.cast<MangrooveModel>();
     });
   }
+
+  Future<Widget> loadImageFromFile(String filePath) async {
+      if (filePath.startsWith('assets/')) {
+        // If the path starts with 'assets/', load from assets
+        return Image.asset(filePath);
+      } else {
+        final file = File(filePath);
+
+        if (await file.exists()) {
+          // If the file exists in local storage, load it
+          return Image.file(file);
+        }
+      }
+
+      // If no valid image is found, return a default placeholder
+      return Image.asset("assets/images/default_placeholder.png"); // You can replace this with your placeholder image
+    }
 
   _gotoSearchList() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
@@ -236,21 +318,33 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
         switch (fromField) {
           case "mangrove":
             mangroveImage = File(pickedFileFromGallery.path);
+            mangroveImagePath = pickedFileFromGallery.path;
+            mangroveData?.imagePath =  mangroveImagePath;
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);
+            rootImagePath = pickedFileFromGallery.path;
+            rootData?.imagePath =  rootImagePath;
             break;
           case "flower":
             flowerImage = File(pickedFileFromGallery.path);
+            flowerImagePath = pickedFileFromGallery.path;
+            flowerData?.imagePath = flowerImagePath;
             break;
           case "leaf":
             leafImage = File(pickedFileFromGallery.path);
+            leafImagePath = pickedFileFromGallery.path;
+            leafData?.imagePath = leafImagePath;
             break;
           case "fruit":
             fruitImage = File(pickedFileFromGallery.path);
+            fruitImagePath = pickedFileFromGallery.path;
+            fruitData?.imagePath = fruitImagePath;
             break;
           default:
             mangroveImage = File(pickedFileFromGallery.path);
+            mangroveImagePath = pickedFileFromGallery.path;
+            mangroveData?.imagePath =  mangroveImagePath;
         }
         
       });
@@ -275,19 +369,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
               
             ),
             title: Text('Search Tree'), // Add your app title here
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.save),
-                  onPressed: () {
-                    _insertMangrooveData();
-                    _gotoSearchList();
-                    final snackBar = SnackBar(
-                              content: Text('Mangrove Saved!'),
-                      );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                ),
-              ],
             ),
             body: SingleChildScrollView(
               child: Center(
@@ -302,22 +383,32 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     SizedBox(
                       height: 10,
                     ),
-                    mangroveImage != null
-                      ? Image.file(
-                        mangroveImage!,
-                        height: 150,
-                      )
-                      : mangroveData?.imageBlob != null
-                      ? Image.memory(
-                        mangroveData?.imageBlob ?? Uint8List(0),
-                        width: 150,
-                        height: 150,
-                      )
-                      : Image.asset(
-                        'assets/images/default_placeholder.png',
-                        height: 150,
-                        width: 150,
+                    FutureBuilder<Widget>(
+                      future: loadImageFromFile(mangroveData?.imagePath ?? ''),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data ?? CircularProgressIndicator();;
+                        } else {
+                          return CircularProgressIndicator(); // Or another loading indicator
+                        }
+                      },
                     ),
+                    // mangroveImage != null
+                    //   ? Image.file(
+                    //     mangroveImage!,
+                    //     height: 150,
+                    //   )
+                    //   : mangroveData?.imageBlob != null
+                    //   ? Image.memory(
+                    //     mangroveData?.imageBlob ?? Uint8List(0),
+                    //     width: 150,
+                    //     height: 150,
+                    //   )
+                    //   : Image.asset(
+                    //     'assets/images/default_placeholder.png',
+                    //     height: 150,
+                    //     width: 150,
+                    // ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -383,16 +474,26 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     SizedBox(
                       height: 10,
                     ),
-                    rootImage != null
-                        ? Image.file(
-                            rootImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
+                    FutureBuilder<Widget>(
+                      future: loadImageFromFile(rootData?.imagePath ?? ''),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data ?? CircularProgressIndicator();;
+                        } else {
+                          return CircularProgressIndicator(); // Or another loading indicator
+                        }
+                      },
+                    ),
+                    // rootImage != null
+                    //     ? Image.file(
+                    //         rootImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -441,16 +542,26 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     SizedBox(
                       height: 10,
                     ),
-                    flowerImage != null
-                        ? Image.file(
-                            flowerImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
+                    FutureBuilder<Widget>(
+                      future: loadImageFromFile(flowerData?.imagePath ?? ''),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data ?? CircularProgressIndicator();;
+                        } else {
+                          return CircularProgressIndicator(); // Or another loading indicator
+                        }
+                      },
+                    ),
+                    // flowerImage != null
+                    //     ? Image.file(
+                    //         flowerImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -499,16 +610,26 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     SizedBox(
                       height: 10,
                     ),
-                    leafImage != null
-                        ? Image.file(
-                            leafImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
+                    FutureBuilder<Widget>(
+                      future: loadImageFromFile(leafData?.imagePath ?? ''),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data ?? CircularProgressIndicator();;
+                        } else {
+                          return CircularProgressIndicator(); // Or another loading indicator
+                        }
+                      },
+                    ),
+                    // leafImage != null
+                    //     ? Image.file(
+                    //         leafImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -557,16 +678,26 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     SizedBox(
                       height: 10,
                     ),
-                    fruitImage != null
-                        ? Image.file(
-                            fruitImage!,
-                            height: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/default_placeholder.png',
-                            height: 150,
-                            width: 150,
-                          ),
+                    FutureBuilder<Widget>(
+                      future: loadImageFromFile(fruitData?.imagePath ?? ''),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data ?? CircularProgressIndicator();;
+                        } else {
+                          return CircularProgressIndicator(); // Or another loading indicator
+                        }
+                      },
+                    ),
+                    // fruitImage != null
+                    //     ? Image.file(
+                    //         fruitImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -611,7 +742,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: ElevatedButton(
                           onPressed: () {
-                            _insertMangrooveData();
+                            _updateMangrove();
                             _gotoSearchList();
                           },
                           style: ElevatedButton.styleFrom(
@@ -628,16 +759,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     _insertMangrooveData();
-                    //     _gotoSearchList();
-                    //   },
-                    //   child: Text("Upload Mangroove"),
-                    // ),
                   ],
                 ),
               ),
             )));
   }
-  }
+}

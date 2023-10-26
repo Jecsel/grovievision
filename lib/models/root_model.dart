@@ -4,7 +4,7 @@ class RootModel {
   final int? id;
   final int mangroveId; // Reference ID
   final Uint8List? imageBlob;
-  final String? imagePath;
+  String? imagePath;
   final String name;
   final String description;
 
