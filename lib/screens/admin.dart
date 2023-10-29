@@ -26,7 +26,7 @@ class _AdminScreenState extends State<AdminScreen> {
   }
 
   _gotoAdminList() async{
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: 'Admin')));
   }
 
   _gotoAddSpecies() async{

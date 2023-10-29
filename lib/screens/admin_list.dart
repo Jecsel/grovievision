@@ -40,7 +40,7 @@ class _AdminListState extends State<AdminList> {
             icon: Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => UserChoice()));
+              MaterialPageRoute(builder: (context) => UserChoice()));
             },
           ),
           title: Text('Admin'), // Add your app title here

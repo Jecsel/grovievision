@@ -15,12 +15,14 @@ import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/update_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
+import 'package:grovievision/ui/login.dart';
 
 class ViewSpecies extends StatefulWidget {
-  final int mangroveId; // Define the data type you want to pass
-  final String category;
+  final int mangroveId; // Mangrove Id
+  final String category; // What category of mangrove, if TREE, ROOT, ETC.
+  final String pageType; //What type of User
 
-  ViewSpecies({required this.mangroveId, required this.category}); // Constructor that accepts data
+  ViewSpecies({required this.mangroveId, required this.category, required this.pageType}); // Constructor that accepts data
 
   @override
   State<StatefulWidget> createState() => _ViewSpeciesState();
@@ -78,7 +80,8 @@ class _ViewSpeciesState extends State<ViewSpecies> {
   }
 
   _gotoSearchList() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
+    String pageType = widget.pageType;
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType)));
   }
 
   _gotoUpdateSpecies() {
@@ -134,27 +137,41 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   @override
   Widget build(BuildContext context) {
+    var pageType = widget.pageType;
+    var searchKey = widget.category;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.edit),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
-              _gotoUpdateSpecies();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchPage(pageType: pageType, searchKey: searchKey,)));
             },
           ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              deleteMangroveData();
-              _gotoSearchList();
-              final snackBar = SnackBar(
-                content: Text('Mangrove Delete!'),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            },
+        actions: <Widget>[
+          Visibility(
+            visible: pageType == 'Admin',
+            child: IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                _gotoUpdateSpecies();
+              },
+            ),
+          ),
+          Visibility(
+            visible: pageType == 'Admin',
+            child: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                deleteMangroveData();
+                _gotoSearchList();
+                final snackBar = SnackBar(
+                  content: Text('Mangrove Delete!'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
           ),
         ],
       ),
@@ -393,7 +410,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AdminScreen()));
+                    MaterialPageRoute(builder: (context) => Login()));
               },
             ),
             _buildDrawerItem(

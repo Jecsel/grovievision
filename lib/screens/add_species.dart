@@ -142,7 +142,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   }
 
   _gotoSearchList() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE')));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: 'Admin')));
   }
 
   Future _getFromGallery(fromField) async {

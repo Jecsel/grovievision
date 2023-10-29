@@ -16,69 +16,29 @@ import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/view_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
-class SearchPage extends StatefulWidget {
+class ResultPage extends StatefulWidget {
+  List<Map> results;
   String searchKey;
-  String pageType;
 
-  SearchPage({required this.searchKey, required this.pageType});
+  ResultPage({required this.results, required this.searchKey});
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _ResultPageState createState() => _ResultPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _ResultPageState extends State<ResultPage> {
   String query = "";
   List<String> searchResults = [];
 
   late MangroveDatabaseHelper dbHelper;
-  List<dynamic> mangrooveData = [];
 
   @override
   void initState() {
     super.initState();
       print("======= initState ===========");
-      dbHelper = MangroveDatabaseHelper.instance;
-      fetchData();
   }
 
-  Future<void> fetchData() async {
-    String searchKey = widget.searchKey;
-    print("======= Result Start ===========");
-    List<MangrooveModel> result = await dbHelper.getMangroveDataList();
-    print(result.length);
-    print("======= Result End ===========");
-
-    List<FruitModel> fruits = await dbHelper.getFruitDataList();
-    List<LeafModel> leaves = await dbHelper.getLeafDataList();
-    List<RootModel> roots = await dbHelper.getRootDataList();
-    List<FlowerModel> flowers = await  dbHelper.getFlowerDataList();
-    
-    
-    setState(() {
-      switch (searchKey) {
-        case 'TREE':
-            mangrooveData = result;
-          break;
-        case 'ROOT':
-            mangrooveData = roots;
-          break;
-        case 'FRUIT':
-            mangrooveData = fruits;
-          break;
-        case 'LEAF':
-            mangrooveData = leaves;
-          break;
-        case 'FLOWER':
-            mangrooveData = flowers;
-          break;
-        default:
-          mangrooveData = result;
-      }
-    
-    });
-  }
-
-  Future<Widget> loadImageFromFile(String filePath) async {
+    Future<Widget> loadImageFromFile(String filePath) async {
     print('============ loadImageFromFile ===== ${filePath}');
     if (filePath.startsWith('assets/')) {
       // If the path starts with 'assets/', load from assets
@@ -92,74 +52,40 @@ class _SearchPageState extends State<SearchPage> {
       }
     }
 
-  // If no valid image is found, return a default placeholder
-  return Image.asset("assets/images/default_placeholder.png", width: 60, height: 60,); // You can replace this with your placeholder image
-}
-  void search(String keyword) {
-    // Create a new list to store the filtered data
-    List<MangrooveModel> filteredData = [];
-
-    // Iterate through the original data and add matching items to the filtered list
-    for (var item in mangrooveData) {
-      if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
-          item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
-        filteredData.add(item);
-      }
-    }
-
-    setState(() {
-      // Update the mangrooveData with the filtered data
-      mangrooveData = filteredData;
-    });
+    // If no valid image is found, return a default placeholder
+    return Image.asset("assets/images/default_placeholder.png", width: 60, height: 60,); // You can replace this with your placeholder image
   }
 
   @override
   Widget build(BuildContext context) {
-    String searchKey = widget.searchKey;
-    String pageType = widget.pageType;
+    var searchKey = widget.searchKey;
+    List<dynamic> mangrooveData = widget.results;
 
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.green,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Add your arrow icon here
+          icon: Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
-              if(pageType == 'Admin') {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminScreen()));
-              } else {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
-              }
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
             },
           ),
-          title: Text('Search Tree'), // Add your app title here
+          title: Text('Scan Results'), // Add your app title here
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              onChanged: (value) {
-                search(value);
-              },
-              decoration: InputDecoration(
-                labelText: "Search Tree",
-                prefixIcon: Icon(Icons.image_search_rounded),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
           Expanded(
             child: searchKey == 'TREE' 
             ? ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
                 final imageData = mangrooveData[index];
-                final mangroveId= mangrooveData[index].id;
+                final mangroveId= mangrooveData[index]['id'];
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, category: searchKey, pageType: pageType,)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, category: searchKey, pageType: 'User',)));
                       final imageData = mangrooveData[index];
                       final snackBar = SnackBar(
                         content: Text('Tapped on ${imageData}'),
@@ -167,10 +93,10 @@ class _SearchPageState extends State<SearchPage> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: ListTile(
-                  title: Text('Local Name: ${imageData.local_name}'),
-                  subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
+                  title: Text('Local Name: ${imageData['local_name']}'),
+                  subtitle: Text('Scientific Name: ${imageData['scientific_name']}' ),
                   leading: FutureBuilder<Widget>(
-                    future: loadImageFromFile(imageData.imagePath),
+                    future: loadImageFromFile(imageData['imagePath']),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return snapshot.data ?? CircularProgressIndicator();
@@ -187,20 +113,20 @@ class _SearchPageState extends State<SearchPage> {
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
                 final imageDt = mangrooveData[index];
-                final mangId= mangrooveData[index].mangroveId;
+                final mangId= mangrooveData[index]['mangroveId'];
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, category: searchKey, pageType: pageType)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, category: searchKey, pageType: 'User')));
                       final snackBar = SnackBar(
                         content: Text('Tapped on ${mangId}'),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: ListTile(  
-                  title: Text('Name: ${imageDt.name}'),
+                  title: Text('Name: ${imageDt['name']}'),
                   leading: FutureBuilder<Widget>(
-                    future: loadImageFromFile(imageDt.imagePath),
+                    future: loadImageFromFile(imageDt['imagePath']),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return snapshot.data ?? CircularProgressIndicator();

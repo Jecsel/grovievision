@@ -6,7 +6,9 @@ import 'package:grovievision/components/treeImageListState.dart';
 import 'package:grovievision/models/image_data.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/mangroove.dart';
+import 'package:grovievision/screens/result.dart';
 import 'package:grovievision/screens/search.dart';
+import 'package:grovievision/screens/view_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:grovievision/ui/login.dart';
 import 'package:image_picker/image_picker.dart';
@@ -65,6 +67,10 @@ class _HomeState extends State<Home> {
   {'name': 'FRUIT', 'image': 'assets/images/fruit.png'},
 ];
 
+  void _gotoResultPage(List<Map> results){
+    Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: 'User')));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -121,7 +127,7 @@ class _HomeState extends State<Home> {
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
               ),
-              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE',))),
+              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: 'User'))),
             ),
           ),
           SizedBox(height: 40),
@@ -149,7 +155,7 @@ class _HomeState extends State<Home> {
             items: carouselItems.map((item) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: item['name'])));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: item['name'], pageType: 'User')));
                 },
                 child: Container(
                 decoration: BoxDecoration(
@@ -250,15 +256,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-          ListView.builder(
-            itemCount: similarImages.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(similarImages[index]['imagePath']),
-              );
-            },
-          )
-        ],
+      ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -347,21 +345,21 @@ class _HomeState extends State<Home> {
 
       double similarityScore = await compareImages(src1: localImage, src2: checkImagePath(imagePath), algorithm: PerceptualHash());
 
-      if (similarityScore >= 0.5) {
+      if (similarityScore <= 0.5) {
         print("Gallery image is similar to $similarityScore.");
-        similarImages.add(mangroveImage);
-      }{
+        // mangroveImage['percentage'] =  similarityScore;
+        similarImages.add(mangroveImage); //adding those results higher 50 percentage differences;
+      }else{
         print("Gallery image is BELOW similar to $similarityScore.");
       }
     }
 
+    setState(() {
+      localImage = File(pickedFileFromGallery.path);
+      similarImages = similarImages;
 
-    if (pickedFileFromGallery != null) {
-      setState(() {
-        localImage = File(pickedFileFromGallery.path);
-        similarImages = similarImages;
-      });
-    }
+      Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
+    });
   }
 
   Future<File> getImageFileFromAsset(String assetPath) async {

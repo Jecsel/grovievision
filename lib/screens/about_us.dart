@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/mangroove.dart';
+import 'package:grovievision/ui/login.dart';
 
 class AboutUs extends StatefulWidget {
   @override
@@ -166,7 +167,7 @@ class AboutUsState extends State<AboutUs> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AdminScreen()));
+                    MaterialPageRoute(builder: (context) => Login()));
               },
             ),
             _buildDrawerItem(

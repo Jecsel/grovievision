@@ -572,7 +572,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
 
   Future<List<Map>> getImagesFromMangrove() async {
     final db = await database;
-    List<Map> mangroveImages = await db.rawQuery('SELECT imageBlob, imagePath FROM mangrove');
+    List<Map> mangroveImages = await db.rawQuery('SELECT id, imageBlob, imagePath, local_name, scientific_name FROM mangrove');
 
     return mangroveImages;
   }
