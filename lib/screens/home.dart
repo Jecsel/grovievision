@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
   File? takenImage;
   List<Map>? mangroveImages;
   late MangroveDatabaseHelper dbHelper;
-  List<Map> similarImages = [];
+  List<Map<String, dynamic>> similarImages = [];
 
   double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
@@ -347,15 +347,21 @@ class _HomeState extends State<Home> {
 
       if (similarityScore <= 0.5) {
         print("Gallery image is similar to $similarityScore.");
-        // mangroveImage['percentage'] =  similarityScore;
-        similarImages.add(mangroveImage); //adding those results higher 50 percentage differences;
+
+        similarityScore = 100 - (similarityScore * 100);
+        Map<String, dynamic> imageInfo = {
+          "score": similarityScore,
+          "image": mangroveImage, // Add the image or any other relevant information here
+        };
+        similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
+        similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
       }else{
         print("Gallery image is BELOW similar to $similarityScore.");
       }
     }
 
     setState(() {
-      localImage = File(pickedFileFromGallery.path);
+      localImage = File(pickedFileFromGallery.path);  
       similarImages = similarImages;
 
       Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
@@ -398,8 +404,13 @@ class _HomeState extends State<Home> {
 
       if (similarityScore <= 0.5) {
         print("Gallery image is similar to $similarityScore.");
-        // mangroveImage['percentage'] =  similarityScore;
-        similarImages.add(mangroveImage); //adding those results higher 50 percentage differences;
+        similarityScore = 100 - (similarityScore * 100);
+        Map<String, dynamic> imageInfo = {
+          "score": similarityScore,
+          "image": mangroveImage, // Add the image or any other relevant information here
+        };
+        similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
+        similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
       }else{
         print("Gallery image is BELOW similar to $similarityScore.");
       }
@@ -409,6 +420,7 @@ class _HomeState extends State<Home> {
       setState(() {
         takenImage = File(pickedFile.path);
         // Compare the images here and show the result
+        Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
       });
     }
   }

@@ -17,7 +17,7 @@ import 'package:grovievision/screens/view_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class ResultPage extends StatefulWidget {
-  List<Map> results;
+  List<Map<String, dynamic>> results;
   String searchKey;
 
   ResultPage({required this.results, required this.searchKey});
@@ -80,8 +80,9 @@ class _ResultPageState extends State<ResultPage> {
             ? ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
-                final imageData = mangrooveData[index];
-                final mangroveId= mangrooveData[index]['id'];
+                final imageData = mangrooveData[index]['image'];
+                final mangroveId= mangrooveData[index]['image']['id'];
+                print('====== Similarity Score: ${mangrooveData[index]['score']}');
 
                 return GestureDetector(
                   onTap: () {
@@ -94,7 +95,7 @@ class _ResultPageState extends State<ResultPage> {
                   },
                   child: ListTile(
                   title: Text('Local Name: ${imageData['local_name']}'),
-                  subtitle: Text('Scientific Name: ${imageData['scientific_name']}' ),
+                  subtitle: Text('Score: ${mangrooveData[index]['score']}%' ),
                   leading: FutureBuilder<Widget>(
                     future: loadImageFromFile(imageData['imagePath']),
                     builder: (context, snapshot) {
@@ -112,8 +113,8 @@ class _ResultPageState extends State<ResultPage> {
             : ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
-                final imageDt = mangrooveData[index];
-                final mangId= mangrooveData[index]['mangroveId'];
+                final imageDt = mangrooveData[index]['image'];
+                final mangId= mangrooveData[index]['image']['mangroveId'];
 
                 return GestureDetector(
                   onTap: () {
