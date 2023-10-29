@@ -387,6 +387,24 @@ class _HomeState extends State<Home> {
     print('pickFile');
     print(pickedFile);
 
+    for (Map mangroveImage in mangroveImages!) {
+      String imagePath = mangroveImage['imagePath'];
+
+      print('mANGROVE IMAGES');
+      print(imagePath);
+
+
+      double similarityScore = await compareImages(src1: File(pickedFile!.path), src2: checkImagePath(imagePath), algorithm: PerceptualHash());
+
+      if (similarityScore <= 0.5) {
+        print("Gallery image is similar to $similarityScore.");
+        // mangroveImage['percentage'] =  similarityScore;
+        similarImages.add(mangroveImage); //adding those results higher 50 percentage differences;
+      }else{
+        print("Gallery image is BELOW similar to $similarityScore.");
+      }
+    }
+
     if (pickedFile != null) {
       setState(() {
         takenImage = File(pickedFile.path);
