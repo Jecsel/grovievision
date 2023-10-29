@@ -126,6 +126,7 @@ class _ResultPageState extends State<ResultPage> {
                   },
                   child: ListTile(  
                   title: Text('Name: ${imageDt['name']}'),
+                  subtitle: Text('Score: ${mangrooveData[index]['score']}%' ),
                   leading: FutureBuilder<Widget>(
                     future: loadImageFromFile(imageDt['imagePath']),
                     builder: (context, snapshot) {
