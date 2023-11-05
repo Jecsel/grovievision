@@ -35,7 +35,7 @@ class _SignupState extends State<Signup> {
     // if(!isUserRegistered.isNaN) {
     //   Navigator.pop(context);
     // }
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {

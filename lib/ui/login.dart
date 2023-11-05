@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
   final Box _boxLogin = Hive.box("login");
   final Box _boxAccounts = Hive.box("accounts");
 
-    Future<void> _login() async {
+  Future<void> _login() async {
     isLogin = await dbHelper.loginUser(_controllerUsername.text, _controllerPassword.text);
 
     if (isLogin) {

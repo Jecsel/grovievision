@@ -325,104 +325,133 @@ class _HomeState extends State<Home> {
     print('Difference: ${perceptualResult}%');
   }
 
-  Future getFromGallery() async {
-    final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    print('pickFile');
-    print(pickedFileFromGallery?.path);
+    Future getFromGallery() async {
+      final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
+        source: ImageSource.gallery,
+        maxWidth: 1800,
+        maxHeight: 1800,
+      );
+      print('pickFile');
+      print(pickedFileFromGallery?.path);
 
-    localImage = File(pickedFileFromGallery!.path);
+      localImage = File(pickedFileFromGallery!.path);
 
-    for (Map mangroveImage in mangroveImages!) {
-      String imagePath = mangroveImage['imagePath'];
+      for (Map mangroveImage in mangroveImages!) {
+        String imagePath = mangroveImage['imagePath'];
 
-      print('mANGROVE IMAGES');
-      print(imagePath);
+        print('mANGROVE IMAGES');
+        print(imagePath);
 
+        final tempDir = await getTemporaryDirectory();
+        final tempPath = tempDir.path;
+        final file = File('$tempPath/temp_image.jpg');
+        await file.writeAsBytes(mangroveImage['imageBlob']);
 
-      double similarityScore = await compareImages(src1: localImage, src2: checkImagePath(imagePath), algorithm: PerceptualHash());
+        double similarityScore = await compareImages(src1: localImage, src2: imagePath, algorithm: PerceptualHash());
 
-      if (similarityScore <= 0.5) {
-        print("Gallery image is similar to $similarityScore.");
+        if (imagePath.startsWith('assets/')) {
+          similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        }
 
-        similarityScore = 100 - (similarityScore * 100);
-        Map<String, dynamic> imageInfo = {
-          "score": similarityScore,
-          "image": mangroveImage, // Add the image or any other relevant information here
-        };
-        similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
-        similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
-      }else{
-        print("Gallery image is BELOW similar to $similarityScore.");
+        if (similarityScore <= 0.5) {
+          print("Gallery image is similar to $similarityScore.");
+
+          similarityScore = 100 - (similarityScore * 100);
+          Map<String, dynamic> imageInfo = {
+            "score": similarityScore,
+            "image": mangroveImage, // Add the image or any other relevant information here
+          };
+          similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
+          similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
+        }else{
+          print("Gallery image is BELOW similar to $similarityScore.");
+        }
       }
-    }
 
-    setState(() {
-      localImage = File(pickedFileFromGallery.path);  
-      similarImages = similarImages;
-
-      Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
-    });
-  }
-
-  Future<File> getImageFileFromAsset(String assetPath) async {
-    final ByteData data = await rootBundle.load(assetPath);
-    final List<int> bytes = data.buffer.asUint8List();
-    final String tempFileName = assetPath.split('/').last;
-
-    final Directory tempDir = await getTemporaryDirectory();
-    final File tempFile = File('${tempDir.path}/$tempFileName');
-    
-    await tempFile.writeAsBytes(bytes, flush: true);
-    return tempFile;
-  }
-
-  checkImagePath(filePath) {
-    if (!filePath.startsWith('assets/')) {
-      return File(filePath);
-    }
-
-    return filePath;
-  }
-
-  Future getImageFromCamera() async {    /// Get Image from Camera
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    print('pickFile');
-    print(pickedFile);
-
-    for (Map mangroveImage in mangroveImages!) {
-      String imagePath = mangroveImage['imagePath'];
-
-      print('mANGROVE IMAGES');
-      print(imagePath);
-
-
-      double similarityScore = await compareImages(src1: File(pickedFile!.path), src2: checkImagePath(imagePath), algorithm: PerceptualHash());
-
-      if (similarityScore <= 0.5) {
-        print("Gallery image is similar to $similarityScore.");
-        similarityScore = 100 - (similarityScore * 100);
-        Map<String, dynamic> imageInfo = {
-          "score": similarityScore,
-          "image": mangroveImage, // Add the image or any other relevant information here
-        };
-        similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
-        similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
-      }else{
-        print("Gallery image is BELOW similar to $similarityScore.");
-      }
-    }
-
-    if (pickedFile != null) {
       setState(() {
-        takenImage = File(pickedFile.path);
-        // Compare the images here and show the result
-        Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
+        localImage = File(pickedFileFromGallery.path);  
+        similarImages = similarImages;
+
+        if(similarImages.length > 0) {
+          Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
+        } else {
+          final snackBar = SnackBar(
+            content: Text('No Results Found!'),
+          );
+          ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+        }
       });
     }
+
+    Future<File> getImageFileFromAsset(String assetPath) async {
+      final ByteData data = await rootBundle.load(assetPath);
+      final List<int> bytes = data.buffer.asUint8List();
+      final String tempFileName = assetPath.split('/').last;
+
+      final Directory tempDir = await getTemporaryDirectory();
+      final File tempFile = File('${tempDir.path}/$tempFileName');
+      
+      await tempFile.writeAsBytes(bytes, flush: true);
+      return tempFile;
+    }
+
+    checkImagePath(filePath) {
+      if (!filePath.startsWith('assets/')) {
+        return File(filePath);
+      }
+
+      return filePath;
+    }
+
+    Future getImageFromCamera() async {    /// Get Image from Camera
+      final pickedFile = await picker.getImage(source: ImageSource.camera);
+      print('pickFile');
+      print(pickedFile);
+
+      for (Map mangroveImage in mangroveImages!) {
+        String imagePath = mangroveImage['imagePath'];
+
+        print('mANGROVE IMAGES');
+        print(imagePath);
+
+        double similarityScore = await compareImages(src1: File(pickedFile!.path), src2: imagePath, algorithm: PerceptualHash());
+
+        final tempDir = await getTemporaryDirectory();
+        final tempPath = tempDir.path;
+        final file = File('$tempPath/temp_image.jpg');
+        await file.writeAsBytes(mangroveImage['imageBlob']);
+
+        if (imagePath.startsWith('assets/')) {
+          similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        }
+
+        if (similarityScore <= 0.5) {
+          print("Gallery image is similar to $similarityScore.");
+          similarityScore = 100 - (similarityScore * 100);
+          Map<String, dynamic> imageInfo = {
+            "score": similarityScore,
+            "image": mangroveImage, // Add the image or any other relevant information here
+          };
+          similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
+          similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
+        }else{
+          print("Gallery image is BELOW similar to $similarityScore.");
+        }
+      }
+
+      if (pickedFile != null) {
+        setState(() {
+          takenImage = File(pickedFile.path);// Compare the images here and show the result
+          if(similarImages.length > 0) {
+            Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'FLOWER')));
+          } else {
+            final snackBar = SnackBar(
+              content: Text('No Results Found!'),
+            );
+            ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+          }
+        });
+      }
+    }
   }
-}
 

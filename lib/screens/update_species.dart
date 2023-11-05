@@ -93,18 +93,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
     FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
-
-    // print('============mangroveImg============');
-
-    // var mangroveImg = await uint8ListToFile(mangroveResultData!.imageBlob, 'mangroove.png');
-    // var fruitImg = await uint8ListToFile(fruitResultData!.imageBlob, 'fruit');
-    // var leafImg = await uint8ListToFile(leafResultData!.imageBlob, 'leaf');
-    // var flowerImg = await uint8ListToFile(flowerResultData!.imageBlob, 'flowwer');
-    // var rootImg = await uint8ListToFile(rootResultData!.imageBlob, 'root');
-
-    // print('============mangroveImg============');
-    // print(mangroveImg);
-
     setState(() {
       mangroveData = mangroveResultData;
       rootData = rootResultData;
@@ -113,15 +101,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       fruitData = fruitResultData;
 
       mangroveImg = mangroveResultData!.imageBlob;
-
-      print('============mangroveResultData============');
-      print(mangroveResultData?.imageBlob);
-
-      // mangroveImage = mangroveImg;
-      // fruitImage = fruitImg;
-      // leafImage = leafImg;
-      // flowerImage = flowerImg;
-      // rootImage = rootImg;
 
       localNameController.text = mangroveResultData!.local_name;
       scientificNameController.text = mangroveResultData!.scientific_name;

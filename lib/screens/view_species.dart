@@ -410,7 +410,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Login()));
+                MaterialPageRoute(builder: (context) => Login()));
               },
             ),
             _buildDrawerItem(
@@ -418,7 +418,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => AboutUs()));
+                MaterialPageRoute(builder: (context) => AboutUs()));
               },
             ),
             _buildDrawerItem(
