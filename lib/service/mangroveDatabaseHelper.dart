@@ -576,4 +576,32 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
 
     return mangroveImages;
   }
+
+  Future<List<Map>> getImagesFromFlower() async {
+    final db = await database;
+    List<Map> flowerImages = await db.rawQuery('SELECT id, mangroveId, imageBlob, imagePath, name FROM flower');
+
+    return flowerImages;
+  }
+
+  Future<List<Map>> getImagesFromFruit() async {
+    final db = await database;
+    List<Map> fruitImages = await db.rawQuery('SELECT id, mangroveId, imageBlob, imagePath, name FROM fruit');
+
+    return fruitImages;
+  }
+
+  Future<List<Map>> getImagesFromLeaf() async {
+    final db = await database;
+    List<Map> leafImages = await db.rawQuery('SELECT id, mangroveId, imageBlob, imagePath, name FROM leaf');
+
+    return leafImages;
+  }
+
+  Future<List<Map>> getImagesFromRoot() async {
+    final db = await database;
+    List<Map> rootImages = await db.rawQuery('SELECT id, mangroveId, imageBlob, imagePath, name FROM root');
+
+    return rootImages;
+  }
 }

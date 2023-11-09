@@ -19,10 +19,11 @@ import 'package:grovievision/ui/login.dart';
 
 class ViewSpecies extends StatefulWidget {
   final int mangroveId; // Mangrove Id
-  final String category; // What category of mangrove, if TREE, ROOT, ETC.
+  final String treePart; // What treePart of mangrove, if TREE, ROOT, ETC.
   final String pageType; //What type of User
+  bool? isFromResult;
 
-  ViewSpecies({required this.mangroveId, required this.category, required this.pageType}); // Constructor that accepts data
+  ViewSpecies({required this.mangroveId, required this.treePart, required this.pageType, this.isFromResult}); // Constructor that accepts data
 
   @override
   State<StatefulWidget> createState() => _ViewSpeciesState();
@@ -81,7 +82,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   _gotoSearchList() {
     String pageType = widget.pageType;
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType ?? 'User')));
   }
 
   _gotoUpdateSpecies() {
@@ -138,7 +139,8 @@ class _ViewSpeciesState extends State<ViewSpecies> {
   @override
   Widget build(BuildContext context) {
     var pageType = widget.pageType;
-    var searchKey = widget.category;
+    var searchKey = widget.treePart;
+    bool? isFromResult = widget.isFromResult;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mangroove Info'),
@@ -146,7 +148,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchPage(pageType: pageType, searchKey: searchKey,)));
+              if(isFromResult!) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+              } else {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SearchPage(pageType: pageType, searchKey: searchKey,)));
+              }
             },
           ),
         actions: <Widget>[
@@ -222,18 +228,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         mangroveData?.description ?? 'No Description')),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "Summary: ",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                    Expanded(
-                      child: Text(
-                        mangroveData?.description ?? '--------------')),
-                  ],
-                ),
 
                 SizedBox(height: 30),
                 Visibility(
@@ -264,11 +258,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           }
                         },
                       ),
-                      // Image.memory(
-                      //   leafData?.imageBlob ?? Uint8List(0),
-                      //   width: 80,
-                      //   height: 80,
-                      // ),
                     ],
                   ),
                 ),
@@ -302,11 +291,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           }
                         },
                       ), 
-                      // Image.memory(
-                      //   fruitData?.imageBlob ?? Uint8List(0),
-                      //   width: 80,
-                      //   height: 80,
-                      // ),
                     ],
                   ),
                 ),
@@ -340,11 +324,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           }
                         },
                       ),
-                      // Image.memory(
-                      //   flowerData?.imageBlob ?? Uint8List(0),
-                      //   width: 80,
-                      //   height: 80,
-                      // ),
                     ],
                   ),
 
@@ -379,13 +358,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           }
                         },
                       ),
-                      // Image.memory(
-                      //   rootData?.imageBlob ?? Uint8List(0),
-                      //   width: 80,
-                      //   height: 80,
-                      // ),
                     ],
                   ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _gotoSearchList();
+                  },
+                  child: Text("Summary"),
                 ),
                 
               ],

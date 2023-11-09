@@ -18,9 +18,9 @@ import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 
 class ResultPage extends StatefulWidget {
   List<Map<String, dynamic>> results;
-  String searchKey;
+  String treePart;
 
-  ResultPage({required this.results, required this.searchKey});
+  ResultPage({required this.results, required this.treePart});
 
   @override
   _ResultPageState createState() => _ResultPageState();
@@ -58,10 +58,11 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
-    var searchKey = widget.searchKey;
+    var treePart = widget.treePart;
     List<dynamic> mangrooveData = widget.results;
 
-    return MaterialApp(
+    return mangrooveData.length > 0
+      ? MaterialApp(
       home: Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.green,
@@ -76,7 +77,7 @@ class _ResultPageState extends State<ResultPage> {
       body: Column(
         children: [
           Expanded(
-            child: searchKey == 'TREE' 
+            child: treePart == 'tree' 
             ? ListView.builder(
               itemCount: mangrooveData.length,
               itemBuilder: (context, index) {
@@ -86,7 +87,7 @@ class _ResultPageState extends State<ResultPage> {
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, category: searchKey, pageType: 'User',)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, treePart: treePart, pageType: 'User', isFromResult: true)));
                       final imageData = mangrooveData[index];
                       final snackBar = SnackBar(
                         content: Text('Tapped on ${imageData}'),
@@ -118,11 +119,11 @@ class _ResultPageState extends State<ResultPage> {
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, category: searchKey, pageType: 'User')));
-                      final snackBar = SnackBar(
-                        content: Text('Tapped on ${mangId}'),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, treePart: treePart, pageType: 'User', isFromResult: true)));
+                      // final snackBar = SnackBar(
+                      //   content: Text('Tapped on ${mangId}'),
+                      // );
+                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: ListTile(  
                   title: Text('Name: ${imageDt['name']}'),
@@ -144,6 +145,7 @@ class _ResultPageState extends State<ResultPage> {
           )
         ],
       ),
-    ));
+    ))
+    : Text("No Results Found");
   }
 }

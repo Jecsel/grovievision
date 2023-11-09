@@ -7,7 +7,7 @@ class MangrooveModel {
   final String local_name;  
   final String scientific_name;
   final String description;
-  final String summary;
+  String? summary;
 
   MangrooveModel({
     this.id,
@@ -16,7 +16,7 @@ class MangrooveModel {
     required this.local_name,
     required this.scientific_name,
     required this.description,
-    required this.summary
+    this.summary
   });
 
   Map<String, dynamic> toMap() {

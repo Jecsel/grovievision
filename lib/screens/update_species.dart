@@ -56,7 +56,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController summaryController = TextEditingController();
   //For Root
   TextEditingController rootNameInput = TextEditingController();
   TextEditingController rootDescInput = TextEditingController();
@@ -105,7 +104,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       localNameController.text = mangroveResultData!.local_name;
       scientificNameController.text = mangroveResultData!.scientific_name;
       descriptionController.text = mangroveResultData!.description;
-      summaryController.text = mangroveResultData!.summary;
 
       rootNameInput.text = rootResultData!.name;
       rootDescInput.text = rootResultData!.description;
@@ -152,8 +150,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       imageBlob: mangroveImageBytes, 
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
-      description: descriptionController.text,
-      summary: summaryController.text
+      description: descriptionController.text
     );
 
     final insertedMangrove = await dbHelper.insertDBMangroveData(newMangroove);
@@ -211,8 +208,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       imagePath: mangroveImagePath,
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
-      description: descriptionController.text,
-      summary: summaryController.text
+      description: descriptionController.text
     );
 
     final insertedMangrove = await dbHelper?.updateMangroveData(newMangroove);
@@ -372,22 +368,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         }
                       },
                     ),
-                    // mangroveImage != null
-                    //   ? Image.file(
-                    //     mangroveImage!,
-                    //     height: 150,
-                    //   )
-                    //   : mangroveData?.imageBlob != null
-                    //   ? Image.memory(
-                    //     mangroveData?.imageBlob ?? Uint8List(0),
-                    //     width: 150,
-                    //     height: 150,
-                    //   )
-                    //   : Image.asset(
-                    //     'assets/images/default_placeholder.png',
-                    //     height: 150,
-                    //     width: 150,
-                    // ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -434,15 +414,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: summaryController,
-                        decoration: InputDecoration(labelText: 'Summary'),
-                        maxLines: 4, // You can adjust the number of lines
-                      ),
-                    ),
                     
                     SizedBox(height: 30),
                     Text(
@@ -463,16 +434,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         }
                       },
                     ),
-                    // rootImage != null
-                    //     ? Image.file(
-                    //         rootImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -531,16 +492,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         }
                       },
                     ),
-                    // flowerImage != null
-                    //     ? Image.file(
-                    //         flowerImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -599,16 +550,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         }
                       },
                     ),
-                    // leafImage != null
-                    //     ? Image.file(
-                    //         leafImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -667,16 +608,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         }
                       },
                     ),
-                    // fruitImage != null
-                    //     ? Image.file(
-                    //         fruitImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
                     SizedBox(height: 10),
                     Container(
                       width: double.infinity,

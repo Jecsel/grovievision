@@ -38,7 +38,6 @@ class _AddSpeciesState extends State<AddSpecies> {
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController summaryController = TextEditingController();
   //For Root
   TextEditingController rootNameInput = TextEditingController();
   TextEditingController rootDescInput = TextEditingController();
@@ -100,8 +99,7 @@ class _AddSpeciesState extends State<AddSpecies> {
         imagePath: mangroveImagePath,
         local_name: localNameController.text,
         scientific_name: scientificNameController.text,
-        description: descriptionController.text,
-        summary: summaryController.text
+        description: descriptionController.text
       );
       
       final insertedMangrove = await dbHelper?.insertDBMangroveData(newMangroove);
@@ -282,15 +280,6 @@ class _AddSpeciesState extends State<AddSpecies> {
                         controller: descriptionController,
                         decoration: InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: summaryController,
-                        decoration: InputDecoration(labelText: 'Summary'),
-                        maxLines: 4, // You can adjust the number of lines
                       ),
                     ),
                     
@@ -548,13 +537,6 @@ class _AddSpeciesState extends State<AddSpecies> {
                         ),
                       ),
                     ),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     _insertMangrooveData();
-                    //     _gotoSearchList();
-                    //   },
-                    //   child: Text("Upload Mangroove"),
-                    // ),
                   ],
                 ),
               ),

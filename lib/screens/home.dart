@@ -53,8 +53,13 @@ class _HomeState extends State<Home> {
   File? localImage;
   File? takenImage;
   List<Map>? mangroveImages;
+  List<Map>? fruitImages;
+  List<Map>? rootImages;
+  List<Map>? leafImages;
+  List<Map>? flowerImages;
   late MangroveDatabaseHelper dbHelper;
   List<Map<String, dynamic>> similarImages = [];
+  bool isErrorShow = false;
 
   double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
@@ -81,6 +86,10 @@ class _HomeState extends State<Home> {
 
   Future<void> fetchData() async {
     mangroveImages = await dbHelper.getImagesFromMangrove();
+    fruitImages = await dbHelper.getImagesFromFruit();
+    rootImages = await dbHelper.getImagesFromRoot();
+    leafImages = await dbHelper.getImagesFromLeaf();
+    flowerImages = await dbHelper.getImagesFromFlower();
   }
 
   void _onItemTapped(int index) {
@@ -111,7 +120,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return WillPopScope( 
+        onWillPop: () async {
+        return _onBackPressed(context);
+        },
+        child: MaterialApp(
       home: Scaffold(
       appBar: AppBar(
         title: const Text('Grovievision'),
@@ -206,7 +219,8 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: ElevatedButton(
                           onPressed: () {
-                            getImageFromCamera();
+                            // getImageFromCamera();
+                            _showModal('getImageFromCamera');
                           },
                            style: ElevatedButton.styleFrom(
                             textStyle: TextStyle(fontSize: 20),
@@ -233,7 +247,8 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                         child: ElevatedButton(
                           onPressed: () {
-                            getFromGallery();
+                            _showModal('getFromGallery');
+                            // getFromGallery();
                           },
                           style: ElevatedButton.styleFrom(
                             textStyle: TextStyle(fontSize: 20),
@@ -300,6 +315,98 @@ class _HomeState extends State<Home> {
         '/mangrooves': (context) => Mangroove(),
         '/about_us': (context) => Mangroove(),
       },
+    )
+  
+  );
+}
+
+  Future<bool> _onBackPressed(BuildContext context) async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Exit the app?'),
+          content: Text('Are you sure you want to exit the app?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false; // Return false if the dialog is dismissed
+  }
+
+  Future<dynamic> setTableToCompare(String scanType, String treePart) async {
+    if(scanType == 'getImageFromCamera'){
+      getImageFromCamera(treePart);
+    } else {
+      getFromGallery(treePart);
+    }
+  }
+
+  _showModal(String scanType) {
+    BuildContext context = this.context;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        content: Container(
+          height: 250,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Select which part',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              ElevatedButton(
+                onPressed: () { setTableToCompare(scanType, 'tree'); },
+                child: Text('Tree'),
+              ),
+              SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: () { setTableToCompare(scanType, 'flower'); },
+                child: Text('Flower'),
+              ),
+              SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: () { setTableToCompare(scanType, 'leaf'); },
+                child: Text('Leaf'),
+              ),
+              SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: () { setTableToCompare(scanType, 'root'); },
+                child: Text('Root'),
+              ),
+              Visibility(
+                  visible: isErrorShow,
+                  child: Text(
+                    "No Results Found!",
+                    style: TextStyle(color: Colors.red),
+                  ))
+            ],
+          ),
+        ),
+        actions: <TextButton>[
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Close'),
+          )
+        ],
+      ),
     );
   }
 
@@ -325,7 +432,7 @@ class _HomeState extends State<Home> {
     print('Difference: ${perceptualResult}%');
   }
 
-    Future getFromGallery() async {
+    Future getFromGallery(String treePart) async {
       final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
         source: ImageSource.gallery,
         maxWidth: 1800,
@@ -333,6 +440,23 @@ class _HomeState extends State<Home> {
       );
       print('pickFile');
       print(pickedFileFromGallery?.path);
+
+      switch (treePart) {
+        case 'flower':
+          mangroveImages = flowerImages;
+          break;
+        case 'fruit':
+          mangroveImages = fruitImages;
+          break;
+        case 'root':
+          mangroveImages = rootImages;
+          break;
+        case 'leaf':
+          mangroveImages = leafImages;
+          break;
+        default:
+          mangroveImages = mangroveImages;
+      }
 
       localImage = File(pickedFileFromGallery!.path);
 
@@ -345,16 +469,28 @@ class _HomeState extends State<Home> {
         final tempDir = await getTemporaryDirectory();
         final tempPath = tempDir.path;
         final file = File('$tempPath/temp_image.jpg');
-        await file.writeAsBytes(mangroveImage['imageBlob']);
 
-        double similarityScore = await compareImages(src1: localImage, src2: imagePath, algorithm: PerceptualHash());
+        print('mangroveImage[imageBlob]');
+        print(mangroveImage['imageBlob']);
+        if(mangroveImage['imageBlob'] != null) {
+          await file.writeAsBytes(mangroveImage['imageBlob']);
+        }
+
+        // double similarityScore = await compareImages(src1: localImage, src2: imagePath, algorithm: PerceptualHash());
+
+        // if (imagePath.startsWith('assets/')) {
+        //   similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        // }
+
+        double similarityScore = 1.0;
 
         if (imagePath.startsWith('assets/')) {
           similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        } else {
+          similarityScore = await compareImages(src1: localImage, src2: File(imagePath), algorithm: PerceptualHash());
         }
 
         if (similarityScore <= 0.5) {
-          print("Gallery image is similar to $similarityScore.");
 
           similarityScore = 100 - (similarityScore * 100);
           Map<String, dynamic> imageInfo = {
@@ -362,9 +498,12 @@ class _HomeState extends State<Home> {
             "image": mangroveImage, // Add the image or any other relevant information here
           };
           similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
+
+          print("======= $similarityScore% =============");
           similarImages.sort((a, b) => b["score"].compareTo(a["score"]));
         }else{
-          print("Gallery image is BELOW similar to $similarityScore.");
+          similarityScore = 100 - (similarityScore * 100);
+          print("======= $similarityScore% =============");
         }
       }
 
@@ -373,7 +512,7 @@ class _HomeState extends State<Home> {
         similarImages = similarImages;
 
         if(similarImages.length > 0) {
-          Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'TREE')));
+          Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
         } else {
           final snackBar = SnackBar(
             content: Text('No Results Found!'),
@@ -403,10 +542,27 @@ class _HomeState extends State<Home> {
       return filePath;
     }
 
-    Future getImageFromCamera() async {    /// Get Image from Camera
+    Future getImageFromCamera(String treePart) async {    /// Get Image from Camera
       final pickedFile = await picker.getImage(source: ImageSource.camera);
       print('pickFile');
       print(pickedFile);
+
+      switch (treePart) {
+        case 'flower':
+          mangroveImages = flowerImages;
+          break;
+        case 'fruit':
+          mangroveImages = fruitImages;
+          break;
+        case 'root':
+          mangroveImages = rootImages;
+          break;
+        case 'leaf':
+          mangroveImages = leafImages;
+          break;
+        default:
+          mangroveImages = mangroveImages;
+      }
 
       for (Map mangroveImage in mangroveImages!) {
         String imagePath = mangroveImage['imagePath'];
@@ -414,15 +570,24 @@ class _HomeState extends State<Home> {
         print('mANGROVE IMAGES');
         print(imagePath);
 
-        double similarityScore = await compareImages(src1: File(pickedFile!.path), src2: imagePath, algorithm: PerceptualHash());
+        // double similarityScore = await compareImages(src1: File(pickedFile!.path), src2: imagePath, algorithm: PerceptualHash());
 
         final tempDir = await getTemporaryDirectory();
         final tempPath = tempDir.path;
         final file = File('$tempPath/temp_image.jpg');
-        await file.writeAsBytes(mangroveImage['imageBlob']);
+        if(mangroveImage['imageBlob'] != null) {
+          await file.writeAsBytes(mangroveImage['imageBlob']);
+        }
+
+        // if (imagePath.startsWith('assets/')) {
+        //   similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        // }
+        double similarityScore = 1.0;
 
         if (imagePath.startsWith('assets/')) {
           similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+        } else {
+          similarityScore = await compareImages(src1: File(pickedFile!.path), src2: File(imagePath), algorithm: PerceptualHash());
         }
 
         if (similarityScore <= 0.5) {
@@ -443,7 +608,7 @@ class _HomeState extends State<Home> {
         setState(() {
           takenImage = File(pickedFile.path);// Compare the images here and show the result
           if(similarImages.length > 0) {
-            Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, searchKey: 'FLOWER')));
+            Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
           } else {
             final snackBar = SnackBar(
               content: Text('No Results Found!'),

@@ -26,7 +26,7 @@ class _AdminListState extends State<AdminList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _navigateToHome();
+    // _navigateToHome();
   }
 
   _navigateToHome() async {}
