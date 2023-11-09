@@ -60,6 +60,7 @@ class _HomeState extends State<Home> {
   late MangroveDatabaseHelper dbHelper;
   List<Map<String, dynamic>> similarImages = [];
   bool isErrorShow = false;
+  bool isLoading = false;
 
   double perceptualResult = 0.0;
   final CarouselController _carouselController = CarouselController();
@@ -268,6 +269,17 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Visibility(
+                      visible: isLoading,
+                      child: CircularProgressIndicator()),
+                    SizedBox(height: 20),
+                    Visibility(
+                      visible: !isLoading && isErrorShow,
+                      child: Text(
+                        "No Results Found!",
+                        style: TextStyle(color: Colors.red),
+                    ))
                   ],
                 ),
               ),
@@ -371,30 +383,42 @@ class _HomeState extends State<Home> {
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
               ElevatedButton(
-                onPressed: () { setTableToCompare(scanType, 'tree'); },
+                onPressed: () { 
+                  setTableToCompare(scanType, 'tree'); 
+                  Navigator.pop(context);
+                },
                 child: Text('Tree'),
               ),
               SizedBox(height: 5),
               ElevatedButton(
-                onPressed: () { setTableToCompare(scanType, 'flower'); },
+                onPressed: () { 
+                  setTableToCompare(scanType, 'flower'); 
+                  Navigator.pop(context);
+                },
                 child: Text('Flower'),
               ),
               SizedBox(height: 5),
               ElevatedButton(
-                onPressed: () { setTableToCompare(scanType, 'leaf'); },
+                onPressed: () { 
+                  setTableToCompare(scanType, 'leaf'); 
+                  Navigator.pop(context);
+                },
                 child: Text('Leaf'),
               ),
               SizedBox(height: 5),
               ElevatedButton(
-                onPressed: () { setTableToCompare(scanType, 'root'); },
+                onPressed: () { 
+                  setTableToCompare(scanType, 'root'); 
+                  Navigator.pop(context);
+                },
                 child: Text('Root'),
               ),
-              Visibility(
-                  visible: isErrorShow,
-                  child: Text(
-                    "No Results Found!",
-                    style: TextStyle(color: Colors.red),
-                  ))
+              // Visibility(
+              //   visible: isErrorShow,
+              //   child: Text(
+              //     "No Results Found!",
+              //     style: TextStyle(color: Colors.red),
+              //   ))
             ],
           ),
         ),
@@ -421,19 +445,11 @@ class _HomeState extends State<Home> {
       onTap: onTap,
     );
   }
-  
-  Future compareTwoImages() async {  /// Compare two images
-    final perceptual = await compareImages(
-        src1: localImage, src2: takenImage, algorithm: PerceptualHash());
 
-    setState(() {
-      perceptualResult = 100 - (perceptual * 100);
-    });
-    print('Difference: ${perceptualResult}%');
-  }
 
-    Future getFromGallery(String treePart) async {
-      final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
+  Future getFromGallery(String treePart) async {
+    isLoading = true;
+    final pickedFileFromGallery = await ImagePicker().getImage(     /// Get from gallery
         source: ImageSource.gallery,
         maxWidth: 1800,
         maxHeight: 1800,
@@ -475,13 +491,6 @@ class _HomeState extends State<Home> {
         if(mangroveImage['imageBlob'] != null) {
           await file.writeAsBytes(mangroveImage['imageBlob']);
         }
-
-        // double similarityScore = await compareImages(src1: localImage, src2: imagePath, algorithm: PerceptualHash());
-
-        // if (imagePath.startsWith('assets/')) {
-        //   similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
-        // }
-
         double similarityScore = 1.0;
 
         if (imagePath.startsWith('assets/')) {
@@ -493,8 +502,10 @@ class _HomeState extends State<Home> {
         if (similarityScore <= 0.5) {
 
           similarityScore = 100 - (similarityScore * 100);
+          int roundedSimilarityScore = similarityScore.round();
+
           Map<String, dynamic> imageInfo = {
-            "score": similarityScore,
+            "score": roundedSimilarityScore,
             "image": mangroveImage, // Add the image or any other relevant information here
           };
           similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
@@ -510,14 +521,13 @@ class _HomeState extends State<Home> {
       setState(() {
         localImage = File(pickedFileFromGallery.path);  
         similarImages = similarImages;
-
+        isErrorShow = false;
+        isLoading = false;
         if(similarImages.length > 0) {
           Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
         } else {
-          final snackBar = SnackBar(
-            content: Text('No Results Found!'),
-          );
-          ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+          print("=========== show Error Message ==========");
+          isErrorShow = true;
         }
       });
     }
@@ -543,6 +553,7 @@ class _HomeState extends State<Home> {
     }
 
     Future getImageFromCamera(String treePart) async {    /// Get Image from Camera
+      isLoading = true;
       final pickedFile = await picker.getImage(source: ImageSource.camera);
       print('pickFile');
       print(pickedFile);
@@ -578,23 +589,27 @@ class _HomeState extends State<Home> {
         if(mangroveImage['imageBlob'] != null) {
           await file.writeAsBytes(mangroveImage['imageBlob']);
         }
-
+        
+        print('======== mANGROVE IMAGES ========');
         // if (imagePath.startsWith('assets/')) {
         //   similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
         // }
         double similarityScore = 1.0;
 
         if (imagePath.startsWith('assets/')) {
-          similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+          print('======== mANGROVE UNA ========');
+          similarityScore = await compareImages(src1: File(pickedFile!.path), src2: file, algorithm: PerceptualHash());
         } else {
+          print('======== mANGROVE Pangalawa ========');
           similarityScore = await compareImages(src1: File(pickedFile!.path), src2: File(imagePath), algorithm: PerceptualHash());
         }
 
         if (similarityScore <= 0.5) {
           print("Gallery image is similar to $similarityScore.");
           similarityScore = 100 - (similarityScore * 100);
+          int roundedSimilarityScore = similarityScore.round();
           Map<String, dynamic> imageInfo = {
-            "score": similarityScore,
+            "score": roundedSimilarityScore,
             "image": mangroveImage, // Add the image or any other relevant information here
           };
           similarImages.add(imageInfo); //adding those results higher 50 percentage differences;
@@ -606,14 +621,14 @@ class _HomeState extends State<Home> {
 
       if (pickedFile != null) {
         setState(() {
+          isErrorShow = false;
+          isLoading = false;
           takenImage = File(pickedFile.path);// Compare the images here and show the result
           if(similarImages.length > 0) {
             Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
           } else {
-            final snackBar = SnackBar(
-              content: Text('No Results Found!'),
-            );
-            ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+            print("=========== show Error Message ==========");
+            isErrorShow = true;
           }
         });
       }

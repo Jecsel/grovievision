@@ -169,10 +169,10 @@ class _SearchPageState extends State<SearchPage> {
                     onTap: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, treePart: searchKey, pageType: pageType,)));
                         final imageData = mangrooveData[index];
-                        final snackBar = SnackBar(
-                          content: Text('Tapped on ${imageData}'),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // final snackBar = SnackBar(
+                        //   content: Text('Tapped on ${imageData}'),
+                        // );
+                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: ListTile(
                     title: Text('Local Name: ${imageData.local_name}'),
@@ -200,10 +200,10 @@ class _SearchPageState extends State<SearchPage> {
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, treePart: searchKey, pageType: pageType)));
-                        final snackBar = SnackBar(
-                          content: Text('Tapped on ${mangId}'),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // final snackBar = SnackBar(
+                        //   content: Text('Tapped on ${mangId}'),
+                        // );
+                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: ListTile(  
                     title: Text('Name: ${imageDt.name}'),

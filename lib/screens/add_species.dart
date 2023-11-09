@@ -137,6 +137,8 @@ class _AddSpeciesState extends State<AddSpecies> {
       final leaf_id = dbHelper?.insertDBLeafData(newLeaf);
       final fruit_id = dbHelper?.insertDBFruitData(newFruit);
     }
+
+    _gotoSearchList();
   }
 
   _gotoSearchList() {
@@ -199,19 +201,6 @@ class _AddSpeciesState extends State<AddSpecies> {
               
             ),
             title: Text('Search Tree'), // Add your app title here
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.save),
-                  onPressed: () {
-                    _insertMangrooveData();
-                    _gotoSearchList();
-                    final snackBar = SnackBar(
-                              content: Text('Mangrove Saved!'),
-                      );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                ),
-              ],
             ),
             body: SingleChildScrollView(
               child: Center(
@@ -521,7 +510,6 @@ class _AddSpeciesState extends State<AddSpecies> {
                         child: ElevatedButton(
                           onPressed: () {
                             _insertMangrooveData();
-                            _gotoSearchList();
                           },
                           style: ElevatedButton.styleFrom(
                               textStyle: TextStyle(fontSize: 20),
