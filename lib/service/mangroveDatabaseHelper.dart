@@ -521,7 +521,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         final newRoot = RootModel(
           mangroveId: newMangrooveId ?? 0,
           imageBlob: rootImageBytes, 
-          imagePath: mangrove['path'],
+          imagePath: mangrove['root']['path'],
           name: mangrove['root']['name'],
           description: mangrove['root']['description'],
         );
@@ -529,7 +529,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         final newFlower = FlowerModel(
           mangroveId: newMangrooveId ?? 0,
           imageBlob: flowerImageBytes, 
-          imagePath: mangrove['path'],
+          imagePath: mangrove['flower']['path'],
           name: mangrove['flower']['name'],
           description: mangrove['flower']['description']
         );
@@ -537,7 +537,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         final newLeaf = LeafModel(
           mangroveId: newMangrooveId ?? 0,
           imageBlob: leafImageBytes, 
-          imagePath: mangrove['path'],
+          imagePath: mangrove['leaf']['path'],
           name: mangrove['leaf']['name'],
           description: mangrove['leaf']['description']
         );
@@ -545,7 +545,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         final newFruit = FruitModel(
           mangroveId: newMangrooveId ?? 0,
           imageBlob:  fruitImageBytes, 
-          imagePath: mangrove['path'],
+          imagePath: mangrove['fruit']['path'],
           name: mangrove['fruit']['name'],
           description: mangrove['fruit']['description']
         );
