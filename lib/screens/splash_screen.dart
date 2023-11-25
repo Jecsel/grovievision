@@ -57,6 +57,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               Positioned(
+                bottom: 100,
+                left: 0,
+                right: 0,
+                child: Image.asset(
+                  'assets/images/load.gif',
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,

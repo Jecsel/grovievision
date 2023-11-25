@@ -109,28 +109,28 @@ class _AddSpeciesState extends State<AddSpecies> {
       final newRoot = RootModel(
         imagePath: rootImagePath,
         mangroveId: insertedMangrove ?? 0,
-        name: rootNameInput.text,
+        name: '',
         description: rootDescInput.text,
       );
 
       final newFlower = FlowerModel(
         imagePath: flowerImagePath,
         mangroveId: insertedMangrove ?? 0,
-        name: flowerNameInput.text,
+        name: '',
         description: flowerDescInput.text
       );
 
       final newLeaf = LeafModel(
         imagePath: leafImagePath,
         mangroveId: insertedMangrove ?? 0,
-        name: leafNameInput.text,
+        name: '',
         description: leafDescInput.text,
       );
 
       final newFruit = FruitModel(
         imagePath: fruitImagePath,
         mangroveId: insertedMangrove ?? 0,
-        name: fruitNameInput.text,
+        name: '',
         description: fruitDescInput.text,
       );
 
@@ -323,13 +323,13 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: rootNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: rootNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -381,13 +381,13 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: flowerNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: flowerNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -439,13 +439,13 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: leafNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: leafNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -497,13 +497,13 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: fruitNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: fruitNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(

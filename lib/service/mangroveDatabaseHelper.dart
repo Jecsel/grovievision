@@ -473,22 +473,22 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           'summary': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in felis vitae purus dignissim malesuada vel vitae ex. Mauris at purus ac urna dapibus hendrerit. Suspendisse tristique diam porta, mattis odio id, bibendum erat. Aliquam molestie metus aliquet ipsum condimentum, in fermentum leo varius. Suspendisse ante ante, tempus nec diam quis, aliquet ornare libero. Suspendisse finibus lectus enim, vel lobortis neque egestas nec. Phasellus semper mauris vel efficitur sollicitudin. In tempor justo id sapien hendrerit, et tincidunt enim condimentum. In volutpat nisl in ipsum malesuada suscipit. Duis magna lacus, fringilla malesuada nisi sit amet, lacinia pharetra diam. Maecenas mollis a nibh bibendum pellentesque.',
           'root': {
             'path': 'assets/images/root.png',
-            'name': 'Root',
+            'name': '',
             'description': 'Sample Description'
           },
           'flower': {
             'path': 'assets/images/flower.png',
-            'name': 'Flower',
+            'name': '',
             'description': 'Sample Description'
           },
           'leaf': {
             'path': 'assets/images/leaf.png',
-            'name': 'Leaf',
+            'name': '',
             'description': 'Sample Description'
           },
           'fruit': {
             'path': 'assets/images/fruit.png',
-            'name': 'Fruit',
+            'name': '',
             'description': 'Sample Description'
           },
         }

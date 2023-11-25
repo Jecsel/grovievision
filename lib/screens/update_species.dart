@@ -107,16 +107,16 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       scientificNameController.text = mangroveResultData!.scientific_name;
       descriptionController.text = mangroveResultData!.description;
 
-      rootNameInput.text = rootResultData!.name;
+      rootNameInput.text = '';
       rootDescInput.text = rootResultData!.description;
 
-      flowerNameInput.text = flowerResultData!.name;
+      flowerNameInput.text = '';
       flowerDescInput.text = flowerResultData!.description;
 
-      leafNameInput.text = leafResultData!.name;
+      leafNameInput.text = '';
       leafDescInput.text = leafResultData!.description;
 
-      fruitNameInput.text = fruitResultData!.name;
+      fruitNameInput.text = '';
       fruitDescInput.text = fruitResultData!.description;
     });
   }
@@ -221,7 +221,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       id: rootData?.id,
       imagePath: rootImagePath,
       mangroveId: mangroveData?.id ?? 1,
-      name: rootNameInput.text,
+      name: '',
       description: rootDescInput.text,
     );
 
@@ -229,7 +229,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       id: flowerData?.id,
       imagePath: flowerImagePath,
       mangroveId: mangroveData?.id ?? 1,
-      name: flowerNameInput.text,
+      name: '',
       description: flowerDescInput.text
     );
 
@@ -237,7 +237,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       id: leafData?.id,
       imagePath: leafImagePath,
       mangroveId: mangroveData?.id ?? 1,
-      name: leafNameInput.text,
+      name: '',
       description: leafDescInput.text,
     );
 
@@ -245,7 +245,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       id: fruitData?.id,
       imagePath: fruitImagePath,
       mangroveId: mangroveData?.id ?? 1,
-      name: fruitNameInput.text,
+      name: '',
       description: fruitDescInput.text,
     );
 
@@ -468,13 +468,13 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: rootNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: rootNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -526,13 +526,13 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: flowerNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: flowerNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -584,13 +584,13 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: leafNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: leafNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -642,13 +642,13 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      child: TextField(
-                        controller: fruitNameInput,
-                        decoration: InputDecoration(labelText: 'Name'),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    //   child: TextField(
+                    //     controller: fruitNameInput,
+                    //     decoration: InputDecoration(labelText: 'Name'),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(

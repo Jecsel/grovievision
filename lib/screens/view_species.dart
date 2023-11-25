@@ -256,7 +256,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(leafData?.name ?? 'No Name'),
+                        child: Text(leafData?.description ?? 'No Description'),
                       ),
                       FutureBuilder<Widget>(
                         future: loadImage(leafData?.imagePath ?? ''),
@@ -287,7 +287,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(fruitData?.name ?? 'No Name'),
+                        child: Text(fruitData?.description ?? 'No Description'),
                       ),
                       FutureBuilder<Widget>(
                         future: loadImage(fruitData?.imagePath ?? ''),
@@ -318,7 +318,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(flowerData?.name ?? 'No Name'),
+                        child: Text(flowerData?.description ?? 'No Description'),
                       ),
                       FutureBuilder<Widget>(
                         future: loadImage(flowerData?.imagePath ?? ''),
@@ -350,7 +350,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(rootData?.name ?? 'No Name'),
+                        child: Text(rootData?.description ?? 'No Description'),
                       ),
                       FutureBuilder<Widget>(
                         future: loadImage(rootData?.imagePath ?? ''),

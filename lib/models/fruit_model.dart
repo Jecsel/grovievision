@@ -5,7 +5,7 @@ class FruitModel {
   final int mangroveId; // Reference ID
   final Uint8List? imageBlob;
   String? imagePath;
-  final String name;
+  String? name;
   final String description;
 
   FruitModel({
@@ -13,7 +13,7 @@ class FruitModel {
     required this.mangroveId,
     this.imageBlob,
     this.imagePath,
-    required this.name,
+    this.name,
     required this.description,
   });
 
