@@ -41,6 +41,7 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         imageBlob BLOB,
         imagePath TEXT,
+        name TEXT,
         local_name TEXT,
         scientific_name TEXT,
         description TEXT,
@@ -465,6 +466,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
       List<dynamic> mangrove_datas = [
         {
           'path': 'assets/images/splash_img.png',
+          'name': 'Sample Name',
           'local_name': 'Sample Local Name',
           'scientific_name': 'Sample Scientific Name',
           'description': 'Sample Description',
@@ -504,6 +506,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         var newMangroove = MangrooveModel(
           imageBlob: mangroveImageBytes, 
           imagePath: mangrove['path'],
+          name: mangrove['name'],
           local_name: mangrove['local_name'], 
           scientific_name: mangrove['scientific_name'], 
           description: mangrove['description'], 

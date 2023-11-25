@@ -35,6 +35,7 @@ class _AddSpeciesState extends State<AddSpecies> {
   String? rootImagePath = 'assets/images/default_placeholder.png';
 
   //For Main Tree
+  TextEditingController nameController = TextEditingController();
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -97,6 +98,7 @@ class _AddSpeciesState extends State<AddSpecies> {
 
       final newMangroove = MangrooveModel(
         imagePath: mangroveImagePath,
+        name: nameController.text,
         local_name: localNameController.text,
         scientific_name: scientificNameController.text,
         description: descriptionController.text
@@ -248,6 +250,13 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(labelText: 'Local Name'),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(

@@ -167,7 +167,7 @@ class _SearchPageState extends State<SearchPage> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, treePart: searchKey, pageType: pageType,)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangroveId ?? 0, treePart: searchKey, pageType: pageType, isFromResult: false)));
                         final imageData = mangrooveData[index];
                         // final snackBar = SnackBar(
                         //   content: Text('Tapped on ${imageData}'),
@@ -175,8 +175,8 @@ class _SearchPageState extends State<SearchPage> {
                         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: ListTile(
-                    title: Text('Local Name: ${imageData.local_name}'),
-                    subtitle: Text('Scientific Name: ${imageData.scientific_name}' ),
+                    title: Text('Name: ${imageData.name}'),
+                    subtitle: Text('Local Name: ${imageData.local_name}'),
                     leading: FutureBuilder<Widget>(
                       future: loadImageFromFile(imageData.imagePath),
                       builder: (context, snapshot) {
@@ -199,7 +199,7 @@ class _SearchPageState extends State<SearchPage> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, treePart: searchKey, pageType: pageType)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies(mangroveId: mangId ?? 0, treePart: searchKey, pageType: pageType, isFromResult: false)));
                         // final snackBar = SnackBar(
                         //   content: Text('Tapped on ${mangId}'),
                         // );

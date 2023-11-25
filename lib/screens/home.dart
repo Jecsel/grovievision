@@ -145,16 +145,6 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: 40),
-          Center(
-            child: Text(
-              "Scanner",
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.w600
-              ),
-              ),
-          ),
-          SizedBox(height: 20),
           // Half of the screen with a green gradient
           CarouselSlider(
             options: CarouselOptions(

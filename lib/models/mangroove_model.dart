@@ -4,6 +4,7 @@ class MangrooveModel {
   final int? id;
   final Uint8List? imageBlob;
   String? imagePath;
+  final String name;
   final String local_name;  
   final String scientific_name;
   final String description;
@@ -13,6 +14,7 @@ class MangrooveModel {
     this.id,
     this.imageBlob,
     this.imagePath,
+    required this.name,
     required this.local_name,
     required this.scientific_name,
     required this.description,
@@ -24,6 +26,7 @@ class MangrooveModel {
       'id': id,
       'imageBlob': imageBlob,
       'imagePath': imagePath,
+      'name': name,
       'local_name': local_name,
       'scientific_name': scientific_name,
       'description': description,
@@ -36,6 +39,7 @@ class MangrooveModel {
       id: map['id'],
       imageBlob: map['imageBlob'],
       imagePath: map['imagePath'],
+      name: map['name'],
       local_name: map['local_name'],
       scientific_name: map['scientific_name'],
       description: map['description'],
@@ -47,6 +51,7 @@ class MangrooveModel {
     int? id,
     Uint8List? imageBlob,
     String? imagePath,
+    String? name,
     String? local_name,
     String? scientific_name,
     String? description,
@@ -56,6 +61,7 @@ class MangrooveModel {
       id: id ?? this.id,
       imageBlob: imageBlob ?? this.imageBlob,
       imagePath: imagePath ?? this.imagePath,
+      name: name ?? this.name,
       local_name: local_name ?? this.local_name,
       scientific_name: scientific_name ?? this.scientific_name,
       description: description ?? this.description,

@@ -20,12 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    dbHelper.initiateUserData(dbHelper);
+    print("============initiateUserData====done=====");
+    dbHelper.initiateMangrooveData(dbHelper);
+    print("============initiateMangrooveData====done=====");
     _navigateToHome();
   }
 
   _navigateToHome() async{
     await Future.delayed(Duration(milliseconds: 3000), (){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UserChoice()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
   }
 
   @override

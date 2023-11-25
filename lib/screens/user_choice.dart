@@ -19,10 +19,10 @@ class _UserChoiceState extends State<UserChoice> {
   @override
   void initState() {
     super.initState();
-    dbHelper.initiateUserData(dbHelper);
-    print("============initiateUserData====done=====");
-    dbHelper.initiateMangrooveData(dbHelper);
-    print("============initiateMangrooveData====done=====");
+    // dbHelper.initiateUserData(dbHelper);
+    // print("============initiateUserData====done=====");
+    // dbHelper.initiateMangrooveData(dbHelper);
+    // print("============initiateMangrooveData====done=====");
   }
 
   _navigateToHome() {

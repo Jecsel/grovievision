@@ -53,6 +53,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
   FruitModel? fruitData;
 
   //For Main Tree
+  TextEditingController nameController = TextEditingController();
   TextEditingController localNameController = TextEditingController();
   TextEditingController scientificNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -101,6 +102,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
 
       mangroveImg = mangroveResultData!.imageBlob;
 
+      nameController.text = mangroveResultData!.name;
       localNameController.text = mangroveResultData!.local_name;
       scientificNameController.text = mangroveResultData!.scientific_name;
       descriptionController.text = mangroveResultData!.description;
@@ -148,6 +150,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     final newMangroove = MangrooveModel(
       id: mangroveData?.id,
       imageBlob: mangroveImageBytes, 
+      name: nameController.text,
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
       description: descriptionController.text
@@ -206,6 +209,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     final newMangroove = MangrooveModel(
       id: mangroveData?.id,
       imagePath: mangroveImagePath,
+      name: nameController.text,
       local_name: localNameController.text,
       scientific_name: scientificNameController.text,
       description: descriptionController.text
@@ -391,6 +395,13 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(labelText: 'Name'),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
