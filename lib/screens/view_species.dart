@@ -199,7 +199,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  mangroveData?.name ?? 'No Name',
+                  mangroveData?.scientific_name ?? 'No Scientific Name',
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
                 ),
                 SizedBox(height: 10),
@@ -218,16 +218,15 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 Row(
                   children: [
                     Text(
-                      "Scientific Names: ",
+                      "Family Name: ",
                       style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
                       child: Text(
-                        mangroveData?.scientific_name ?? 'No Scientific Name')),
+                        mangroveData?.name ?? 'No Family Name')),
                   ],
                 ),
-                SizedBox(height: 10),
                 Row(
                   children: [
                     Text(
@@ -243,125 +242,147 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '',
                     child: Text(
                     "Leaves",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '',
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(leafData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Text(leafData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
+                      Expanded(
+                        flex: 2,
+                        child:  FutureBuilder<Widget>(
                         future: loadImage(leafData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return snapshot.data ?? CircularProgressIndicator();;
+                            } else {
+                              return CircularProgressIndicator(); // Or another loading indicator
+                            }
+                          },
+                        ),
+                      )
                     ],
                   ),
                 ),
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
+                  visible: fruitData?.imageBlob != null && fruitData?.imageBlob != '',
                     child: Text(
                     "Fruit",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
+                  visible: fruitData?.imageBlob != null && fruitData?.imageBlob != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(fruitData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Text(fruitData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
-                        future: loadImage(fruitData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ), 
+                      Expanded(
+                        flex: 2,
+                        child: FutureBuilder<Widget>(
+                          future: loadImage(fruitData?.imagePath ?? ''),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return snapshot.data ?? CircularProgressIndicator();;
+                            } else {
+                              return CircularProgressIndicator(); // Or another loading indicator
+                            }
+                          },
+                        ), 
+                      ),
+                      
                     ],
                   ),
                 ),
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
+                  visible: flowerData?.imageBlob != null && flowerData?.imageBlob != '',
                     child: Text(
                     "Flower",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
+                  visible: flowerData?.imageBlob != null && flowerData?.imageBlob != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(flowerData?.description ?? 'No Description'),
+                          child: Text(flowerData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
+                      Expanded(
+                        flex: 2,
+                        child: FutureBuilder<Widget>(
                         future: loadImage(flowerData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return snapshot.data ?? CircularProgressIndicator();;
+                            } else {
+                              return CircularProgressIndicator(); // Or another loading indicator
+                            }
+                          },
+                        ),
+                      )
                     ],
                   ),
-
                 ),
-                
                 SizedBox(height: 30),
                 Visibility(
-                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
+                  visible: rootData?.imageBlob != null && rootData?.imageBlob != '',
                     child: Text(
                     "Root",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
+                  visible: rootData?.imageBlob != null && rootData?.imageBlob != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(rootData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Text(rootData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
+                      Expanded(
+                        flex: 2,
+                        child: FutureBuilder<Widget>(
                         future: loadImage(rootData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              return snapshot.data ?? CircularProgressIndicator();;
+                            } else {
+                              return CircularProgressIndicator(); // Or another loading indicator
+                            }
+                          },
+                        ),
+                      ) 
                     ],
                   ),
                 ),

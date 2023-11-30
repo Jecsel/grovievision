@@ -395,11 +395,12 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Padding(
+                                        Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: nameController,
-                        decoration: InputDecoration(labelText: 'Name'),
+                        controller: scientificNameController,
+                        decoration:
+                            InputDecoration(labelText: 'Scientific Name'),
                       ),
                     ),
                     Padding(
@@ -412,9 +413,8 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: scientificNameController,
-                        decoration:
-                            InputDecoration(labelText: 'Scientific Name'),
+                        controller: nameController,
+                        decoration: InputDecoration(labelText: 'Name'),
                       ),
                     ),
                     Padding(

@@ -380,6 +380,14 @@ class _HomeState extends State<Home> {
                 child: Text('Tree'),
               ),
               SizedBox(height: 5),
+               ElevatedButton(
+                onPressed: () { 
+                  setTableToCompare(scanType, 'fruit'); 
+                  Navigator.pop(context);
+                },
+                child: Text('Fruit'),
+              ),
+              SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'flower'); 

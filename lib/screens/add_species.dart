@@ -253,8 +253,9 @@ class _AddSpeciesState extends State<AddSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: nameController,
-                        decoration: InputDecoration(labelText: 'Local Name'),
+                        controller: scientificNameController,
+                        decoration:
+                            InputDecoration(labelText: 'Scientific Name'),
                       ),
                     ),
                     Padding(
@@ -267,9 +268,8 @@ class _AddSpeciesState extends State<AddSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: scientificNameController,
-                        decoration:
-                            InputDecoration(labelText: 'Scientific Name'),
+                        controller: nameController,
+                        decoration: InputDecoration(labelText: 'Family Name'),
                       ),
                     ),
                     Padding(
