@@ -100,17 +100,23 @@ class _SearchPageState extends State<SearchPage> {
     List<MangrooveModel> filteredData = [];
 
     // Iterate through the original data and add matching items to the filtered list
-    for (var item in mangrooveData) {
-      if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
-          item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
-        filteredData.add(item);
+     if(keyword != '') {
+      for (var item in mangrooveData) {
+        if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
+            item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
+          filteredData.add(item);
+        }
       }
-    }
 
-    setState(() {
-      // Update the mangrooveData with the filtered data
-      mangrooveData = filteredData;
-    });
+      setState(() {
+        // Update the mangrooveData with the filtered data
+        mangrooveData = filteredData;
+      });
+
+     } else {
+      fetchData();
+     }
+
   }
 
   Future<void> _handleRefresh() async {

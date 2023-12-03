@@ -497,7 +497,7 @@ class _HomeState extends State<Home> {
           similarityScore = await compareImages(src1: localImage, src2: File(imagePath), algorithm: PerceptualHash());
         }
 
-        if (similarityScore <= 0.5) {
+        if (similarityScore <= 0.3) {
 
           similarityScore = 100 - (similarityScore * 100);
           int roundedSimilarityScore = similarityScore.round();

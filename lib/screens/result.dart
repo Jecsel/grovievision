@@ -95,7 +95,7 @@ class _ResultPageState extends State<ResultPage> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: ListTile(
-                  title: Text('Local Name: ${imageData['local_name']}'),
+                  title: Text('Local Name: ${['local_name']}'),
                   subtitle: Text('Score: ${mangrooveData[index]['score']}%' ),
                   leading: FutureBuilder<Widget>(
                     future: loadImageFromFile(imageData['imagePath']),
