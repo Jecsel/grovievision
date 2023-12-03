@@ -364,7 +364,7 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         content: Container(
-          height: 250,
+          height: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

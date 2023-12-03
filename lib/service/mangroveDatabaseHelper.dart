@@ -466,9 +466,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
     List<dynamic> mangrove_datas = [
         {
           'path': 'assets/images/onetree.png',
-          'name': 'Acanthus ebracteatus',
+          'name': ' Acanthaceae',
           'local_name': 'lagiwliw, ragoyroy',
-          'scientific_name': 'Acanthaceae',
+          'scientific_name': 'Acanthus ebracteatus',
           'description': 'Characteristic ground flora of mangroves, Acanthus ebracteatus, A. ilicifolius and A. volubilis may form extensive shrubs up to 1.5 m high which are initially erect but recline with age, for the latter two. The closely related species are found in soft muds of the upper to middle reaches of estuarine rivers and creeks, and firm muds of back mangroves. Undergrowth is dense in open sunlight along forest margins, less so in partial shade and on mud lobster mounds. Leaves are elliptic to oblong, simple and decussate, with short petiole and a pair of spines at each leaf insertion or node - armed species have spiny leaves and stems. Flowers form a terminal spike up to 20 cm long. Oton, Iloilo folks boil the dried flowers and drink the water to relieve cough. Fruit capsules are dark green and slightly flattened. Often found together, these 3 are sometimes treated as a single variable species indicating the need for more field work on Acanthus eco-genetics. Presently, they are distin g u ish ed by the appearance of the leaves, flowers and fruits.',
           'summary': '',
           'root': {
@@ -494,9 +494,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/twotree.png',
-          'name': 'Acanthus ilicifolius',
+          'name': 'Acanthaceae',
           'local_name': 'lagiwliw, ragoyroy',
-          'scientific_name': 'Acanthaceae',
+          'scientific_name': 'Acanthus ilicifolius',
           'description': 'Characteristic ground flora of mangroves, Acanthus ebracteatus, A. ilicifolius and A. volubilis may form extensive shrubs up to 1.5 m high which are initially erect but recline with age, for the latter two. The closely related species are found in soft muds of the upper to middle reaches of estuarine rivers and creeks, and firm muds of back mangroves. Undergrowth is dense in open sunlight along forest margins, less so in partial shade and on mud lobster mounds. Leaves are elliptic to oblong, simple and decussate, with short petiole and a pair of spines at each leaf insertion or node - armed species have spiny leaves and stems. Flowers form a terminal spike up to 20 cm long. Oton, Iloilo folks boil the dried flowers and drink the water to relieve cough. Fruit capsules are dark green and slightly flattened. Often found together, these 3 are sometimes treated as a single variable species indicating the need for more field work on Acanthus eco-genetics. Presently, they are distin g u ish ed by the appearance of the leaves, flowers and fruits.',
           'summary': '',
            'root': {
@@ -522,9 +522,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/trestree.png',
-          'name': 'Acanthus volubilis',
+          'name': 'Acanthaceae',
           'local_name': 'lagiwliw, ragoyroy',
-          'scientific_name': 'Acanthaceae',
+          'scientific_name': 'Acanthus volubilis',
           'description': 'Characteristic ground flora of mangroves, Acanthus ebracteatus, A. ilicifolius and A. volubilis may form extensive shrubs up to 1.5 m high which are initially erect but recline with age, for the latter two. The closely related species are found in soft muds of the upper to middle reaches of estuarine rivers and creeks, and firm muds of back mangroves. Undergrowth is dense in open sunlight along forest margins, less so in partial shade and on mud lobster mounds. Leaves are elliptic to oblong, simple and decussate, with short petiole and a pair of spines at each leaf insertion or node - armed species have spiny leaves and stems. Flowers form a terminal spike up to 20 cm long. Oton, Iloilo folks boil the dried flowers and drink the water to relieve cough. Fruit capsules are dark green and slightly flattened. Often found together, these 3 are sometimes treated as a single variable species indicating the need for more field work on Acanthus eco-genetics. Presently, they are distin g u ish ed by the appearance of the leaves, flowers and fruits.',
           'summary': '',
           'root': {
@@ -550,15 +550,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
        {
           'path': 'assets/images/fourtree.png',
-          'name': 'Aegiceras corniculatum',
+          'name': 'Myrsinaceae',
           'local_name': 'saging-saging, tayokan, kawilan (Visayan), tinduk-tindukan (Tagalog)',
-          'scientific_name': ' Myrsinaceae',
+          'scientific_name': ' Aegiceras corniculatum',
           'description': 'Shrubs to small trees typically 2-3 m tall but may reach 5 m. The species grows in isolated clumps never forming extensive stands along tidal creeks and river mouths. Widely distributed in Panay but has never been found together with its sister species A. floridum (see following). Substrate is sandy to compact mud. The leaves are often notched and have a prominent midrib on the undersurface which merges with the pinkish petiole. The strongly curved fruits hang in clusters like small bananas (hence the local names referring to banana varieties) and are pale green to pinkish-red. In Panay, the species is used for firewood and the bark for tanning and fish poison. Elsewhere in the Philippines, the wood is made into knife handles.',
           'summary': '',
           'root': {
             'path': 'assets/images/fourroot.png',
             'name': '',
-            'description': ''
+            'description': 'The shrub to small tree presents a modest height ranging from 2 to 5 meters, adorned with bark that embodies shades of dark brown to black, displaying a lenticellate pattern. Its unique character is accentuated by surface-level aerial roots, relatively diminutive in size yet striking in their adventitious nature. These roots, with their ability to develop from unexpected plant parts, contribute to the plants resilience and adaptability, making it a distinctive presence in its environment.'
           },
           'flower': {
             'path': 'assets/images/fourflower.png',
@@ -578,15 +578,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/fivetree.png',
-          'name': 'Aegiceras floridum',
+          'name': ' Myrsinaceae',
           'local_name': 'saging-saging, katuganung, kwasay (Visayan); tinduk-tindukan (Tagalog)',
-          'scientific_name': ' Myrsinaceae',
+          'scientific_name': 'Aegiceras floridum',
           'description': 'Small trees (4 m tall) on sandy or rocky substrate that tolerate higher salinities. More limited in distribution than A . corniculatum, this species has been observed on Taklong Is. in Guimaras, and Carles and Pedada Bay, Ajuy in Iloilo. Although similar in appearance, A. floridum has smaller leaves, white flowers on branched flower stalks, and fruits that are smaller, slightly curved and brighter red compared to A. corniculatum. Leaves are also characterized by salt crystals on the upper surface, and insect bites. This and the previous species are cryptoviviparous, i.e., the germinating seed remains hidden within the intact fruit wall while still attached to the parent plant (see opposite page, bottom left photo). The wood is used for fuel and the bark has a small amount of tannin.',
           'summary': '',
           'root': {
             'path': 'assets/images/fiveroot.png',
             'name': '',
-            'description': ''
+            'description': 'The small trees, standing at a height of 3 to 4 meters, boast a slender elegance accentuated by a diameter at breast height (DBH) ranging between 6 to 12 centimeters. Their bark, adorned in a tapestry of dark brown with mottled patterns, showcases a lenticellate texture that adds an exquisite dimension to their appearance. A distinguishing feature lies in their surface-level aerial roots, which intertwine with the landscape, enhancing the trees stability and resilience while contributing to their distinctive visual allure.'
           },
           'flower': {
             'path': 'assets/images/fiveflower.png',
@@ -606,15 +606,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/sixtree.png',
-          'name': 'Avicennia alba',
+          'name': ' Avicenniaceae',
           'local_name': 'bungalon, api-api, miapi',
-          'scientific_name': ' Avicenniaceae',
+          'scientific_name': ' Avicennia alba',
           'description': 'Medium-sized trees reaching 12 m high, which tolerate high salinity and colonize the soft, muddy banks of rivers and tidal flats. This species can be found interspersed among the more widely distributed stands of A . marina. Small monospecific groves of A. alba are found in Pan-ay, Capiz; Batan, Aklan and Makato River, Aklan. The whitish undersides of leaves give the canopy a silvery-white appearance from a distance, differentiating it from the green to golden canopy of A .marina. A. alba differs from the latter by its elongated leaves, conical or chili-like fruits, and relatively dark, sooty trunk (see opposite page, bottom left photo). The wood is used for fuel and the leaves for forage. Past uses include a resinous secretion for birth control, bark as astringent, and an ointment from seeds to relieve smallpox ulceration. Table 4 summarizes the characters used to separate the four Avicennia species.',
           'summary': '',
           'root': {
             'path': 'assets/images/sixroot.png',
             'name': '',
-            'description': ''
+            'description': 'The stately tree commands attention with its imposing height, reaching an impressive range of 5 to 12 meters, standing tall and proud. Its robust trunk, boasting a diameter at breast height (DBH) between 10 to 25 centimeters, supports a canopy that spreads majestically. The bark, finely textured and tinged in shades from dark brown to black, creates a rugged yet captivating exterior. A unique feature lies in its aerial roots, resembling pencil-like pneumatophores that extend from the base, contributing to the trees stability, aiding in respiration, and enhancing its distinctive aesthetic presence within its habitat.'
           },
           'flower': {
             'path': 'assets/images/sixflower.png',
@@ -634,15 +634,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/sevtree.png',
-          'name': 'Avicennia marina',
+          'name': 'Avicenniaceae ',
           'local_name': 'bungalon, api-api, miapi, bayabason (Iloilo)',
-          'scientific_name': ' Avicenniaceae',
+          'scientific_name': 'Avicennia marina',
           'description': 'The most widely distributed mangrove species, it colonizes muddy, sandy and even coralline rock substrates in fringing mangroves - forming stands, often with S. alba - and along river banks and on higher ground. It is also found as shrubs in mudflats and abandoned fishponds. Leaves are highly variable, and often exhibit leaf curling. The yellow green leaves give the stand a golden appearance in sunlight. The bark is mottled, light green to brown and flaky. Pneumatophores are pencil-shaped. Coastal dwellers plant this species to protect their homes from typhoons (see opposite, bottom left photo). A. marina is preferred for firewood because it coppices, i.e., produces new branches after cutting. The smoke of dried branches acts as mosquito repellent. Leaves are fed to livestock. Newly-sprouted Avicennia seedlings are cooked as vegetables. Christmas trees built from branches are sold along Roxas Blvd. in Manila.',
           'summary': '',
           'root': {
             'path': 'assets/images/sevroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree, ranging from 2 to 10 meters in height, boasts a sturdy trunk with a diameter at breast height (DBH) spanning between 10 to 70 centimeters. Its bark is a striking feature, displaying a smooth texture adorned with thin flakes, showcasing hues of greenish-brown that complement the natural surroundings. What distinguishes this tree are its pencil-like aerial roots that intricately sprawl outwards, lending both support and a unique aesthetic. Additionally, this remarkable tree produces pneumatophores, enhancing its adaptability by enabling efficient gas exchange in challenging environments. Its presence not only graces the landscape but also offers a testament to natures innovation and resilience.'
           },
           'flower': {
             'path': 'assets/images/sevflower.png',
@@ -662,15 +662,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/eyttree.png',
-          'name': 'Avicennia officinalis',
+          'name': 'Avicenniaceae ',
           'local_name': 'api-api, miapi, bungalon',
-          'scientific_name': 'Avicenniaceae',
+          'scientific_name': 'Avicennia officinalis',
           'description': 'Medium to large trees up to 20 m on firm mud of the upper intertidal in estuarine areas. The species has a crooked trunk and shiny, dark green leaves with spreading crown. Among the four Avicennia species, A. officinalis has the biggest flowers (1.5 cm wide), fruits (4 cm long) and leaves (14 cm long x 7 cm wide) with conspicuous salt crystals (see opposite, bottom left photo), and rarely forms monospecific stands. In addition, the orange flowers have the darkest shade and strongest scent. Ashes of branches are placed in a funnel through which seawater is filtered. The filtrate is evaporated by boiling to obtain a solid lump of salt. In the past, the wood was used to smoke fish and build rice mortars and pestles. Fruits were used as astringent, bark and roots as aphrodisiac, and seeds and roots as poultice to treat ulcers, etc.',
           'summary': '',
           'root': {
             'path': 'assets/images/eytroot.png',
             'name': '',
-            'description': ''
+            'description': 'Standing tall at heights varying between 5 to 20 meters, this distinctive tree boasts a robust trunk with a diameter at breast height (DBH) ranging from 20 to 80 centimeters. Its striking aerial roots, a blend of pneumatophores and pencil-like extensions, intricately cling to the ground, often manifesting as stilt roots along the trunk. The bark, a defining feature, presents a rough texture enveloped in hues of dark brown, adding a sense of rugged elegance to its appearance. What sets this tree apart is its unique form, with a trunk that doesnt adhere to straightness and branches that sprawl in irregular patterns, contributing to its character and individuality within its habitat. This tree stands as a testament to the diverse and captivating variations found in natures design.'
           },
           'flower': {
             'path': 'assets/images/eytflower.png',
@@ -690,15 +690,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/ninetree.png',
-          'name': 'Avicennia rumphiana ',
+          'name': ' Avicenniaceae ',
           'local_name': 'api-api, miapi, bungalon',
-          'scientific_name': ' Avicenniaceae',
+          'scientific_name': 'Avicennia rumphiana',
           'description': 'Formerly referred to as Avicennia lanata, this species forms medium to large trees. They grow on firm mud of middle to high intertidal areas. Avicennia rumphiana forms an almost monospecific grove of dozens of old, big trees in Bugtong Bato, Ibajay, Aklan with maximum 20 m height, 2.5 m diameter and 8 m circumference (see opposite page, bottom left photo). It differs from other Avicennia species by the brownish color and woolly hairs of fruits and undersurface of leaves. The canopy of an A .rumphiana stand looks light brown from a distance, in contrast to the silvery white appearance of A. alba.Sometimes A . rumphiana occurs with A officinalis, but its young leaves and branches are typically upright, whereas those of A . officinalis point in all directions. Also used as fuelwood and for furniture-making with its fine-grained wood.',
           'summary': '',
           'root': {
             'path': 'assets/images/nineroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands gracefully, reaching a height between 5 to 20 meters, with a robust trunk measuring from 0.5 to 2.5 meters in diameter. Its majestic presence is accentuated by the slightly rough, brown bark that wraps around the sturdy frame. Pencil-like aerial roots cascade down from the branches, creating an enchanting visual as they reach towards the ground. These aerial roots not only lend an ethereal quality to the tree but also serve as pneumatophores, aiding in respiration and ensuring the trees survival in wet or marshy environments. Amidst its towering stature and intricate root system, this tree embodies resilience and natural splendor.'
           },
           'flower': {
             'path': 'assets/images/nineflower.png',
@@ -718,15 +718,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/tentree.png',
-          'name': 'Bruguiera cylindrica',
+          'name': 'Rhizophoraceae',
           'local_name': 'pototan, busain (Tagalog)',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Bruguiera cylindrica',
           'description': 'Small to medium-sized trees with rounded crown, reaching 10 m high and 20 cm DBH. Bruguiera cylindrica colonizes newly-established substrates behind the pioneering Avicennia-Rhizophora zone along estuarine riverbanks and tidal creeks. When found beside taller Rhizophora trees, the species appears short (hence the local name pototan). B. cylindrica is also found as single trees on compact muds of open, more inland sites. Among the Bruguiera species, it has the smallest leaves and flowers next to B. parviflora (Table 5). The stipules (at times called leaf sheaths) are pale green. The mottled bark becomes more dark and rough in older trees (see opposite page, bottom left photos). The short and thin pencil-like propagules bear a calyx cap whose lobes are reflexed. In the past, B. cylindrica timber was harvested for household and construction use. Present uses are limited to firewood and as source of tannin.',
           'summary': '',
           'root': {
             'path': 'assets/images/tenroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands gracefully with a modest height ranging from 2 to 10 meters, its trunk measuring between 10 to 20 centimeters in diameter. Its distinctive appearance is characterized by the slightly to very rough bark, displaying a spectrum of colors from light brown to grayish tones. The bark, adorned with few lenticels, adds texture to its surface, hinting at the trees age and resilience. Notably, knee roots and small buttresses emerge from the base, creating a captivating sight as they support and anchor the tree, adding both stability and visual intrigue to its form. This trees charming blend of modest height, diverse bark textures, and unique root structures showcases its adaptability and innate beauty in natural landscapes.'
           },
           'flower': {
             'path': 'assets/images/tenflower.png',
@@ -746,15 +746,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/elevtree.png',
-          'name': 'Bruguiera gymnorrhiza ',
+          'name': 'Rhizophoraceae ',
           'local_name': 'pototan; bakhaw (Antique), busain (Tagalog)',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Bruguiera gymnorrhiza',
           'description': 'Medium to large trees reaching 10 m high and 30 cm DBH, found on muddy substrate along riverbanks, sandy-muddy substrate in island mangroves, and compact mud in inner mangroves. They differ from the other Bruguiera species in that they have the largest leaves, flowers, propagules, and lenticels. B. gymnorrhiza has very heavy wood which was used in the past as timber for saltwater and foundation pilings, house posts, flooring, cabinetwork and furniture. It was also used as source of dyes for fishnets, ropes, sails and clothing and powdered bark (baluk) for the preparation of tuba, a popular drink made from coconut sap. Trees can survive partial debarking to obtain dye if limited to a small section of the trunk (see opposite page, bottom left photo). Present uses are charcoal and firewood, while the knee roots are utilized in planting rituals in Palanan, Isabela so cultivated tubers will grow big.',
           'summary': '',
           'root': {
             'path': 'assets/images/elevroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands elegantly, boasting a height ranging from 2 to 10 meters and a robust trunk measuring between 10 to 30 centimeters in diameter. Its striking appearance is defined by the rough, dark brown bark, exuding a sense of strength and maturity. The barks surface is adorned with prominent lenticels, adding texture and character to the trees exterior. Notably, knee roots and small buttresses extend from the base, creating a captivating visual display while also providing stability and support. These aerial roots contribute to the trees resilience, allowing it to thrive and anchor itself firmly within its environment. With its impressive stature, textured bark, and unique root formations, this tree epitomizes both grace and resilience in its natural habitat.'
           },
           'flower': {
             'path': 'assets/images/elevflower.png',
@@ -774,15 +774,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/tweltree.png',
-          'name': 'Bruguiera parviflora',
+          'name': 'Rhizophoraceae ',
           'local_name': 'hangalai, langarai, mangalai (Tagalog)',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Bruguiera parviflora',
           'description': 'Bruguiera parviflora forms solid stands of slender, tall trees reaching 15 m high. Among Bruguiera species, it has the darkest trunk, the most delicate flowers, and the finest leaves that appear stellate or star-shaped from a distance. The slender propagules have a distinctive calyx appressed to the fruit, unlike other Bruguiera spp. At first green and erect, the propagules become brown and pendulous when mature. The yellow-green leaves form a golden canopy in full sunlight. Older trees have cracked bark with reddish interior (see opposite page, bottom left photo). Like other Bruguiera species, past uses include saltwater and foundation pilings, house posts, flooring, cabinetwork and as a source of tannin',
           'summary': '',
           'root': {
             'path': 'assets/images/twelroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands tall and stately, reaching a height of 5 to 15 meters, with a sturdy trunk measuring between 15 to 25 centimeters in diameter. Its commanding presence is emphasized by the rough, dark bark that envelops the tree, exuding an air of maturity and resilience. The barks texture and hue convey strength and durability, showcasing the trees ability to weather the passage of time. Remarkably, dark knee roots extend from the base, serving as aerial structures that provide support and aid in anchoring the tree firmly into the ground. Alongside, low buttresses further reinforce its stability, contributing to its robustness within its natural habitat. The combination of its impressive height, robust trunk, dark aerial roots, and low buttresses forms an image of strength and vitality, defining the trees distinct and enduring presence in the landscape.'
           },
           'flower': {
             'path': 'assets/images/twelflower.png',
@@ -802,15 +802,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/tertree.png',
-          'name': ' Bruguiera sexangula',
+          'name': 'Rhizophoraceae',
           'local_name': 'pototan, karakandang (Antique)',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Bruguiera sexangula',
           'description': 'A medium tree up to 10 m tall in the compact sandy-muddy substrate of landward mangroves; with limited distribution in Panay. Bruguiera sexangula groves are found in the innermost portion of the mangroves in Bugtong Bato, Ibajay, Aklan and Lipata, Culasi, Antique. The species has big flowers with yellow-orange petals and sepals, short and stout propagules, and prominent buttress and knee roots with lenticels. Bark is light brown with large corky lenticels (see opposite page, bottom left photo) and sometimes covered with lichens. Presently used for firewood and charcoal. Past uses include piles, mine timber and house posts. Roots and leaves were used to treat burns, leaves have alkaloids that are tumor inhibitors, and a lotion made from the fruit was used to treat sore eyes. Young leaves and fruits were cooked as vegetables, fruits used as betel nut substitutes, and roots made into incense wood.',
           'summary': '',
           'root': {
             'path': 'assets/images/terroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands gracefully, its stature reaching between 5 to 10 meters in height, with a robust trunk measuring from 10 to 25 centimeters in diameter. Its appearance is marked by the rough, brown bark adorned with lenticels, creating a textured surface that adds character to its exterior. These lenticels not only enhance the visual appeal but also facilitate gas exchange, contributing to the trees overall health. Notably, knee roots extend from the base, intertwining with low buttresses, offering both stability and an aesthetic dimension to its structure. These aerial roots and buttresses provide essential support, anchoring the tree firmly in its environment. The trees harmonious blend of modest height, textured bark, and well-defined aerial roots and buttresses showcases its adaptability and resilience, painting a picture of natural beauty and strength within its landscape.'
           },
           'flower': {
             'path': 'assets/images/terflower.png',
@@ -830,15 +830,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/forttree.png',
-          'name': 'Camptostemon philippinensis',
+          'name': 'Bombacaceae',
           'local_name': 'gapas-gapas',
-          'scientific_name': 'Bombacaceae',
+          'scientific_name': 'Camptostemon philippinensis',
           'description': 'Also called Camptostemon philippinense, this species has small to medium-sized trees reaching 15 m tall and 50 cm DBH, along rivers and tidal creeks. The leaves are thick, covered with fine scales (like the buds and fruits), and crowded at the end. Surface roots emanate from the base of the trunk and spread out around mature trees - both the knobby roots and lower trunk have many lenticels and give the species a distinctive gnarled appearance. The capsule-shaped fruits have seeds covered by numerous thick white threads, hence the local name gapas-gapas meaning cotton (see opposite page, bottom left photo). The ground in a C. philippinensis grove appears white from the cottony threads of newly-fallen seeds. In Panay, the wood is used for fuel and elsewhere in the Philippines, for making household utensils and carvings.',
           'summary': '',
           'root': {
             'path': 'assets/images/fortroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands tall and majestic, reaching heights ranging from 5 to 15 meters, boasting a substantial trunk diameter spanning 10 to 50 centimeters. Its commanding presence is accentuated by the rough, brown-gray bark, adorned with irregular flakes that add a unique texture and charm to its exterior. The presence of lenticels on the bark not only enhances its visual appeal but also aids in the exchange of gases vital for the trees well-being. Notably, surface roots, gnarled and curling, grace the trees base, intertwining with lenticels, creating a captivating and intricate aerial root system. These aerial roots not only contribute to the trees structural support but also add to its character, highlighting its adaptability and resilience in diverse environments. The amalgamation of its impressive height, robust trunk, textured bark with irregular flakes, and intricate aerial roots forms a picturesque representation of strength, resilience, and natural splendor within its habitat.'
           },
           'flower': {
             'path': 'assets/images/fortflower.png',
@@ -858,15 +858,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/fifthtree.png',
-          'name': 'Ceriops decandra',
+          'name': 'Rhizophoraceae',
           'local_name': 'baras-baras, lapis-lapis, malatangal (Tagalog)',
-          'scientific_name': 'Rhizophoraceae',
+          'scientific_name': 'Ceriops decandra',
           'description': 'Shrubs reaching 3 m tall that grow on the compact mud or sandy-mud of inner mangroves. This pioneer species occurs as monospecific stands that provide the leading edge of mangrove invasion of grasslands, up to the high tide limit (see opposite page, bottom left photo), but may also form the understory portion of a mixed mangrove community. Ceriops decandra differs from C. tagal by its shorter height, multiple stems, and shorter fruits (with red cotyledonary collar) that point in all directions. Roots have small flaky buttresses that give the trunk a swollen appearance. Commonly used as firewood, and as Christmas trees in Luzon. The bark of mature trees is harvested for the baluk powder used in making local tuba, although the preferred species is C. tagal.',
           'summary': '',
           'root': {
             'path': 'assets/images/fifthroot.png',
             'name': '',
-            'description': ''
+            'description': 'The shrub stands gracefully, reaching a modest height between 2 to 3 meters, presenting an elegant yet compact form within its environment. Its bark, rough in texture and ranging in shades from gray to brown, showcases subtle earthy tones. With minimal lenticels, the bark adds texture to its surface while hinting at the shrubs maturity. Small aerial roots resembling buttresses delicately emerge from the base, contributing to the shrubs stability and support. These aerial roots, though diminutive, provide a unique visual element while serving a crucial role in anchoring the shrub firmly into the ground. The combination of its modest stature, textured bark with sparse lenticels, and the subtle yet effective buttress-like aerial roots, portrays the shrub as a testament to natural elegance and resilience in its habitat.'
           },
           'flower': {
             'path': 'assets/images/fifthflower.png',
@@ -886,15 +886,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/sixthtree.png',
-          'name': 'Ceriops tagal',
+          'name': 'Rhizophoraceae',
           'local_name': 'ungog, tangal, tagasa (Tagalog)',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Ceriops tagal',
           'description': 'Small trees reaching 6 m tall, on firm sandy to muddy substrates of inner mangroves. Compared to C. decandra, trees are taller with a single straight trunk, and longer fruits point downwards. Leaves turn yellowish green in sunlight. Roots have small flaky buttresses; knee roots appear in older trees. Among the Rhizophoraceae, the dried C. tagal bark gives the best quality baluk powder used in making tuba, bahalina (a special tuba variety in Leyte and Samar), and basi (rice wine), and in dyeing fish nets and clothing. Wood is used for fuel, charcoal, poles for baklad (fish corrals) and house posts. In the past, big trees provided hard, fine-textured wood for furniture and house construction. The bark was used to treat hemorrhages and ulcers; older folks chewed on dried bark. Only isolated trees of C. tagal are found in Panay, aside from a small 20-year old plantation in Naisud, Ibajay, Aklan.',
           'summary': '',
           'root': {
             'path': 'assets/images/sixthroot.png',
             'name': '',
-            'description': ''
+            'description': 'This tree or shrub presents a modest yet charming stature, ranging between 2 to 6 meters in height, with a trunk diameter spanning 5 to 10 centimeters. Its bark, rough in texture and displaying hues from light brown to gray, adds a rustic appeal to its appearance, characterized by its flaky nature that gives a unique touch to its surface. Notably, knee roots and low buttresses grace its base, contributing to both its visual aesthetics and structural stability. These aerial roots play a dual role, providing support and anchorage while enhancing the overall appeal of the tree or shrub. This amalgamation of a modest size, textured bark with flaky features, and the presence of knee roots and low buttresses encapsulates a harmonious blend of strength, resilience, and natural beauty within its habitat.'
           },
           'flower': {
             'path': 'assets/images/sixthflower.png',
@@ -914,15 +914,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/sevthtree.png',
-          'name': 'Excoecaria agallocha',
+          'name': 'Euphorbiaceae',
           'local_name': ' lipata, alipata (Visayan), buta-buta (Cebuano)',
-          'scientific_name': ' Euphorbiaceae',
+          'scientific_name': 'Excoecaria agallocha',
           'description': 'Small to medium trees with surface roots on sandy-muddy substrate along tidal creeks or on hard mud in the inner mangroves and along dikes of ponds. The leaves are highly variable in size, shape and color. They fall off in the dry season just before the flowers appear, but sometimes flowering trees show leaves. The only dioecious mangrove species, female and male plants can be distinguished during the reproductive period. Male flowers in full bloom, which are longer than those of females, present a spectacular but short-lived sight of numerous golden catkins hanging from bare branches. The twigs are used as pest repellent, burnt ashes for salt extraction, and leaves to treat epilepsy. Its milky sap, which flows from any cut surface on the leaf, twig or trunk can cause skin irritation and alleged blindness, hence the local name butabuta. The sap is used to treat toothache and ulcers, and as fish poison.',
           'summary': '',
           'root': {
             'path': 'assets/images/sevthroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands tall and commanding, boasting a height ranging from 5 to 15 meters, with a substantial trunk diameter spanning between 10 to 60 centimeters. Its presence is characterized by the slightly rough bark, displaying hues of grayish-brown that often showcase a mottled appearance due to the presence of lichens. This unique combination not only adds texture to the trees surface but also emphasizes its adaptability within its environment. Remarkably, surface roots grace the tree, intertwining with the surrounding landscape. These aerial roots contribute to the trees stability and serve as a testament to its ability to thrive in diverse conditions. The trees impressive size, textured bark often adorned with lichens, and surface aerial roots collectively portray a picture of resilience and natural elegance, marking its prominence within its habitat.'
           },
           'flower': {
             'path': 'assets/images/sevthflower.png',
@@ -942,15 +942,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/eytitree.png',
-          'name': 'Heritiera littoralis',
+          'name': 'Sterculiaceae',
           'local_name': 'dungon, dungon-late',
-          'scientific_name': ' Sterculiaceae',
+          'scientific_name': 'Heritiera littoralis',
           'description': 'Medium-sized trees up to 20 m high found in back mangroves, often on dry land along forest margins. The big, dark green leaves have a characteristic silvery-white undersurface, and the hard, shiny fruits are boat-shaped with a ridge. Prominent buttress roots have flattened extensions, called plank roots, that criss-cross the substrate. These buttresses reach ~ 3 m high in the magnificent Heritiera littoralisstand in Iriomote, Okinawa, southern Japan (S. Baba, personal communication). The species is widely distributed in the Philippines - evidence of its previous abundance are two neighboring barangays both named Dungon in Jaro, Iloilo City. Past uses of the hard, heavy wood include piles, bridges and wharves. The pre-Hispanic balanghaiboats excavated from Agusan del Norte were made of dungon. Roots used as fish poison, seed extracts to treat diarrhea and dysentery.',
           'summary': '',
           'root': {
             'path': 'assets/images/eytiroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands majestically, reaching heights spanning from 5 to 20 meters, boasting a substantial trunk diameter ranging between 20 to 50 centimeters. Its presence is defined by the rough, dark brown bark that adds a sense of robustness to its appearance, characterized by its flaky texture. Notably, the tree displays prominent buttresses that lend both visual allure and structural support, enhancing its stability within the ecosystem. Alongside these buttresses, the tree showcases plank or ribbon-like aerial roots, which further reinforce its anchorage and contribute to its resilience. This amalgamation of impressive height, robust trunk, textured bark with flaky features, and the presence of prominent buttresses and distinct plank or ribbon-like aerial roots exemplifies a resilient and commanding presence within its natural surroundings.'
           },
           'flower': {
             'path': 'assets/images/eytiflower.png',
@@ -970,15 +970,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/ninethtree.png',
-          'name': 'Kandelia candel',
+          'name': 'Rhizophoraceae',
           'local_name': 'tangal',
-          'scientific_name': ' Rhizophoraceae',
+          'scientific_name': 'Kandelia candel',
           'description': 'Kandelia candel has been found in only two sites in the Philippines - Castillo, Baler (~ 10 specimens) and Cozo, Casiguran Bay – both in Aurora Province on the eastern side of Luzon. It was first identified in May 1996 (Zisman et al., 1998). Except for this report, K. candel is not mentioned in any of the published lists of Philippine mangrove species. The Aurora plants are small, slender trees up to 5 m tall on muddy substrate along tidal creeks and rivers where they are associated with N. fruticans and S. alba. In other Southeast Asian countries, the trees are reported to be taller, with bigger buttresses, prop roots and pneumatophores.',
-          'summary': '',
+          'summary': '', 
           'root': {
             'path': 'assets/images/ninethroot.png',
             'name': '',
-            'description': ''
+            'description': 'The tree stands gracefully, reaching a height between 3 to 5 meters, adorned with a sturdy trunk measuring 5 to 15 centimeters in diameter at breast height (DBH). Its bark, smooth and textured in shades of rich brown, exudes a calming presence, embellished with distinctive lenticels that add a unique pattern to its surface. At the base, low buttresses extend outwards, providing stability and character to the trees foundation. Amidst its canopy, aerial roots delicately entwine, weaving a network that supports and nourishes this arboreal marvel, showcasing natures intricate design and resilience.'
           },
           'flower': {
             'path': 'assets/images/ninethflower.png',
@@ -998,15 +998,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/twentree.png',
-          'name': 'Lumnitzera littorea',
+          'name': 'Combretaceae',
           'local_name': 'abao, libato (Tagalog)',
-          'scientific_name': ' Combretaceae',
+          'scientific_name': 'Lumnitzera littorea',
           'description': 'Medium to tall trees reaching 12 m high in stands along tidal creeks and on muddy to sandy-muddy substrates of back mangroves. In Palawan, a natural stand provides shade to a multispecies mangrove nursery (see opposite page, bottom left photo). Lumnitzera littorea is easily differentiated from L. racemosa by its bigger size, darker green leaves, and bright red flowers whose buds look like small lipsticks. The beautiful decorative flowers make L. littorea suitable for planting in beach resorts. Old L. littoreatrees in a small pristine mangrove patch in Jawili, Tangalan, Aklan have branches bent close to the ground and a dark trunk that is crooked. Branches can be used for fuel and for smoking fish. A decoction of the leaves is used to treat thrush in infants. In the past, the hard, strong wood was used for heavy construction - bridges, wharves, ships, cart axles, flooring and furniture',
           'summary': '',
           'root': {
             'path': 'assets/images/twenroot.png',
             'name': '',
-            'description': ''
+            'description': 'Standing tall at heights ranging from 3 to 12 meters, this tree boasts a commanding presence with a robust trunk that spans between 10 to 60 centimeters in diameter at breast height (DBH). Its bark, textured and resilient, presents a fibrous and rough exterior marked by deep fissures, cloaked in a distinguished shade of dark brown. The intricate patterns on the bark denote its enduring strength and age, weathered by time and the elements. Extending outwards, its aerial roots form an expansive and intricate network across the surface, intertwining like delicate threads to anchor and fortify the trees foundation. This remarkable display of extensive surface roots embodies the trees resilience and adaptability, showcasing the artistry of natures design.'
           },
           'flower': {
             'path': 'assets/images/twenflower.png',
@@ -1026,15 +1026,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/21tree.png',
-          'name': 'Lumnitzera racemosa',
+          'name': ' Combretaceae',
           'local_name': 'tabao, culasi, bolali (Negros Occidental)',
-          'scientific_name': ' Combretaceae',
+          'scientific_name': 'Lumnitzera racemosa',
           'description': 'A pioneering species of small trees up to 6 m high often found in the muddy back mangrove where it forms thick stands and on sandy beaches near the high water line. It has multiple stems, surface roots and succulent leaves with many conspicuous insect bites; older trees have a single trunk and looping roots. Lumnitzera racemosa is so widely distributed that many Philippine towns and villages are named after it (Table 8). Interestingly, the two sister species are rarely found together, except in Naisud, Ibajay, Aklan. Aside from firewood, the dried twigs are used as fish-aggregating devices and the leaves as forage for livestock. The trunks of bigger trees are used as house posts. Villagers in Taba-ao, Sagay, Negros Occid. use both cut stems, and planted L. racemosainterspersed with B. cylindrica, to form a living fence around their dwellings (see opposite, bottom left photos). It is also planted along dikes of fishponds.',
           'summary': '',
           'root': {
             'path': 'assets/images/21root.png',
             'name': '',
-            'description': ''
+            'description': 'The tree or shrub, standing at a height range of 3 to 6 meters, presents a remarkable sight with its sturdy form. Its trunk, measuring between 3 to 10 centimeters in diameter, is enveloped in a coarse, fibrous bark, tinted in rich shades of brown and deeply fissured, showcasing the passage of time and resilience to the elements. The aerial roots, particularly noticeable in mature specimens, manifest as a web of surface roots, gracefully looping and intertwining, offering additional support and anchorage to the plant. This captivating combination of height, bark texture, and looping aerial roots embodies the unique and enduring characteristics of this striking tree or shrub.'
           },
           'flower': {
             'path': 'assets/images/21flower.png',
@@ -1054,15 +1054,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/22tree.png',
-          'name': 'Nypa fruticans',
+          'name': 'Palmae',
           'local_name': 'nipa, sapsap, sasa (Tagalog)',
-          'scientific_name': ' Palmae',
+          'scientific_name': 'Nypa fruticans',
           'description': 'The only palm among true mangrove species, Nypa fruticans forms extensive belts along muddy edges of brackish to almost freshwater creeks and rivers. Individual plants are also found in mixed mangrove communities. It has creeping stems called rhizomes from which tall (up to 8 m high) compound leaves arise. Commercially important, its products include the local drink tuba, vinegar and alcohol from the sap of the inflorescence (see opposite, bottom left photo); roofing material, native hats (salakot), raincoats, baskets, bags, mats, and wrappers from leaflets; and brooms from midribs. The fruit endosperm is eaten fresh or cooked, and the trunk pith is prepared as salad. The Sanskrit name Nypatithau was that of a generous man who gave everything of himself. Coincidentally, Nypa was first applied in Indonesia to this palm species, which gives of its every useful part so to speak (M. Vannucci, personal communication).',
           'summary': '',
           'root': {
             'path': 'assets/images/22root.png',
             'name': '',
-            'description': ''
+            'description': 'The palm, characterized by its distinctive shape, spans a height ranging from 2 to 8 meters, projecting a graceful and towering silhouette against the sky. Its roots, identified as creeping rhizomes, sprawl beneath the earths surface, forming an intricate network that aids in stability and nutrient absorption. This particular growth pattern not only contributes to the palms structural support but also facilitates its ability to thrive in various soil conditions. Coupled with its varying heights, the palms utilization of creeping rhizomes underscores its adaptability and resilience, marking it as an emblem of natural elegance and adaptiveness in diverse environments.'
           },
           'flower': {
             'path': 'assets/images/22flower.png',
@@ -1082,15 +1082,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/23tree.png',
-          'name': 'Osbornia octodonta',
+          'name': 'Myrtaceae',
           'local_name': ' bunot-bunot, tawalis, dukduk (Negros)',
-          'scientific_name': 'Myrtaceae',
+          'scientific_name': 'Osbornia octodonta',
           'description': 'Shrubs to small trees reaching 6 m tall with surface roots, often with multiple irregular stems. They can tolerate high salinity and are found in stands on the high tide line on exposed rocky and sandy shores or the sheltered elevated flats of the foreshore. Osbornia octodonta is sometimes associated with other high shore species like P. acidula and A. floridum, and shares a superficial resemblance with the latter. It has small, brittle leaves which emit an aroma when crushed, small white flowers, capsuleshaped fruits, deeply fissured bark and cable roots often exposed on rocky shores. Aside from fuelwood, the dried twigs (see opposite page, bottom left photo) are made into baskets and used as fish-aggregating devices by local fishers.',
           'summary': '',
           'root': {
             'path': 'assets/images/23root.png',
             'name': '',
-            'description': ''
+            'description': 'The tree or shrub, with a stature reaching between 3 to 6 meters in height, boasts a commanding presence in its environment. Its trunk, measuring approximately 5 to 15 centimeters in diameter, is encased in a robust and textured bark. This bark, characterized by its thickness, sponginess, and rough texture with long fissures, displays a color palette transitioning from shades of brown to subdued grays, showcasing a weathered yet enduring exterior. Along its surface, this botanical marvel showcases aerial roots, delicately extending and intertwining, establishing a network that contributes to the plants stability and sustenance. The amalgamation of its size, bark texture, and surface aerial roots depicts an arboreal or shrubbery masterpiece, illustrating strength, adaptability, and an organic harmony within its ecosystem.'
           },
           'flower': {
             'path': 'assets/images/23flower.png',
@@ -1110,15 +1110,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/24tree.png',
-          'name': 'Pemphis acidula',
+          'name': 'Lythraceae',
           'local_name': 'bantigi',
-          'scientific_name': 'Lythraceae',
+          'scientific_name': 'Pemphis acidula',
           'description': 'Shrubs 3-5 m tall, along the high tide line of coralline-rocky and sandy foreshores, often in association with O. octodonta and A. f loridum. It has irregularly shaped branches, small leaves, and small white flowers. Distribution in Panay is limited to small stands in Carles, Iloilo; Taklong Island, Guimaras; and Anini-y, Antique. The twigs are used for fuel and also as fish-aggregating devices, like O. octodonta. Wood of Pemphis acidula is very hard and strong, hence it is used in house and fence construction. Because of its small size and sturdy nature, the species is a favorite material of bonsai enthusiasts (see opposite, bottom left photo). Some ten years ago, the Department of Environment and Natural Resources confiscated specimens collected from Nogas Is., Antique which were to be smuggled to Taiwan and sold at Philippine Pesos (PhP) 2,000 per plant.',
           'summary': '',
           'root': {
             'path': 'assets/images/24root.png',
             'name': '',
-            'description': 'Sample Description'
+            'description': 'The shrub or tree stands gracefully, reaching a height of 3 to 5 meters and exuding an understated yet remarkable presence. Its trunk, with a diameter spanning between 5 to 12 centimeters, is adorned with an outer layer of rough, grayish-brown bark, distinguished by prominent large lenticels that create a textured and visually appealing surface. This bark, while showcasing a subdued hue, speaks volumes about the trees endurance and resilience. Interestingly, unlike some counterparts, this species exhibits less noticeable aerial roots, relying more on its root system beneath the soil for stability and nourishment. Despite the absence of prominent aerial roots, the amalgamation of its height, bark texture, and sturdy form embodies a quiet strength and elegance, complementing its environment with subtle sophistication.'
           },
           'flower': {
             'path': 'assets/images/24flower.png',
@@ -1138,9 +1138,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/25tree.png',
-          'name': 'Rhizophora apiculata',
+          'name': 'Rhizophoraceae ',
           'local_name': 'bakhaw, bakhaw lalaki, bulubaladaw (Antique)',
-          'scientific_name': 'Rhizophoraceae',
+          'scientific_name': 'Rhizophora apiculata',
           'description': 'Medium to tall trees reaching 20 m on loose mud of tidal rivers and creeks, and sandy mud of the seaward zone behind the outer 5. alba-A. marina band where Rhizophoraapiculata forms monospecific stands. Its wide distribution in Panay and elsewhere in the Philippines is due to its pioneering nature and popularity for replanting. It is the preferred species for plantations because of availability of propagules and fast growth. The inflorescence usually bears 2 sessile flowers on a very short peduncle. The buds are compact and used by children as bullets for toy guns. The fruits are long, smooth and viviparous. The leaves are dark green and flat, and may be fed to pigs (see opposite page, bottom left photo); the interpetiolary stipules are dark pink to red. Other differentiating features are found in Table 6.',
           'summary': '',
           'root': {
@@ -1166,9 +1166,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/26tree.png',
-          'name': 'Rhizophora x lamarckii',
+          'name': 'Rhizophoraceae',
           'local_name': 'bakhaw',
-          'scientific_name': 'Rhizophoraceae',
+          'scientific_name': 'Rhizophoraceae Rhizophora x lamarckii',
           'description': 'A sterile hybrid of Rhizophora apiculata x R. stylosa, this species can be found on the sandy-muddy substrate along the seaward fringe of protected islands. The trees are usually isolated but close to the parent plants. The characters are the same as R. apiculata - reddish interpetiolary stipules but slightly longer peduncles with two flowers each which never develop into fruits. The buds look like those of R. apiculataand the style is shorter than in R. stylosa. A single specimen has been found in the Taklong Island National Marine Reserve, Nueva Valencia, Guimaras (10°24’22.46” N, 122°30’46.26” E). This hybrid has also been reported by Yao (1999) from various sites in central Visayas – Okiot, Dewey Is., Bais and Tinguib, Ayongon both in Negros Oriental; Pagangan Is., Calape and Handayan Is., Getafe both in Bohol; and Taug, Carcar, Cebu. Uses of the various Rhizophora species are similar (see opposite page).',
           'summary': '',
           'root': {
@@ -1182,7 +1182,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
             'description': 'The flowers of this tree are arranged in cymes, emerging from axillary positions on the branches. Each flower presents four white petals, adding to its visual allure, and notable hairy textures. The calyx comprises four yellowish sepals, contributing to the overall color contrast. These flowers are relatively small, with a size ranging from 1.1 to 1.4 centimeters in length. Noteworthy features include the occurrence of two flowers per cluster and a longer peduncle, measuring between 2 and 3 centimeters. Additionally, these flowers are sterile, underscoring their role in reproductive processes. The combination of these floral characteristics, from the arrangement to petal features and reproductive traits, adds to the overall botanical identity of this tree, making it a unique and identifiable presence in its ecological niche.'
           },
           'leaf': {
-            'path': 'assets/images/26leaf.png',
+            'path': 'assets/images/bakhawleaf.png',
             'name': '',
             'description': 'The leaves of this tree are characterized by a simple, opposite arrangement, featuring elliptic blades with smooth and entire margins. The apex is apiculate, lending a pointed finish to each leaf, while the base is acute, contributing to the overall symmetry of the foliage. These leaves exhibit distinctive features, with the upper surface appearing waxy and displaying a rich, dark green color. In contrast, the undersurface is smooth and showcases a yellow-green hue. The size of the leaves ranges from 13 to 15 centimeters in length and 5 to 6 centimeters in width, providing a proportionate and well-balanced aspect to the trees overall canopy. Notably, reddish stipules further enhance the visual interest of the foliage, adding to the unique and identifiable nature of this tree within its botanical context.'
           },
@@ -1194,9 +1194,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/27tree.png',
-          'name': 'Rhizophora mucronata',
+          'name': 'Rhizophoraceae',
           'local_name': 'bakhaw, bakhaw babae',
-          'scientific_name': 'Rhizophoraceae',
+          'scientific_name': 'Rhizophora mucronata',
           'description': 'Medium to big trees reaching 15 m in Panay (but 30 m in Aurora and other provinces). Its wide distribution overlaps with other Rhizophora species although R. mucronata is more strongly associated with the soft muds of estuarine rivers and tidal creeks. In the seaward fringe, it is typically found behind R. apiculata, the “front-line” species. R. mucronata has broader leaves with yellow to light green stipules, pendulous flowers, and long warty propagules. It is favored for fuelwood and charcoal because of its high heating value, like other Rhizophora species. In the past, it was cultivated with R. apiculata in fuelwood plantations around Manila and sold on the street (see opposite, bottom left photo). The dried hypocotyls were smoked as cigars. In the 1950s-70s, wood chips from these two species were exported from the Philippines, Malaysia and other Southeast Asian countries to Japanese rayon fiber factories.',
           'summary': '',
           'root': {
@@ -1222,9 +1222,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/28tree.png',
-          'name': 'Rhizophora stylosa',
+          'name': 'Rhizophoraceae',
           'local_name': 'bakhaw, bakhaw bato, bangkao',
-          'scientific_name': 'Rhizophoraceae',
+          'scientific_name': 'Rhizophora stylosa',
           'description': 'Small to medium trees up to 10 m high. Widely distributed, Rhizophora stylosa overlaps with the habitat of R. apiculata but prefers sandy and rocky intertidal shores. Leaves have sides which typically curl or roll downward, differentiating it from other Rhizophora species; the leaves on terminal branches slant or point upward. Like other mangroves, the roots are often overgrown by epiphytic algae (see opposite page, bottom right photo). Uses for fuelwood and dyes are similar to other Rhizophora species. It is also favored for planting - the provincial government of Antique provided funds for the almost yearly procurement from 1995 to 2001 of more than 70,000 R. stylosapropagules from Semirara Island for planting in Lipata, Culasi by the people’s organization OMMMALI (see Table 13).',
           'summary': '',
           'root': {
@@ -1250,9 +1250,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/29tree.png',
-          'name': 'Sonneratia alba',
+          'name': 'Sonneratiaceae',
           'local_name': 'pagatpat',
-          'scientific_name': 'Sonneratiaceae',
+          'scientific_name': 'Sonneratia alba',
           'description': 'Pioneering species of medium to large trees that co-occur with A. marina in fringing mangroves, but are dominant in more coralline-sandy substrates. Leaves are obovate to rounded, but those of seedlings and lowermost branches ~1 m aboveground are more elongated (see opposite, bottom left photo). The short-lived white flowers open at dusk and drop at dawn - standing in a Sonneratia alba grove as numerous white filaments fall from the canopy with the early morning breeze is a magical experience. This species hosts colonies of fireflies - a northern Agusan settlement was called Masawa (now Masao), meaning bright, from the insects sparkling lights that greeted seafarers on moonless nights. Likewise, the Spanish name of Siquijor Is. was Isla del Fuego, referring to the pagatpat-lined shore seemingly on fire. Past uses include housing construction materials, furnishing, and musical instruments. Due to salt content, woodwork required copper nails and screws.',
           'summary': '',
           'root': {
@@ -1278,9 +1278,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/30tree.png',
-          'name': 'Sonneratia caseolaris',
+          'name': 'Sonneratiaceae',
           'local_name': 'pedada, kalong-kalong',
-          'scientific_name': 'Sonneratiaceae',
+          'scientific_name': 'Sonneratia caseolaris',
           'description': 'Prominent trees on the muddy substrate of low salinity upstream riverbanks; closely associated with N. fruticans. Sonneratia caseolaris can be distinguished from S. alba(with which it forms hybrids) by bigger pneumatophores that reach 1 m long when mature, bright red flowers, and elongated leaves with reddish petioles. Like S. alba,fireflies are also found on S. caseolaris. Heavy fruits cause the drooping branches to bend some more (see opposite, bottom left photo). Pneumatophores are used as floats for fishing nets and as corks (hence the vernacular term duol). Branches are used as firewood, the leaves as forage for goats and cows, and the bark yields tannin. The slightly acidic fruit is eaten raw or added to soups for souring, or made into vinegar. In the past, the sap was applied to the skin as cosmetic; other uses, e.g., firewood and forage, are similar to S. alba.',
           'summary': '',
           'root': {
@@ -1306,9 +1306,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/31tree.png',
-          'name': 'Sonneratia ovata',
+          'name': 'Sonneratiaceae',
           'local_name': 'pedada',
-          'scientific_name': 'Sonneratiaceae',
+          'scientific_name': 'Sonneratia ovata',
           'description': 'Shorter trees that grow on firm mud in almost freshwater habitats located considerable distances from the shore; closely associated with N. fruticans. Areas may have access to seawater through seepage during months of higher tide. The white flowers of Sonneratia ovata are similar to those of S. alba, but the filaments fall from the tree earlier in the morning before sunrise. Leaves are bigger and more rounded, and fruits are much larger than those of S. alba and 5. caseolaris. Because their delicious sweetsour taste is much appreciated by children and local folk, fruits are plucked from trees as soon as they mature, as in Pan-ay, Capiz (see opposite page, bottom left photo). Other differentiating characters are listed in Table 7.',
           'summary': '',
           'root': {
@@ -1334,9 +1334,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
         {
           'path': 'assets/images/32tree.png',
-          'name': 'Scyphiphora hydrophyllacea',
+          'name': 'Rubiaceae ',
           'local_name': 'bolaling, sagasa, hanbulali (Negros), nilad (Tag.)',
-          'scientific_name': 'Rubiaceae',
+          'scientific_name': 'Scyphiphora hydrophyllacea',
           'description': 'Shrubs with multiple stems to trees up to 10 m tall, on firm mud near tidal creeks or sandy mud near river mouths; tolerate high salinity. The small pinkish-white flowers occur in dense clusters; fruits are deeply grooved and turn brown when ripe. Leaves have a distinct glossy or varnished appearance. Young stems and petioles are reddish and succulent like the leaves, which have been successfully tested as forage for goats and other livestock. Like other mangroves, the branches provide homes for birds (see opposite page, bottom left photo). Scyphiphora hydrophyllacea grows in monospecific stands – it was so abundant along Manila Bay and the Pasig River in pre-Hispanic times that the natives called the place “Maynilad” referring to the presence of nilad, its local name.',
           'summary': '',
           'root': {
@@ -1362,9 +1362,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
          {
           'path': 'assets/images/33tree.png',
-          'name': 'Xylocarpus granatum',
+          'name': 'Meliaceae',
           'local_name': 'tabigi, tambigi',
-          'scientific_name': 'Meliaceae',
+          'scientific_name': 'Xylocarpus granatum',
           'description': 'Medium trees up to 17 m tall, found along estuarine rivers and tidal creeks, whose low buttresses extend as distinctive, snakelike plank roots. Xylocarpus granatum is also found in higher intertidal, inner mangroves as part of a mixed community that includes, among others X. moluccensis, C. decandra, and B. cylindrica. It has compound leaves which are shed in some trees, and big brown globose fruits with 10-12 irregularly shaped seeds. The smooth, light brown to greenish outer bark flakes off (see opposite, bottom left photo); the inner bark is red and a source of dye for tanning. Oil from seeds is used for lamps and for grooming hair, the fruits and seeds are used to treat diarrhea, and a bark decoction for cholera. Described as the best and most beautiful cabinet wood, its fine, glossy texture is suitable for furniture. It was also used for poles, railroad ties, posts and beams',
           'summary': '',
           'root': {
@@ -1390,9 +1390,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         },
          {
           'path': 'assets/images/34tree.png',
-          'name': 'Xylocarpus moluccensis',
+          'name': 'Meliaceae ',
           'local_name': 'piagao, lagutlot',
-          'scientific_name': 'Meliaceae',
+          'scientific_name': 'Xylocarpus moluccensis',
           'description': 'Smaller trees on the firm substrate of back mangroves rarely appearing along the edges of rivers or creeks; they are also identified as X. mekongensis. Their low-salinity habitats overlap with those of X. granatum, but X . moluccensis has smaller pointed leaves; dark, rough and fissured bark; peg- or cone-shaped pneumatophores; and smaller, dark green fruits. The species is deciduous - the leaves turn golden brown to red then drop (see opposite, bottom left photo); the new leaves appear together with the short-lived flowers. Seeds were used for insect bites, diarrhea and as astringent, the fruits for diarrhea, and the bark as astringent. Past uses of the wood were as poles, railroad ties, posts, beams and for interior finish, musical instruments and high grade furniture. The royal throne of the king of Malaysia is made of X . moluccensis wood because of its fine grain and deep dark color.',
           'summary': '',
           'root': {
