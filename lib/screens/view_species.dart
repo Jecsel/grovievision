@@ -278,14 +278,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: fruitData?.imageBlob != null && fruitData?.imageBlob != '',
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '',
                     child: Text(
                     "Fruit",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: fruitData?.imageBlob != null && fruitData?.imageBlob != '',
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -316,14 +316,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imageBlob != null && flowerData?.imageBlob != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '',
                     child: Text(
                     "Flower",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: flowerData?.imageBlob != null && flowerData?.imageBlob != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -352,14 +352,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
                 SizedBox(height: 30),
                 Visibility(
-                  visible: rootData?.imageBlob != null && rootData?.imageBlob != '',
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '',
                     child: Text(
                     "Root",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
                 Visibility(
-                  visible: rootData?.imageBlob != null && rootData?.imageBlob != '',
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

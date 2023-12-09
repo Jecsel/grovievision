@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:grovievision/components/treeImageListState.dart';
 import 'package:grovievision/models/image_data.dart';
 import 'package:grovievision/screens/about_us.dart';
+import 'package:grovievision/screens/loading_screen.dart';
 import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/result.dart';
 import 'package:grovievision/screens/search.dart';
@@ -375,7 +376,8 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'tree'); 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
+                  // Navigator.pop(context);
                 },
                 child: Text('Tree'),
               ),
@@ -383,7 +385,8 @@ class _HomeState extends State<Home> {
                ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'fruit'); 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
+                  // Navigator.pop(context);
                 },
                 child: Text('Fruit'),
               ),
@@ -391,7 +394,8 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'flower'); 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
+                  // Navigator.pop(context);
                 },
                 child: Text('Flower'),
               ),
@@ -399,7 +403,8 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'leaf'); 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
+                  // Navigator.pop(context);
                 },
                 child: Text('Leaf'),
               ),
@@ -407,16 +412,11 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'root'); 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
+                  // Navigator.pop(context);
                 },
                 child: Text('Root'),
               ),
-              // Visibility(
-              //   visible: isErrorShow,
-              //   child: Text(
-              //     "No Results Found!",
-              //     style: TextStyle(color: Colors.red),
-              //   ))
             ],
           ),
         ),
@@ -444,6 +444,9 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Future<double> compareImageInBackground(dynamic s1, dynamic s2) async {
+    return await compareImages(src1: s1, src2: s2, algorithm: PerceptualHash());
+  }
 
   Future getFromGallery(String treePart) async {
     isLoading = true;
@@ -486,15 +489,15 @@ class _HomeState extends State<Home> {
 
         print('mangroveImage[imageBlob]');
         print(mangroveImage['imageBlob']);
-        if(mangroveImage['imageBlob'] != null) {
+        if(mangroveImage['imageBlob'] != null && mangroveImage['imageBlob'] != '') {
           await file.writeAsBytes(mangroveImage['imageBlob']);
         }
         double similarityScore = 1.0;
 
         if (imagePath.startsWith('assets/')) {
-          similarityScore = await compareImages(src1: localImage, src2: file, algorithm: PerceptualHash());
+          similarityScore = await compareImageInBackground(localImage, file);
         } else {
-          similarityScore = await compareImages(src1: localImage, src2: File(imagePath), algorithm: PerceptualHash());
+          similarityScore = await compareImageInBackground(localImage, File(imagePath));
         }
 
         if (similarityScore <= 0.3) {
@@ -524,6 +527,7 @@ class _HomeState extends State<Home> {
         if(similarImages.length > 0) {
           Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
         } else {
+          Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
           print("=========== show Error Message ==========");
           isErrorShow = true;
         }
@@ -584,7 +588,7 @@ class _HomeState extends State<Home> {
         final tempDir = await getTemporaryDirectory();
         final tempPath = tempDir.path;
         final file = File('$tempPath/temp_image.jpg');
-        if(mangroveImage['imageBlob'] != null) {
+        if(mangroveImage['imageBlob'] != null && mangroveImage['imageBlob'] != '') {
           await file.writeAsBytes(mangroveImage['imageBlob']);
         }
         
@@ -625,6 +629,7 @@ class _HomeState extends State<Home> {
           if(similarImages.length > 0) {
             Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
           } else {
+            Navigator.pushReplacement(this.context, MaterialPageRoute(builder: (context)=> ResultPage(results: similarImages, treePart: treePart)));
             print("=========== show Error Message ==========");
             isErrorShow = true;
           }
