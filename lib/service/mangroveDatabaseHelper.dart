@@ -1,7 +1,5 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/services.dart';
 import 'package:grovievision/models/UserModel.dart';
@@ -436,7 +434,7 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
   Future<void> initiateUserData(MangroveDatabaseHelper dbHelper) async {
     // MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
     final newUser = UserModel(username: 'admin', password: '123123123');
-    final registeredUser = await dbHelper.registerUser(newUser);
+    await dbHelper.registerUser(newUser);
 
   }
 

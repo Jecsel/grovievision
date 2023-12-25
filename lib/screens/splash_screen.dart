@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   'assets/images/splash_img.png',
                   // Add your image properties here
                 ),
-              ),
+              ), 
               Positioned(
                 bottom: 100,
                 left: 0,
