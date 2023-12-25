@@ -134,26 +134,26 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.0), // Adjust the margin as needed
+            margin: const EdgeInsets.symmetric(horizontal: 10.0), // Adjust the margin as needed
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search...',
                 prefixIcon: Icon(Icons.search),
               ),
               onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: 'User'))),
             ),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           // Half of the screen with a green gradient
           CarouselSlider(
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height * 0.2, // Adjust the height as needed
               enlargeCenterPage: true,
               autoPlay: true, // Set to true if you want the carousel to auto-play
-              autoPlayInterval: Duration(seconds: 3), // Auto-play interval
-              autoPlayAnimationDuration: Duration(milliseconds: 800), // Animation duration
+              autoPlayInterval: const Duration(seconds: 3), // Auto-play interval
+              autoPlayAnimationDuration: const Duration(milliseconds: 800), // Animation duration
               autoPlayCurve: Curves.fastOutSlowIn, // Animation curve
               scrollDirection: Axis.horizontal, // Set to Axis.horizontal for a horizontal carousel
             ),
@@ -163,17 +163,17 @@ class _HomeState extends State<Home> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: item['name'], pageType: 'User')));
                 },
                 child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [const Color.fromARGB(255, 129, 176, 199), Color.fromARGB(255, 56, 76, 142)],
+                    colors: [Color.fromARGB(255, 129, 176, 199), Color.fromARGB(255, 56, 76, 142)],
                   ),
                 ),
                 child: Center(
                   child: Stack(
                     children: [
-                      Container( // Background
+                      SizedBox( // Background
                         width: double.infinity,
                         child: Image.asset(
                           item['image'],
@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
                         alignment: Alignment.center,
                         child: Text(
                           item['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                             backgroundColor: Colors.white38
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
               
             }).toList(),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -215,25 +215,25 @@ class _HomeState extends State<Home> {
                             _showModal('getImageFromCamera');
                           },
                            style: ElevatedButton.styleFrom(
-                            textStyle: TextStyle(fontSize: 20),
-                            minimumSize: Size(double.infinity, 60)
+                            textStyle: const TextStyle(fontSize: 20),
+                            minimumSize: const Size(double.infinity, 60)
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                Icon(
                                 Icons.camera_alt,
                                 size: 24,
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text('Take Photo'),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 16), // Add spacing between buttons
-                    Container(
+                    const SizedBox(height: 16), // Add spacing between buttons
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -243,31 +243,31 @@ class _HomeState extends State<Home> {
                             // getFromGallery();
                           },
                           style: ElevatedButton.styleFrom(
-                            textStyle: TextStyle(fontSize: 20),
-                            minimumSize: Size(double.infinity, 60)
+                            textStyle: const TextStyle(fontSize: 20),
+                            minimumSize: const Size(double.infinity, 60)
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                Icon(
                                 Icons.drive_folder_upload,
                                 size: 24,
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text('Insert Photo'),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Visibility(
                       visible: isLoading,
-                      child: CircularProgressIndicator()),
-                    SizedBox(height: 20),
+                      child: const CircularProgressIndicator()),
+                    const SizedBox(height: 20),
                     Visibility(
                       visible: !isLoading && isErrorShow,
-                      child: Text(
+                      child: const Text(
                         "No Results Found!",
                         style: TextStyle(color: Colors.red),
                     ))
@@ -292,7 +292,7 @@ class _HomeState extends State<Home> {
               title: 'Admin',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const Login()));
               },
             ),
             _buildDrawerItem(
@@ -315,8 +315,8 @@ class _HomeState extends State<Home> {
       ),
     ),
     routes: {
-        '/mangrooves': (context) => Mangroove(),
-        '/about_us': (context) => Mangroove(),
+        '/mangrooves': (context) => const Mangroove(),
+        '/about_us': (context) => const Mangroove(),
       },
     )
   
@@ -328,17 +328,17 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Exit the app?'),
-          content: Text('Are you sure you want to exit the app?'),
+          title: const Text('Exit the app?'),
+          content: const Text('Are you sure you want to exit the app?'),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -364,12 +364,13 @@ class _HomeState extends State<Home> {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        content: Container(
+        backgroundColor: const Color(0xFF33874F),
+        content: SizedBox(
           height: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Select which part',
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -379,43 +380,43 @@ class _HomeState extends State<Home> {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
                   // Navigator.pop(context);
                 },
-                child: Text('Tree'),
+                child: const Text('Tree'),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
                ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'fruit'); 
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
                   // Navigator.pop(context);
                 },
-                child: Text('Fruit'),
+                child: const Text('Fruit'),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'flower'); 
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
                   // Navigator.pop(context);
                 },
-                child: Text('Flower'),
+                child: const Text('Flower'),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'leaf'); 
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
                   // Navigator.pop(context);
                 },
-                child: Text('Leaf'),
+                child: const Text('Leaf'),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () { 
                   setTableToCompare(scanType, 'root'); 
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyLoadingScreen()));
                   // Navigator.pop(context);
                 },
-                child: Text('Root'),
+                child: const Text('Root'),
               ),
             ],
           ),

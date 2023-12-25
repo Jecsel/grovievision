@@ -60,8 +60,12 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       leafData = leafResultData;
       flowerData = flowerResultData;
 
-      print("========== rootData ===========");
-      print(rootData);
+      print("========== mangroveData  ImagePath ===========");
+      print(mangroveData?.imagePath);
+
+      print("========== mangroveData  ImageBlob ===========");
+      print(mangroveData?.imageBlob);
+
     });
   }
 
@@ -146,7 +150,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
         title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
         leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Add your arrow icon here
+            icon: const Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
               if(isFromResult!) {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
@@ -159,7 +163,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           Visibility(
             visible: pageType == 'Admin',
             child: IconButton(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               onPressed: () {
                 _gotoUpdateSpecies();
               },
@@ -168,11 +172,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           Visibility(
             visible: pageType == 'Admin',
             child: IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 deleteMangroveData();
                 _gotoSearchList();
-                final snackBar = SnackBar(
+                const snackBar = SnackBar(
                   content: Text('Mangrove Delete!'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -191,21 +195,21 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   future: loadImageFromFile(mangroveData?.imagePath ?? ''),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      return snapshot.data ?? CircularProgressIndicator();;
+                      return snapshot.data ?? const CircularProgressIndicator();;
                     } else {
-                      return CircularProgressIndicator(); // Or another loading indicator
+                      return const CircularProgressIndicator(); // Or another loading indicator
                     }
                   },
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   mangroveData?.scientific_name ?? 'No Scientific Name',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       "Local Names: ",
                       style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
@@ -217,7 +221,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       "Family Name: ",
                       style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
@@ -227,23 +231,34 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         mangroveData?.name ?? 'No Family Name')),
                   ],
                 ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Description: ",
+                    style:
+                      TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                ),
                 Row(
                   children: [
-                    Text(
-                      "Description: ",
-                      style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
                     Expanded(
-                      child: Text(
-                        mangroveData?.description ?? 'No Description')),
+                      child: RichText(
+                        textAlign: TextAlign.justify,
+                        text: TextSpan(
+                        style: const TextStyle(color: Colors.black),
+                        children: <TextSpan>[
+                          TextSpan( text: mangroveData?.description ?? 'No Description')
+                          ]
+                        )
+                      ),
+                    )
                   ],
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
                   visible: leafData?.imagePath != null && leafData?.imagePath != '',
-                    child: Text(
+                    child: const Text(
                     "Leaves",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
@@ -265,9 +280,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(leafData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();;
                             } else {
-                              return CircularProgressIndicator(); // Or another loading indicator
+                              return const CircularProgressIndicator(); // Or another loading indicator
                             }
                           },
                         ),
@@ -276,10 +291,10 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   ),
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
                   visible: fruitData?.imagePath != null && fruitData?.imagePath != '',
-                    child: Text(
+                    child: const Text(
                     "Fruit",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
@@ -302,9 +317,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           future: loadImage(fruitData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();;
                             } else {
-                              return CircularProgressIndicator(); // Or another loading indicator
+                              return const CircularProgressIndicator(); // Or another loading indicator
                             }
                           },
                         ), 
@@ -314,10 +329,10 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   ),
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
                   visible: flowerData?.imagePath != null && flowerData?.imagePath != '',
-                    child: Text(
+                    child: const Text(
                     "Flower",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
@@ -340,9 +355,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(flowerData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();;
                             } else {
-                              return CircularProgressIndicator(); // Or another loading indicator
+                              return const CircularProgressIndicator(); // Or another loading indicator
                             }
                           },
                         ),
@@ -350,10 +365,10 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ],
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
                   visible: rootData?.imagePath != null && rootData?.imagePath != '',
-                    child: Text(
+                    child: const Text(
                     "Root",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
@@ -376,9 +391,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(rootData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();;
                             } else {
-                              return CircularProgressIndicator(); // Or another loading indicator
+                              return const CircularProgressIndicator(); // Or another loading indicator
                             }
                           },
                         ),
@@ -390,7 +405,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                   onPressed: () {
                     _gotoSearchList();
                   },
-                  child: Text("Summary"),
+                  child: const Text("Summary"),
                 ),
                 
               ],
@@ -415,7 +430,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => Login()));
+                MaterialPageRoute(builder: (context) => const Login()));
               },
             ),
             _buildDrawerItem(

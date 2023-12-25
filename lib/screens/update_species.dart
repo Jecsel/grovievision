@@ -93,12 +93,36 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
     FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
+    
     setState(() {
       mangroveData = mangroveResultData;
       rootData = rootResultData;
       flowerData = flowerResultData;
       leafData = leafResultData;
       fruitData = fruitResultData;
+
+      
+
+      if (mangroveData!.imagePath!.startsWith('assets/')) {
+        mangroveImagePath = mangroveData!.imagePath;
+      }
+
+      if (rootData!.imagePath!.startsWith('assets/')) {
+        rootImagePath = rootData!.imagePath;
+      }
+
+      if (flowerData!.imagePath!.startsWith('assets/')) {
+        flowerImagePath = flowerData!.imagePath;
+      }
+
+      if (leafData!.imagePath!.startsWith('assets/')) {
+        leafImagePath = leafData!.imagePath;
+      }
+
+      if (fruitData!.imagePath!.startsWith('assets/')) {
+        fruitImagePath = fruitData!.imagePath;
+      }
+
 
       mangroveImg = mangroveResultData!.imageBlob;
 
@@ -206,6 +230,10 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
     print('======== mangroveImage ========');
     print(mangroveImage);
 
+    print('======== mangroveImagePath ========');
+    print(mangroveImagePath);
+
+
     final newMangroove = MangrooveModel(
       id: mangroveData?.id,
       imagePath: mangroveImagePath,
@@ -269,7 +297,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
         return Image.asset(filePath);
       } else {
         final file = File(filePath);
-
+    
         if (await file.exists()) {
           // If the file exists in local storage, load it
           return Image.file(file);
@@ -340,39 +368,39 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       home: Scaffold(
         appBar: AppBar(
             leading: IconButton(
-              icon: Icon(Icons.arrow_back), // Add your arrow icon here
+              icon: const Icon(Icons.arrow_back), // Add your arrow icon here
               onPressed: () {
                 Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => AdminScreen()));
+                MaterialPageRoute(builder: (context) => const AdminScreen()));
               },
               
             ),
-            title: Text('Search Tree'), // Add your app title here
+            title: const Text('Search Tree'), // Add your app title here
             ),
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       "Mangrove Tree",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     FutureBuilder<Widget>(
                       future: loadImageFromFile(mangroveData?.imagePath ?? ''),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? CircularProgressIndicator();;
+                          return snapshot.data ?? const CircularProgressIndicator();;
                         } else {
-                          return CircularProgressIndicator(); // Or another loading indicator
+                          return const CircularProgressIndicator(); // Or another loading indicator
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -382,9 +410,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _getFromGallery('mangrove');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Upload Mangrove Image'),
@@ -394,58 +422,58 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                                         Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: scientificNameController,
                         decoration:
-                            InputDecoration(labelText: 'Scientific Name'),
+                            const InputDecoration(labelText: 'Scientific Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Local Name'),
+                        decoration: const InputDecoration(labelText: 'Local Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: nameController,
-                        decoration: InputDecoration(labelText: 'Name'),
+                        decoration: const InputDecoration(labelText: 'Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
                     
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Root",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     FutureBuilder<Widget>(
                       future: loadImageFromFile(rootData?.imagePath ?? ''),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? CircularProgressIndicator();;
+                          return snapshot.data ?? const CircularProgressIndicator();;
                         } else {
-                          return CircularProgressIndicator(); // Or another loading indicator
+                          return const CircularProgressIndicator(); // Or another loading indicator
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -455,9 +483,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _getFromGallery('root');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Upload Root Image'),
@@ -467,7 +495,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -479,31 +507,31 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: rootDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Flower",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     FutureBuilder<Widget>(
                       future: loadImageFromFile(flowerData?.imagePath ?? ''),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? CircularProgressIndicator();;
+                          return snapshot.data ?? const CircularProgressIndicator();;
                         } else {
-                          return CircularProgressIndicator(); // Or another loading indicator
+                          return const CircularProgressIndicator(); // Or another loading indicator
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -513,9 +541,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _getFromGallery('flower');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Upload Flower Image'),
@@ -525,7 +553,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -537,31 +565,31 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: flowerDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Leaf",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     FutureBuilder<Widget>(
                       future: loadImageFromFile(leafData?.imagePath ?? ''),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? CircularProgressIndicator();;
+                          return snapshot.data ?? const CircularProgressIndicator();;
                         } else {
-                          return CircularProgressIndicator(); // Or another loading indicator
+                          return const CircularProgressIndicator(); // Or another loading indicator
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -571,9 +599,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _getFromGallery('leaf');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Upload Leaf Image'),
@@ -583,7 +611,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -595,31 +623,31 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: leafDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Fruit",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     FutureBuilder<Widget>(
                       future: loadImageFromFile(fruitData?.imagePath ?? ''),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? CircularProgressIndicator();;
+                          return snapshot.data ?? const CircularProgressIndicator();;
                         } else {
-                          return CircularProgressIndicator(); // Or another loading indicator
+                          return const CircularProgressIndicator(); // Or another loading indicator
                         }
                       },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -629,9 +657,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _getFromGallery('fruit');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Upload Fruit Image'),
@@ -641,7 +669,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -653,9 +681,12 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: fruitDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
                     ),
                     Container(
                       width: double.infinity,
@@ -667,10 +698,10 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                             _gotoSearchList();
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              backgroundColor:  Color.fromARGB(255, 2, 191, 5),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              backgroundColor:  const Color.fromARGB(255, 2, 191, 5),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('SUBMIT'),
