@@ -6,7 +6,12 @@ class FruitModel {
   final Uint8List? imageBlob;
   String? imagePath;
   String? name;
-  final String description;
+  String? shape;
+  String? color;
+  String? texture;
+  String? size;
+  String? description;
+
 
   FruitModel({
     this.id,
@@ -14,7 +19,11 @@ class FruitModel {
     this.imageBlob,
     this.imagePath,
     this.name,
-    required this.description,
+    this.shape,
+    this.color,
+    this.texture,
+    this.size,
+    this.description,
   });
 
   Map<String, dynamic> toMap() {
@@ -24,6 +33,10 @@ class FruitModel {
       'imageBlob': imageBlob,
       'imagePath': imagePath,
       'name': name,
+      'shape': shape,
+      'color': color,
+      'texture': texture,
+      'size': size,
       'description': description,
     };
   }
@@ -35,6 +48,10 @@ class FruitModel {
       imageBlob: map['imageBlob'],
       imagePath: map['imagePath'],
       name: map['name'],
+      shape: map['shape'],
+      color: map['color'],
+      texture: map['texture'],
+      size: map['size'],
       description: map['description'],
     );
   }

@@ -6,7 +6,12 @@ class FlowerModel {
   final Uint8List? imageBlob;
   String? imagePath;
   String? name;
-  final String description;
+  String? inflorescence;
+  String? petals;
+  String? sepals;
+  String? stamen;
+  String? size;
+  String? description;
 
   FlowerModel({
     this.id,
@@ -14,7 +19,12 @@ class FlowerModel {
     this.imageBlob,
     this.imagePath,
     this.name,
-    required this.description
+    this.inflorescence,
+    this.petals,
+    this.sepals,
+    this.stamen,
+    this.size,
+    this.description
   });
 
   Map<String, dynamic> toMap() {
@@ -24,6 +34,11 @@ class FlowerModel {
       'imageBlob': imageBlob,
       'imagePath': imagePath,
       'name': name,
+      'inflorescence': inflorescence,
+      'petals': petals,
+      'sepals': sepals,
+      'stamen': stamen,
+      'size' : size,
       'description': description
     };
   }
@@ -35,6 +50,11 @@ class FlowerModel {
       imageBlob: map['imageBlob'],
       imagePath: map['imagePath'],
       name: map['name'],
+      inflorescence: map['inflorescence'],
+      petals: map['petals'],
+      sepals: map['sepals'],
+      stamen: map['stamen'],
+      size: map['size'],
       description: map['description']
     );
   }
