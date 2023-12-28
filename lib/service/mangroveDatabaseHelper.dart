@@ -7,6 +7,7 @@ import 'package:grovievision/models/flower_model.dart';
 import 'package:grovievision/models/fruit_model.dart';
 import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
+import 'package:grovievision/models/mangrove_images.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -66,6 +67,11 @@ class MangroveDatabaseHelper {
         imageBlob BLOB,
         imagePath TEXT,
         name TEXT,
+        inflorescence TEXT,
+        petals TEXT,
+        sepals TEXT,
+        stamens TEXT,
+        size TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
@@ -78,6 +84,14 @@ class MangroveDatabaseHelper {
         imageBlob BLOB,
         imagePath TEXT,
         name TEXT,
+        arrangement TEXT,
+        bladeShape TEXT,
+        margin TEXT,
+        apex TEXT,
+        base TEXT,
+        upperSurface TEXT,
+        underSurface TEXT,
+        size TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
@@ -90,6 +104,10 @@ class MangroveDatabaseHelper {
         imageBlob BLOB,
         imagePath TEXT,
         name TEXT,
+        shape TEXT,
+        color TEXT,
+        texture TEXT,
+        size TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
       )
@@ -100,6 +118,53 @@ class MangroveDatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
         password TEXT
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE mangrove_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        mangroveId INTEGER,
+        imagePath TEXT,
+        FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
+      )
+    ''');
+  
+    await db.execute('''
+      CREATE TABLE root_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        rootId INTEGER,
+        imagePath TEXT,
+        FOREIGN KEY (rootId) REFERENCES root (id)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE flower_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        flowerId INTEGER,
+        imagePath TEXT,
+        FOREIGN KEY (flowerId) REFERENCES flower (id)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE fruit_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fruitId INTEGER,
+        imagePath TEXT,
+        FOREIGN KEY (fruitId) REFERENCES fruit (id)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE leaf_images (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        leafId INTEGER,
+        imageBlob BLOB,
+        imagePath TEXT,
+        name TEXT,
+        FOREIGN KEY (leafId) REFERENCES leaf (id)
       )
     ''');
   }
@@ -116,6 +181,30 @@ class MangroveDatabaseHelper {
     return List.generate(maps.length, (i) {
       return UserModel.fromMap(maps[i]);
     });
+  }
+
+  Future<MangroveImagesModel> insertMangroveImages( imageData) async {
+    final db = await database;
+    await db.insert('mangrove_images', imageData.toMap());
+    return imageData;
+  }
+
+  Future<List<MangroveImagesModel>> getMangroveImages(int mangroveId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db
+        .query('mangrove_images', where: 'mangroveId = ?', whereArgs: [mangroveId]);
+    return List.generate(maps.length, (i) {
+      return MangroveImagesModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> deleteOneImageFromMangrove(int id) async {
+    final db = await database;
+    await db.delete(
+      'mangrove_images',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   Future<bool> loginUser(String username, String password) async {
