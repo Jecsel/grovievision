@@ -54,6 +54,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
     FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
+  
+    print('==========flowerResultDataimagePath ========');
+    print(flowerResultData?.imagePath);
 
     List<MangroveImagesModel>? mangroveImgs = await dbHelper.getMangroveImages(mangroveId);
 
@@ -69,12 +72,14 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       flowerData = flowerResultData;
       tempTracerFileImageArray = tempTracerFileImageArray;
 
-      print("========== mangroveData  ImagePath ===========");
-      print(mangroveData?.imagePath);
+      print("========== flowerData  ImagePath ===========");
+      print(flowerData?.imagePath);
 
-      print("========== mangroveData  ImageBlob ===========");
-      print(mangroveData?.imageBlob);
+      print("========== flowerData  ImageBlob ===========");
+      print(flowerData?.imageBlob);
 
+      print("========== flowerData  ===========");
+      print(flowerData?.inflorescence);
     });
   }
 
@@ -267,7 +272,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImageFromFile(mangroveData?.imagePath ?? ''),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? const CircularProgressIndicator();;
+                            return snapshot.data ?? const CircularProgressIndicator();
                           } else {
                             return const CircularProgressIndicator(); // Or another loading indicator
                           }
@@ -396,7 +401,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(leafData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();
                             } else {
                               return const CircularProgressIndicator(); // Or another loading indicator
                             }
@@ -452,7 +457,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           future: loadImage(fruitData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();
                             } else {
                               return const CircularProgressIndicator(); // Or another loading indicator
                             }
@@ -466,7 +471,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 const SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  // visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -478,7 +483,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  // visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -492,11 +497,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              if (flowerData?.inflorescence != null) _buildTableRow('Shape: ', flowerData?.inflorescence ?? '') ,
-                              if (flowerData?.petals != null) _buildTableRow('Color: ', flowerData?.petals  ?? ''),
-                              if (flowerData?.sepals != null) _buildTableRow('Margin', flowerData?.sepals  ?? ''),
-                              if (flowerData?.stamen != null) _buildTableRow('Apex', flowerData?.stamen ?? ''),
-                              if (flowerData?.size != null) _buildTableRow('Apex', flowerData?.size ?? ''),
+                              if (flowerData?.inflorescence != null) _buildTableRow('Inflorescence: ', flowerData?.inflorescence ?? '') ,
+                              if (flowerData?.petals != null) _buildTableRow('Petals: ', flowerData?.petals  ?? ''),
+                              if (flowerData?.sepals != null) _buildTableRow('Sepals', flowerData?.sepals  ?? ''),
+                              if (flowerData?.stamen != null) _buildTableRow('Stamen', flowerData?.stamen ?? ''),
+                              if (flowerData?.size != null) _buildTableRow('Size', flowerData?.size ?? ''),
                               if (flowerData?.description != null) _buildTableRow('Others', flowerData?.description ?? ''),
                             ],
                           ),
@@ -510,7 +515,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(flowerData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();
                             } else {
                               return const CircularProgressIndicator(); // Or another loading indicator
                             }
@@ -552,7 +557,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                         future: loadImage(rootData?.imagePath ?? ''),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();;
+                              return snapshot.data ?? const CircularProgressIndicator();
                             } else {
                               return const CircularProgressIndicator(); // Or another loading indicator
                             }

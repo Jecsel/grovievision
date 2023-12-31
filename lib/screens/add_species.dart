@@ -92,20 +92,12 @@ class _AddSpeciesState extends State<AddSpecies> {
 
   Future<Uint8List> fileToUint8List(File file) async {
     final List<int> bytes = await file.readAsBytes();
-    print('======== bytes ========');
-    print(bytes);
-
-    print('========  Uint8List.fromList(bytes) ========');
-    print( Uint8List.fromList(bytes));
     return Uint8List.fromList(bytes);
   }
 
   Future<void> _insertMangrooveData() async {
-    print('======== mangroveImage ========');
-    print(mangroveImage);
 
     if(mangroveImage != null){
-      print('======== mangroveImages is not null ========');
 
       final List<int> bytes = await mangroveImage!.readAsBytes();
       final List<int> rootBytes = await mangroveImage!.readAsBytes();
@@ -161,7 +153,6 @@ class _AddSpeciesState extends State<AddSpecies> {
         imagePath: leafImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: '',
-        description: leafDescInput.text,
         arrangement: arrangementInput.text,
         bladeShape: bladeShapeInput.text,
         margin: marginInput.text,
@@ -169,7 +160,8 @@ class _AddSpeciesState extends State<AddSpecies> {
         base: baseInput.text,
         upperSurface: upperSurfaceInput.text,
         underSurface: underSurfaceInput.text,
-        size: sizeleafInput.text
+        size: sizeleafInput.text,
+        description: leafDescInput.text
       );
 
       final newFruit = FruitModel(
@@ -208,8 +200,6 @@ class _AddSpeciesState extends State<AddSpecies> {
       setState(() {
         switch (fromField) {
           case "mangrove":
-            print('===******===== pickedFileFromGallery.path ===*****=====');
-            print(pickedFileFromGallery.path);
             mangroveImage = File(pickedFileFromGallery.path);
             mangroveImagePath = pickedFileFromGallery.path;
 

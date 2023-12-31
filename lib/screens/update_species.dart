@@ -292,7 +292,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       description: descriptionController.text
     );
 
-    final insertedMangrove = await dbHelper?.updateMangroveData(newMangroove);
+    final insertedMangrove = await dbHelper.updateMangroveData(newMangroove);
 
     final newRoot = RootModel(
       id: rootData?.id,
@@ -343,10 +343,10 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       description: fruitDescInput.text
     );
 
-    final root_id = dbHelper?.updateRootData(newRoot);
-    final flower_id = dbHelper?.updateFlowerData(newFlower);
-    final leaf_id = dbHelper?.updateLeafData(newLeaf);
-    final fruit_id = dbHelper?.updateFruitData(newFruit);
+    final root_id = dbHelper.updateRootData(newRoot);
+    final flower_id = dbHelper.updateFlowerData(newFlower);
+    final leaf_id = dbHelper.updateLeafData(newLeaf);
+    final fruit_id = dbHelper.updateFruitData(newFruit);
   }
 
 
@@ -396,11 +396,18 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
 
             tempMangroveFileImageArray.add(mangroveImage!);
             
+            print('==== mangroveImgs?[0].mangroveId =====');
+            print(mangroveImgs?[0].mangroveId);
 
-            final fav = MangroveImagesModel(
+            final newImg = MangroveImagesModel(
               mangroveId: mangroveImgs?[0].mangroveId ?? 1,
               imagePath: mangroveImagePath!
             );
+
+            print('==== newImg =====');
+            print(newImg);
+
+            dbHelper.insertMangroveImages(newImg);
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);

@@ -70,7 +70,7 @@ class MangroveDatabaseHelper {
         inflorescence TEXT,
         petals TEXT,
         sepals TEXT,
-        stamens TEXT,
+        stamen TEXT,
         size TEXT,
         description TEXT,
         FOREIGN KEY (mangroveId) REFERENCES mangrove (id)
