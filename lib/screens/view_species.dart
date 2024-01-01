@@ -352,7 +352,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 const SizedBox(height: 30),
                 Visibility(
-                  visible: leafData?.imagePath != null && leafData?.imagePath != '' && leafData?.description != '',
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -365,7 +365,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  visible: leafData?.imagePath != null && leafData?.imagePath != '' && leafData?.description != '',
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -443,7 +443,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 const SizedBox(height: 30),
                 Visibility(
-                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '' && fruitData?.description != '',
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -455,7 +455,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '' && fruitData?.description != '',
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -530,7 +530,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 const SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -542,7 +542,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -619,7 +619,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
                 const SizedBox(height: 30),
                 Visibility(
-                  visible: rootData?.imagePath != null && rootData?.imagePath != '' && rootData?.description != '',
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -631,7 +631,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  visible: rootData?.imagePath != null && rootData?.imagePath != '' && rootData?.description != '',
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
