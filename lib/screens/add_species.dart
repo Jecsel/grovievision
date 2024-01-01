@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grovievision/models/flower_model.dart';
+import 'package:grovievision/models/fruit_images.dart';
 import 'package:grovievision/models/fruit_model.dart';
 import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
@@ -13,12 +14,33 @@ import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/flower_images.dart';
+import '../models/leaf_images.dart';
+import '../models/mangrove_images.dart';
+import '../models/root_images.dart';
+
 class AddSpecies extends StatefulWidget {
   @override
   _AddSpeciesState createState() => _AddSpeciesState();
 }
 
 class _AddSpeciesState extends State<AddSpecies> {
+
+  List<File>? mangroveFileImageArray;
+  List<String> mangrovePathImageArray = [];
+
+  List<File> tempMangroveFileImageArray = [];
+  List<String> mangroveImagePathList = [];
+
+  List<File> tempFlowerFileImageArray = [];
+  List<String> flowerImagePathList = [];
+  List<File> tempFruitFileImageArray = [];
+  List<String> fruitImagePathList = [];
+  List<File> templeafFileImageArray = [];
+  List<String> leafImagePathList = [];
+  List<File> tempRootFileImageArray = [];
+  List<String> rootImagePathList = [];
+
   final picker = ImagePicker();
   File? mangroveImage;
   File? fruitImage;
@@ -45,14 +67,29 @@ class _AddSpeciesState extends State<AddSpecies> {
   //For Flower
   TextEditingController flowerNameInput = TextEditingController();
   TextEditingController flowerDescInput = TextEditingController(); 
+  TextEditingController inflorescenceInput = TextEditingController();
+  TextEditingController petalsInput = TextEditingController();
+  TextEditingController sepalsInput = TextEditingController();
+  TextEditingController stamenInput = TextEditingController();
+  TextEditingController sizeFlowerInput = TextEditingController();
   //For Leaf
   TextEditingController leafNameInput = TextEditingController();
   TextEditingController leafDescInput = TextEditingController();
-  TextEditingController leafImputInput = TextEditingController();
+  TextEditingController arrangementInput = TextEditingController();
+  TextEditingController bladeShapeInput = TextEditingController();
+  TextEditingController marginInput = TextEditingController();
+  TextEditingController apexInput = TextEditingController();
+  TextEditingController baseInput = TextEditingController();
+  TextEditingController upperSurfaceInput = TextEditingController();
+  TextEditingController underSurfaceInput = TextEditingController();
+  TextEditingController sizeleafInput = TextEditingController();
   //For fruit
   TextEditingController fruitNameInput = TextEditingController();
   TextEditingController fruitDescInput = TextEditingController();
-  TextEditingController fruitImputInput = TextEditingController();
+  TextEditingController shapeInput = TextEditingController();
+  TextEditingController colorInput = TextEditingController();
+  TextEditingController textureInput = TextEditingController();
+  TextEditingController sizefruitInput = TextEditingController();
 
   MangroveDatabaseHelper? dbHelper;
   List<MangrooveModel> mangroveDataList = [];
@@ -69,20 +106,12 @@ class _AddSpeciesState extends State<AddSpecies> {
 
   Future<Uint8List> fileToUint8List(File file) async {
     final List<int> bytes = await file.readAsBytes();
-    print('======== bytes ========');
-    print(bytes);
-
-    print('========  Uint8List.fromList(bytes) ========');
-    print( Uint8List.fromList(bytes));
     return Uint8List.fromList(bytes);
   }
 
   Future<void> _insertMangrooveData() async {
-    print('======== mangroveImage ========');
-    print(mangroveImage);
 
     if(mangroveImage != null){
-      print('======== mangroveImages is not null ========');
 
       final List<int> bytes = await mangroveImage!.readAsBytes();
       final List<int> rootBytes = await mangroveImage!.readAsBytes();
@@ -90,11 +119,11 @@ class _AddSpeciesState extends State<AddSpecies> {
       final List<int> leafBytes = await mangroveImage!.readAsBytes();
       final List<int> fruitBytes = await mangroveImage!.readAsBytes();
       
-      final Uint8List mangroveImageBytes = Uint8List.fromList(bytes);
-      final Uint8List rootImageBytes =  Uint8List.fromList(rootBytes);
-      final Uint8List flowerImageBytes =  Uint8List.fromList(flowerBytes);
-      final Uint8List leafImageBytes =  Uint8List.fromList(leafBytes);
-      final Uint8List fruitImageBytes =  Uint8List.fromList(fruitBytes);
+      Uint8List.fromList(bytes);
+      Uint8List.fromList(rootBytes);
+      Uint8List.fromList(flowerBytes);
+      Uint8List.fromList(leafBytes);
+      Uint8List.fromList(fruitBytes);
 
       final newMangroove = MangrooveModel(
         imagePath: mangroveImagePath,
@@ -105,6 +134,15 @@ class _AddSpeciesState extends State<AddSpecies> {
       );
       
       final insertedMangrove = await dbHelper?.insertDBMangroveData(newMangroove);
+
+      for (var treeImgPath in mangroveImagePathList) {
+        final fav = MangroveImagesModel(
+          mangroveId: insertedMangrove ?? 1,
+          imagePath: treeImgPath
+        );
+
+        await dbHelper?.insertMangroveImages(fav);
+      }
 
       final newRoot = RootModel(
         imagePath: rootImagePath,
@@ -117,6 +155,11 @@ class _AddSpeciesState extends State<AddSpecies> {
         imagePath: flowerImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: '',
+        inflorescence: inflorescenceInput.text,
+        petals: petalsInput.text,
+        sepals: sepalsInput.text,
+        stamen: stamenInput.text,
+        size: sizeFlowerInput.text,
         description: flowerDescInput.text
       );
 
@@ -124,20 +167,61 @@ class _AddSpeciesState extends State<AddSpecies> {
         imagePath: leafImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: '',
-        description: leafDescInput.text,
+        arrangement: arrangementInput.text,
+        bladeShape: bladeShapeInput.text,
+        margin: marginInput.text,
+        apex: apexInput.text,
+        base: baseInput.text,
+        upperSurface: upperSurfaceInput.text,
+        underSurface: underSurfaceInput.text,
+        size: sizeleafInput.text,
+        description: leafDescInput.text
       );
 
       final newFruit = FruitModel(
         imagePath: fruitImagePath,
         mangroveId: insertedMangrove ?? 0,
         name: '',
+        shape: shapeInput.text,
+        color: colorInput.text,
+        texture: textureInput.text,
+        size: sizefruitInput.text,
         description: fruitDescInput.text,
       );
 
-      final root_id = dbHelper?.insertDBRootData(newRoot);
-      final flower_id = dbHelper?.insertDBFlowerData(newFlower);
-      final leaf_id = dbHelper?.insertDBLeafData(newLeaf);
-      final fruit_id = dbHelper?.insertDBFruitData(newFruit);
+      final rootId = await dbHelper?.insertDBRootData(newRoot);
+      final flowerId = await dbHelper?.insertDBFlowerData(newFlower);
+      final leafId = await dbHelper?.insertDBLeafData(newLeaf);
+      final fruitId = await dbHelper?.insertDBFruitData(newFruit);
+
+      if(rootImagePathList.isNotEmpty) {
+        for (var rootImgPath in rootImagePathList) {
+          final root = RootImagesModel(rootId: rootId ?? 1, imagePath: rootImgPath);
+          await dbHelper?.insertRootImages(root);
+        }
+      }
+
+      if(flowerImagePathList.isNotEmpty) {
+        for (var flowerImgPath in flowerImagePathList) {
+          final flower = FlowerImagesModel(flowerId: flowerId ?? 1, imagePath: flowerImgPath);
+          await dbHelper?.insertFlowerImages(flower);
+        }
+      }
+
+      if(leafImagePathList.isNotEmpty) {
+        for (var leafImgPath in leafImagePathList) {
+          final leaf = LeafImagesModel(leafId: leafId ?? 1, imagePath: leafImgPath);
+          await dbHelper?.insertLeafImages(leaf);
+        }
+      }
+
+
+      if(fruitImagePathList.isNotEmpty) {
+        for (var fruitImgPath in fruitImagePathList) {
+          final fruit = FruitImagesModel(fruitId: fruitId ?? 1, imagePath: fruitImgPath);
+          await dbHelper?.insertFruitImages(fruit);
+        }
+      }
     }
 
     _gotoSearchList();
@@ -159,76 +243,184 @@ class _AddSpeciesState extends State<AddSpecies> {
       setState(() {
         switch (fromField) {
           case "mangrove":
-            print('===******===== pickedFileFromGallery.path ===*****=====');
-            print(pickedFileFromGallery.path);
             mangroveImage = File(pickedFileFromGallery.path);
             mangroveImagePath = pickedFileFromGallery.path;
+
+
+            mangroveFileImageArray?.add(mangroveImage!);
+            mangrovePathImageArray.add(pickedFileFromGallery.path);
+
+            mangroveImagePathList.add( pickedFileFromGallery.path);
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);
             rootImagePath = pickedFileFromGallery.path;
+            rootImagePathList.add( pickedFileFromGallery.path);
             break;
           case "flower":
             flowerImage = File(pickedFileFromGallery.path);
             flowerImagePath = pickedFileFromGallery.path;
+            flowerImagePathList.add( pickedFileFromGallery.path);
             break;
           case "leaf":
             leafImage = File(pickedFileFromGallery.path);
             leafImagePath = pickedFileFromGallery.path;
+            leafImagePathList.add( pickedFileFromGallery.path);
             break;
           case "fruit":
             fruitImage = File(pickedFileFromGallery.path);
             fruitImagePath = pickedFileFromGallery.path;
+            fruitImagePathList.add( pickedFileFromGallery.path);
             break;
           default:
             mangroveImage = File(pickedFileFromGallery.path);
             mangroveImagePath = pickedFileFromGallery.path;
+            mangroveImagePathList.add( pickedFileFromGallery.path);
         }
         
       });
     }
   }
 
+  Future<void> removeImageInArray(int index) async {
+
+    setState(() {
+      tempMangroveFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeFlowerInArray(int index) async {
+
+    setState(() {
+      tempFlowerFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeFruitInArray(int index) async {
+
+    setState(() {
+      tempFruitFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeLeafInArray(int index) async {
+
+    setState(() {
+      templeafFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeRootInArray(int index) async {
+
+    setState(() {
+      tempRootFileImageArray.removeAt(index);
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    if (mangroveImage != null) {
+      tempMangroveFileImageArray.add(mangroveImage!);
+    }
+
+    if (flowerImage != null) {
+      tempFlowerFileImageArray.add(flowerImage!);
+    }
+
+    if (fruitImage != null) {
+      tempFruitFileImageArray.add(fruitImage!);
+    }
+
+    if (leafImage != null) {
+      templeafFileImageArray.add(leafImage!);
+    }
+
+    if (rootImage != null) {
+      tempRootFileImageArray.add(rootImage!);
+    }
+
+
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
             leading: IconButton(
-              icon: Icon(Icons.arrow_back), // Add your arrow icon here
+              icon: const Icon(Icons.arrow_back), // Add your arrow icon here
               onPressed: () {
                 Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => AdminScreen()));
+                MaterialPageRoute(builder: (context) => const AdminScreen()));
               },
               
             ),
-            title: Text('Search Tree'), // Add your app title here
             ),
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
                   children: [
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       "Mangrove Tree",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    mangroveImage != null
-                        ? Image.file(
-                            mangroveImage!,
-                            height: 150,
-                          )
+                    SizedBox(
+                      height: 150.0,
+                      child: tempMangroveFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempMangroveFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempMangroveFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeImageInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+
                         : Image.asset(
                             'assets/images/default_placeholder.png',
                             height: 150,
                             width: 150,
                           ),
-                    SizedBox(height: 10),
-                    Container(
+                    ),
+                    // mangroveImage != null
+                    //     ? Image.file(
+                    //         mangroveImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -237,71 +429,103 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _getFromGallery('mangrove');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Upload Mangrove Image'),
+                              Text('Add Mangrove Image'),
                               Icon(Icons.add)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: nameController,
-                        decoration: InputDecoration(labelText: 'Local Name'),
+                        controller: scientificNameController,
+                        decoration:
+                            const InputDecoration(labelText: 'Scientific Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: localNameController,
-                        decoration: InputDecoration(labelText: 'Local Name'),
+                        decoration: const InputDecoration(labelText: 'Local Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: scientificNameController,
-                        decoration:
-                            InputDecoration(labelText: 'Scientific Name'),
+                        controller: nameController,
+                        decoration: const InputDecoration(labelText: 'Family Name'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
                     
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Root",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    rootImage != null
-                        ? Image.file(
-                            rootImage!,
-                            height: 150,
-                          )
+                    SizedBox(
+                      height: 150.0,
+                      child: tempRootFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempRootFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempRootFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeRootInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
                         : Image.asset(
                             'assets/images/default_placeholder.png',
                             height: 150,
                             width: 150,
                           ),
-                    SizedBox(height: 10),
-                    Container(
+                    ),
+
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -310,56 +534,81 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _getFromGallery('root');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Upload Root Image'),
+                              Text('Add Root Image'),
                               Icon(Icons.add)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: rootNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
                         controller: rootDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Description'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Flower",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    flowerImage != null
-                        ? Image.file(
-                            flowerImage!,
-                            height: 150,
-                          )
+                    SizedBox(
+                      height: 150.0,
+                      child: tempFlowerFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempFlowerFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempFlowerFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeFlowerInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
                         : Image.asset(
                             'assets/images/default_placeholder.png',
                             height: 150,
                             width: 150,
                           ),
-                    SizedBox(height: 10),
-                    Container(
+                    ),
+                     
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -368,19 +617,19 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _getFromGallery('flower');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Upload Flower Image'),
+                              Text('Add Flower Image'),
                               Icon(Icons.add)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -391,33 +640,114 @@ class _AddSpeciesState extends State<AddSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
+                        controller: inflorescenceInput,
+                        decoration: const InputDecoration(labelText: 'Inflorescence'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: petalsInput,
+                        decoration: const InputDecoration(labelText: 'Petals'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: sepalsInput,
+                        decoration: const InputDecoration(labelText: 'Sepals'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: stamenInput,
+                        decoration: const InputDecoration(labelText: 'Stamen'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: sizeFlowerInput,
+                        decoration: const InputDecoration(labelText: 'Size'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
                         controller: flowerDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Others'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Leaf",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    leafImage != null
-                        ? Image.file(
-                            leafImage!,
-                            height: 150,
-                          )
+                    SizedBox(
+                      height: 150.0,
+                      child: templeafFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: templeafFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(templeafFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeLeafInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
                         : Image.asset(
                             'assets/images/default_placeholder.png',
                             height: 150,
                             width: 150,
                           ),
-                    SizedBox(height: 10),
-                    Container(
+                    ),
+                    // leafImage != null
+                    //     ? Image.file(
+                    //         leafImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -426,19 +756,19 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _getFromGallery('leaf');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Upload Leaf Image'),
+                              Text('Add Leaf Image'),
                               Icon(Icons.add)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -449,33 +779,138 @@ class _AddSpeciesState extends State<AddSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
+                        controller: arrangementInput,
+                        decoration: const InputDecoration(labelText: 'Arrangement'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: bladeShapeInput,
+                        decoration: const InputDecoration(labelText: 'Blade Shape'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: marginInput,
+                        decoration: const InputDecoration(labelText: 'Margin'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: apexInput,
+                        decoration: const InputDecoration(labelText: 'Apex'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: baseInput,
+                        decoration: const InputDecoration(labelText: 'Base'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: upperSurfaceInput,
+                        decoration: const InputDecoration(labelText: 'Upper Surface'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: underSurfaceInput,
+                        decoration: const InputDecoration(labelText: 'Under Surface'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: sizeleafInput,
+                        decoration: const InputDecoration(labelText: 'Size'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
                         controller: leafDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration: const InputDecoration(labelText: 'Others'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
 
-                    SizedBox(height: 30),
-                    Text(
+                    const SizedBox(height: 30),
+                    const Text(
                       "Fruit",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    fruitImage != null
-                        ? Image.file(
-                            fruitImage!,
-                            height: 150,
-                          )
+                    SizedBox(
+                      height: 150.0,
+                      child: tempFruitFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempFruitFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempFruitFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeFruitInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
                         : Image.asset(
                             'assets/images/default_placeholder.png',
                             height: 150,
                             width: 150,
                           ),
-                    SizedBox(height: 10),
-                    Container(
+                    ),
+                    // fruitImage != null
+                    //     ? Image.file(
+                    //         fruitImage!,
+                    //         height: 150,
+                    //       )
+                    //     : Image.asset(
+                    //         'assets/images/default_placeholder.png',
+                    //         height: 150,
+                    //         width: 150,
+                    //       ),
+                    const SizedBox(height: 10),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -484,19 +919,19 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _getFromGallery('fruit');
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Upload Fruit Image'),
+                              Text('Add Fruit Image'),
                               Icon(Icons.add)
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     // Padding(
                     //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                     //   child: TextField(
@@ -507,12 +942,47 @@ class _AddSpeciesState extends State<AddSpecies> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
-                        controller: fruitDescInput,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        controller: shapeInput,
+                        decoration: const InputDecoration(labelText: 'Shape'),
                         maxLines: 2, // You can adjust the number of lines
                       ),
                     ),
-                    Container(
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: colorInput,
+                        decoration: const InputDecoration(labelText: 'Color'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: textureInput,
+                        decoration: const InputDecoration(labelText: 'Texture'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: sizefruitInput,
+                        decoration: const InputDecoration(labelText: 'Size'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                      child: TextField(
+                        controller: fruitDescInput,
+                        decoration: const InputDecoration(labelText: 'Others'),
+                        maxLines: 2, // You can adjust the number of lines
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
@@ -521,10 +991,10 @@ class _AddSpeciesState extends State<AddSpecies> {
                             _insertMangrooveData();
                           },
                           style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(fontSize: 20),
-                              backgroundColor:  Color.fromARGB(255, 2, 191, 5),
-                              minimumSize: Size(double.infinity, 60)),
-                          child: Row(
+                              textStyle: const TextStyle(fontSize: 20),
+                              backgroundColor:  const Color.fromARGB(255, 2, 191, 5),
+                              minimumSize: const Size(double.infinity, 60)),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('SUBMIT'),
@@ -534,6 +1004,9 @@ class _AddSpeciesState extends State<AddSpecies> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20.0,
+                    )
                   ],
                 ),
               ),

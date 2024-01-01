@@ -6,7 +6,15 @@ class LeafModel {
   final Uint8List? imageBlob;
   String? imagePath;
   String? name;
-  final String description;
+  String? arrangement;
+  String? bladeShape;
+  String? margin;
+  String? apex;
+  String? base;
+  String? upperSurface;
+  String? underSurface;
+  String? size;
+  String? description;
 
   LeafModel({
     this.id,
@@ -14,7 +22,15 @@ class LeafModel {
     this.imageBlob,
     this.imagePath,
     this.name,
-    required this.description,
+    this.arrangement,
+    this.bladeShape,
+    this.margin,
+    this.apex,
+    this.base,
+    this.upperSurface,
+    this.underSurface,
+    this.size,
+    this.description
   });
 
   Map<String, dynamic> toMap() {
@@ -24,7 +40,15 @@ class LeafModel {
       'imageBlob': imageBlob,
       'imagePath': imagePath,
       'name': name,
-      'description': description,
+      'arrangement' : arrangement,
+      'bladeShape' : bladeShape,
+      'margin' : margin,
+      'apex' : apex,
+      'base' : base,
+      'upperSurface' : upperSurface,
+      'underSurface' : underSurface,
+      'size' : size,
+      'description': description
     };
   }
 
@@ -35,6 +59,14 @@ class LeafModel {
       imageBlob: map['imageBlob'],
       imagePath: map['imagePath'],
       name: map['name'],
+      arrangement: map['arrangement'],
+      bladeShape: map['bladeShape'],
+      margin: map['margin'],
+      apex: map['apex'],
+      base: map['base'],
+      upperSurface: map['upperSurface'],
+      underSurface: map['underSurface'],
+      size: map['size'],
       description: map['description'],
     );
   }

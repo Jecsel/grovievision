@@ -95,7 +95,7 @@ class _ResultPageState extends State<ResultPage> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: ListTile(
-                  title: Text('Local Name: ${imageData['local_name']}'),
+                  title: Text('Local Name: ${mangrooveData[index]['local_name']}'),
                   subtitle: Text('Score: ${mangrooveData[index]['score']}%' ),
                   leading: FutureBuilder<Widget>(
                     future: loadImageFromFile(imageData['imagePath']),
@@ -146,6 +146,23 @@ class _ResultPageState extends State<ResultPage> {
         ],
       ),
     ))
-    : Text("No Results Found");
+    : MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back), // Add your arrow icon here
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+            },
+          ),
+          title: Text('Scan Results'), // Add your app title here
+      ),
+      body: Center(child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: Text('No Results Found'),
+      ))
+      ),
+    );
   }
 }

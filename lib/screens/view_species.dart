@@ -1,21 +1,24 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grovievision/models/flower_model.dart';
+import 'package:grovievision/models/fruit_images.dart';
 import 'package:grovievision/models/fruit_model.dart';
+import 'package:grovievision/models/leaf_images.dart';
 import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
+import 'package:grovievision/models/mangrove_images.dart';
+import 'package:grovievision/models/root_images.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/about_us.dart';
-import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
-import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/update_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:grovievision/ui/login.dart';
+
+import '../models/flower_images.dart';
 
 class ViewSpecies extends StatefulWidget {
   final int mangroveId; // Mangrove Id
@@ -37,6 +40,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
   FlowerModel? flowerData;
   FruitModel? fruitData;
   LeafModel? leafData;
+  List<File> tempTracerFileImageArray = [];
+  List<File> tempFlowerFileImageArray = [];
+  List<File> tempFruitFileImageArray = [];
+  List<File> tempLeafFileImageArray = [];
+  List<File> tempRootFileImageArray = [];
 
   @override
   void initState() {
@@ -46,12 +54,36 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   Future<void> fetchData() async {
     int mangroveId = widget.mangroveId;
-    MangrooveModel? mangroveResultData =
-        await dbHelper.getOneMangroveData(mangroveId);
+    MangrooveModel? mangroveResultData = await dbHelper.getOneMangroveData(mangroveId);
     RootModel? rootResultData = await dbHelper.getOneRootData(mangroveId);
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
     FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
+    List<MangroveImagesModel>? mangroveImgs = await dbHelper.getMangroveImages(mangroveId);
+    List<FlowerImagesModel>? flowerImgs = await dbHelper.getFlowerImages(mangroveId);
+    List<FruitImagesModel>? fruitImgs = await dbHelper.getFruitImages(mangroveId);
+    List<LeafImagesModel>? leafImgs = await dbHelper.getLeafImages(mangroveId);
+    List<RootImagesModel>? rootImgs = await dbHelper.getRootImages(mangroveId);
+
+    for (var imgPaths in mangroveImgs) {
+      tempTracerFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in flowerImgs) {
+      tempFlowerFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in fruitImgs) {
+      tempFruitFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in leafImgs) {
+      tempLeafFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in rootImgs) {
+      tempRootFileImageArray.add(File(imgPaths.imagePath));
+    }
 
     setState(() {
       mangroveData = mangroveResultData;
@@ -59,9 +91,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       fruitData = fruitResultData;
       leafData = leafResultData;
       flowerData = flowerResultData;
-
-      print("========== rootData ===========");
-      print(rootData);
+      tempTracerFileImageArray = tempTracerFileImageArray;
+      tempFlowerFileImageArray = tempFlowerFileImageArray;
+      tempFruitFileImageArray = tempFruitFileImageArray;
+      tempLeafFileImageArray = tempLeafFileImageArray;
+      tempRootFileImageArray = tempRootFileImageArray;
     });
   }
 
@@ -82,7 +116,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   _gotoSearchList() {
     String pageType = widget.pageType;
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType ?? 'User')));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType)));
   }
 
   _gotoUpdateSpecies() {
@@ -136,6 +170,39 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     );
   }
 
+  Widget _buildTableRow(String col1, String col2) {
+    return Container(
+      padding: const EdgeInsets.only(right: 5.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _buildTableFirstCell(col1),
+          _buildTableSecondCell(col2)
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableFirstCell(String text) {
+    return Expanded(
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16.0, color: Color.fromARGB(108, 61, 98, 2)),
+      ),
+    );
+  }
+
+  Widget _buildTableSecondCell(String text) {
+    return Expanded(
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16.0),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var pageType = widget.pageType;
@@ -146,7 +213,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
         title: const Text('Mangroove Info'),
         backgroundColor: Colors.green, // Set the background color here
         leading: IconButton(
-            icon: Icon(Icons.arrow_back), // Add your arrow icon here
+            icon: const Icon(Icons.arrow_back), // Add your arrow icon here
             onPressed: () {
               if(isFromResult!) {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
@@ -159,7 +226,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           Visibility(
             visible: pageType == 'Admin',
             child: IconButton(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               onPressed: () {
                 _gotoUpdateSpecies();
               },
@@ -168,11 +235,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           Visibility(
             visible: pageType == 'Admin',
             child: IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 deleteMangroveData();
                 _gotoSearchList();
-                final snackBar = SnackBar(
+                const snackBar = SnackBar(
                   content: Text('Mangrove Delete!'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -187,25 +254,57 @@ class _ViewSpeciesState extends State<ViewSpecies> {
           child: Center(
             child: Column(
               children: <Widget>[
-                FutureBuilder<Widget>(
-                  future: loadImageFromFile(mangroveData?.imagePath ?? ''),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return snapshot.data ?? CircularProgressIndicator();;
-                    } else {
-                      return CircularProgressIndicator(); // Or another loading indicator
-                    }
-                  },
+                SizedBox(
+                  height: 250.0,
+                  child: tempTracerFileImageArray.isNotEmpty
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempTracerFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  FutureBuilder<Widget>(
+                                    future: loadImageFromFile(tempTracerFileImageArray[index].path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return snapshot.data ??
+                                            const CircularProgressIndicator();
+                                      } else {
+                                        return const CircularProgressIndicator(); // Or another loading indicator
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                      : 
+                      mangroveData?.imagePath != null ?
+                      FutureBuilder<Widget>(
+                        future: loadImageFromFile(mangroveData?.imagePath ?? ''),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data ?? const CircularProgressIndicator();
+                          } else {
+                            return const CircularProgressIndicator(); // Or another loading indicator
+                          }
+                        },
+                      ) : const Text('')
                 ),
-                SizedBox(height: 10),
+                
+                const SizedBox(height: 10),
                 Text(
-                  mangroveData?.name ?? 'No Name',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
+                  mangroveData?.scientific_name ?? 'No Scientific Name',
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       "Local Names: ",
                       style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
@@ -217,159 +316,387 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "Scientific Names: ",
+                    const Text(
+                      "Family Name: ",
                       style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     Expanded(
                       child: Text(
-                        mangroveData?.scientific_name ?? 'No Scientific Name')),
+                        mangroveData?.name ?? 'No Family Name')),
                   ],
                 ),
-                SizedBox(height: 10),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Description: ",
+                    style:
+                      TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                ),
                 Row(
                   children: [
-                    Text(
-                      "Description: ",
-                      style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
                     Expanded(
-                      child: Text(
-                        mangroveData?.description ?? 'No Description')),
+                      child: RichText(
+                        textAlign: TextAlign.justify,
+                        text: TextSpan(
+                        style: const TextStyle(color: Colors.black),
+                        children: <TextSpan>[
+                          TextSpan( text: mangroveData?.description ?? 'No Description')
+                          ]
+                        )
+                      ),
+                    )
                   ],
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
-                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
-                    child: Text(
-                    "Leaves",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '' && leafData?.description != '',
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                        "Leaves",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                 ),
                 Visibility(
-                  visible: leafData?.imagePath != null || leafData?.imagePath != '',
+                  visible: leafData?.imagePath != null && leafData?.imagePath != '' && leafData?.description != '',
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(leafData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              if (leafData?.arrangement != null) _buildTableRow('Arrangement: ', leafData?.arrangement ?? '') ,
+                              if (leafData?.bladeShape != null) _buildTableRow('Blade Shape: ', leafData?.bladeShape  ?? ''),
+                              if (leafData?.margin != null) _buildTableRow('Margin', leafData?.margin  ?? ''),
+                              if (leafData?.apex != null) _buildTableRow('Apex', leafData?.apex ?? ''),
+                              if (leafData?.base != null) _buildTableRow('Base', leafData?.base ?? ''),
+                              if (leafData?.upperSurface != null) _buildTableRow('Upper Surface', leafData?.upperSurface ?? ''),
+                              if (leafData?.underSurface != null) _buildTableRow('Under Surface', leafData?.underSurface ?? ''),
+                              if (leafData?.size != null) _buildTableRow('Size', leafData?.size ?? ''),
+                              if (leafData?.description != null) _buildTableRow('Others', leafData?.description ?? ''),
+                            ],
+                          ),
+                          
+                          
+                          // Text(leafData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
-                        future: loadImage(leafData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                        height: 150.0,
+                        width: 150,
+                        child: tempLeafFileImageArray.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: tempLeafFileImageArray.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      children: [
+                                        FutureBuilder<Widget>(
+                                          future: loadImageFromFile(tempLeafFileImageArray[index].path),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return snapshot.data ??
+                                                  const CircularProgressIndicator();
+                                            } else {
+                                              return const CircularProgressIndicator(); // Or another loading indicator
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : 
+                            leafData?.imagePath != null ?
+                            FutureBuilder<Widget>(
+                              future: loadImageFromFile(leafData?.imagePath ?? ''),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  return snapshot.data ?? const CircularProgressIndicator();
+                                } else {
+                                  return const CircularProgressIndicator(); // Or another loading indicator
+                                }
+                              },
+                            ) : const Text('')
+                          ),
                       ),
                     ],
                   ),
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
-                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
-                    child: Text(
-                    "Fruit",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '' && fruitData?.description != '',
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                        "Fruit",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                 ),
                 Visibility(
-                  visible: fruitData?.imageBlob != null || fruitData?.imageBlob != '',
+                  visible: fruitData?.imagePath != null && fruitData?.imagePath != '' && fruitData?.description != '',
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(fruitData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: 
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              if (fruitData?.shape != null) _buildTableRow('Shape: ', fruitData?.shape ?? '') ,
+                              if (fruitData?.color != null) _buildTableRow('Color: ', fruitData?.color  ?? ''),
+                              if (fruitData?.texture != null) _buildTableRow('Margin', fruitData?.texture  ?? ''),
+                              if (fruitData?.size != null) _buildTableRow('Apex', fruitData?.size ?? ''),
+                              if (fruitData?.description != null) _buildTableRow('Others', fruitData?.description ?? ''),
+                            ],
+                          ),
+                          
+                          // Text(fruitData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
-                        future: loadImage(fruitData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ), 
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                        height: 150.0,
+                        width: 150,
+                        child: tempFruitFileImageArray.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: tempFruitFileImageArray.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      children: [
+                                        FutureBuilder<Widget>(
+                                          future: loadImageFromFile(tempFruitFileImageArray[index].path),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return snapshot.data ??
+                                                  const CircularProgressIndicator();
+                                            } else {
+                                              return const CircularProgressIndicator(); // Or another loading indicator
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : 
+                            fruitData?.imagePath != null ?
+                            FutureBuilder<Widget>(
+                              future: loadImageFromFile(fruitData?.imagePath ?? ''),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  return snapshot.data ?? const CircularProgressIndicator();
+                                } else {
+                                  return const CircularProgressIndicator(); // Or another loading indicator
+                                }
+                              },
+                            ) : const Text('')
+                          ),
+                      ),
                     ],
                   ),
                 ),
 
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
-                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
-                    child: Text(
-                    "Flower",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                        "Flower ",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                 ),
                 Visibility(
-                  visible: flowerData?.imageBlob != null || flowerData?.imageBlob != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
                         padding: const EdgeInsets.only(right: 15),
-                        child: Text(flowerData?.description ?? 'No Description'),
+                          child: 
+                          
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              if (flowerData?.inflorescence != null) _buildTableRow('Inflorescence: ', flowerData?.inflorescence ?? '') ,
+                              if (flowerData?.petals != null) _buildTableRow('Petals: ', flowerData?.petals  ?? ''),
+                              if (flowerData?.sepals != null) _buildTableRow('Sepals', flowerData?.sepals  ?? ''),
+                              if (flowerData?.stamen != null) _buildTableRow('Stamen', flowerData?.stamen ?? ''),
+                              if (flowerData?.size != null) _buildTableRow('Size', flowerData?.size ?? ''),
+                              if (flowerData?.description != null) _buildTableRow('Others', flowerData?.description ?? ''),
+                            ],
+                          ),
+                          
+                          // Text(flowerData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
-                        future: loadImage(flowerData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ),
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          height: 150.0,
+                          width: 150,
+                          child: tempFlowerFileImageArray.isNotEmpty
+                              ? ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: tempFlowerFileImageArray.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          FutureBuilder<Widget>(
+                                            future: loadImageFromFile(tempFlowerFileImageArray[index].path),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return snapshot.data ??
+                                                    const CircularProgressIndicator();
+                                              } else {
+                                                return const CircularProgressIndicator(); // Or another loading indicator
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : 
+                              flowerData?.imagePath != null ?
+                              FutureBuilder<Widget>(
+                                future: loadImageFromFile(flowerData?.imagePath ?? ''),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    return snapshot.data ?? const CircularProgressIndicator();
+                                  } else {
+                                    return const CircularProgressIndicator(); // Or another loading indicator
+                                  }
+                                },
+                              ) : const Text(''),
+                        )
+                      )
                     ],
                   ),
+                ),
 
-                ),
-                
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Visibility(
-                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
-                    child: Text(
-                    "Root",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '' && rootData?.description != '',
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                        "Root",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                 ),
                 Visibility(
-                  visible: rootData?.imageBlob != null || rootData?.imageBlob != '',
+                  visible: rootData?.imagePath != null && rootData?.imagePath != '' && rootData?.description != '',
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Text(rootData?.description ?? 'No Description'),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: Text(rootData?.description ?? 'No Description'),
+                        ),
                       ),
-                      FutureBuilder<Widget>(
-                        future: loadImage(rootData?.imagePath ?? ''),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            return snapshot.data ?? CircularProgressIndicator();;
-                          } else {
-                            return CircularProgressIndicator(); // Or another loading indicator
-                          }
-                        },
-                      ),
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          height: 150.0,
+                          width: 150,
+                          child: tempRootFileImageArray.isNotEmpty
+                              ? ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: tempRootFileImageArray.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          FutureBuilder<Widget>(
+                                            future: loadImageFromFile(tempRootFileImageArray[index].path),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return snapshot.data ??
+                                                    const CircularProgressIndicator();
+                                              } else {
+                                                return const CircularProgressIndicator(); // Or another loading indicator
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : 
+                              rootData?.imagePath != null ?
+                              FutureBuilder<Widget>(
+                                future: loadImageFromFile(rootData?.imagePath ?? ''),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    return snapshot.data ?? const CircularProgressIndicator();
+                                  } else {
+                                    return const CircularProgressIndicator(); // Or another loading indicator
+                                  }
+                                },
+                              ) : const Text(''),
+                        )
+                          ),                     
                     ],
                   ),
                 ),
+               
                 ElevatedButton(
                   onPressed: () {
                     _gotoSearchList();
                   },
-                  child: Text("Summary"),
+                  child: const Text("Summary"),
                 ),
                 
               ],
@@ -394,7 +721,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
               index: 1,
               onTap: () {
                 Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => Login()));
+                MaterialPageRoute(builder: (context) => const Login()));
               },
             ),
             _buildDrawerItem(

@@ -36,17 +36,13 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-      print("======= initState ===========");
       dbHelper = MangroveDatabaseHelper.instance;
       fetchData();
   }
 
   Future<void> fetchData() async {
     String searchKey = widget.searchKey;
-    print("======= Result Start ===========");
     List<MangrooveModel> result = await dbHelper.getMangroveDataList();
-    print(result.length);
-    print("======= Result End ===========");
 
     List<FruitModel> fruits = await dbHelper.getFruitDataList();
     List<LeafModel> leaves = await dbHelper.getLeafDataList();
@@ -79,7 +75,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<Widget> loadImageFromFile(String filePath) async {
-    print('============ loadImageFromFile ===== ${filePath}');
     if (filePath.startsWith('assets/')) {
       // If the path starts with 'assets/', load from assets
       return Image.asset(filePath, width: 60, height: 60);
@@ -100,17 +95,23 @@ class _SearchPageState extends State<SearchPage> {
     List<MangrooveModel> filteredData = [];
 
     // Iterate through the original data and add matching items to the filtered list
-    for (var item in mangrooveData) {
-      if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
-          item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
-        filteredData.add(item);
+     if(keyword != '') {
+      for (var item in mangrooveData) {
+        if (item.local_name.toLowerCase().contains(keyword.toLowerCase()) ||
+            item.scientific_name.toLowerCase().contains(keyword.toLowerCase())) {
+          filteredData.add(item);
+        }
       }
-    }
 
-    setState(() {
-      // Update the mangrooveData with the filtered data
-      mangrooveData = filteredData;
-    });
+      setState(() {
+        // Update the mangrooveData with the filtered data
+        mangrooveData = filteredData;
+      });
+
+     } else {
+      fetchData();
+     }
+
   }
 
   Future<void> _handleRefresh() async {
