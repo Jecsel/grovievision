@@ -4,10 +4,13 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grovievision/models/flower_model.dart';
+import 'package:grovievision/models/fruit_images.dart';
 import 'package:grovievision/models/fruit_model.dart';
+import 'package:grovievision/models/leaf_images.dart';
 import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/mangrove_images.dart';
+import 'package:grovievision/models/root_images.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/admin.dart';
@@ -17,6 +20,8 @@ import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/update_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:grovievision/ui/login.dart';
+
+import '../models/flower_images.dart';
 
 class ViewSpecies extends StatefulWidget {
   final int mangroveId; // Mangrove Id
@@ -39,6 +44,10 @@ class _ViewSpeciesState extends State<ViewSpecies> {
   FruitModel? fruitData;
   LeafModel? leafData;
   List<File> tempTracerFileImageArray = [];
+  List<File> tempFlowerFileImageArray = [];
+  List<File> tempFruitFileImageArray = [];
+  List<File> tempLeafFileImageArray = [];
+  List<File> tempRootFileImageArray = [];
 
   @override
   void initState() {
@@ -59,9 +68,29 @@ class _ViewSpeciesState extends State<ViewSpecies> {
     print(flowerResultData?.imagePath);
 
     List<MangroveImagesModel>? mangroveImgs = await dbHelper.getMangroveImages(mangroveId);
+    List<FlowerImagesModel>? flowerImgs = await dbHelper.getFlowerImages(mangroveId);
+    List<FruitImagesModel>? fruitImgs = await dbHelper.getFruitImages(mangroveId);
+    List<LeafImagesModel>? leafImgs = await dbHelper.getLeafImages(mangroveId);
+    List<RootImagesModel>? rootImgs = await dbHelper.getRootImages(mangroveId);
 
     for (var imgPaths in mangroveImgs) {
       tempTracerFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in flowerImgs) {
+      tempFlowerFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in fruitImgs) {
+      tempFruitFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in leafImgs) {
+      tempLeafFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in rootImgs) {
+      tempRootFileImageArray.add(File(imgPaths.imagePath));
     }
 
     setState(() {
@@ -71,6 +100,10 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       leafData = leafResultData;
       flowerData = flowerResultData;
       tempTracerFileImageArray = tempTracerFileImageArray;
+      tempFlowerFileImageArray = tempFlowerFileImageArray;
+      tempFruitFileImageArray = tempFruitFileImageArray;
+      tempLeafFileImageArray = tempLeafFileImageArray;
+      tempRootFileImageArray = tempRootFileImageArray;
 
       print("========== flowerData  ImagePath ===========");
       print(flowerData?.imagePath);
@@ -278,24 +311,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                           }
                         },
                       ) : const Text('')
-                      
-                      // : Image.asset(
-                      //     'assets/images/default_placeholder.png',
-                      //     height: 300,
-                      //     width: 300,
-                      //   ),
                 ),
-
-                // FutureBuilder<Widget>(
-                //   future: loadImageFromFile(mangroveData?.imagePath ?? ''),
-                //   builder: (context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.done) {
-                //       return snapshot.data ?? const CircularProgressIndicator();;
-                //     } else {
-                //       return const CircularProgressIndicator(); // Or another loading indicator
-                //     }
-                //   },
-                // ),
                 
                 const SizedBox(height: 10),
                 Text(
@@ -367,9 +383,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                 ),
                 Visibility(
                   visible: leafData?.imagePath != null && leafData?.imagePath != '' && leafData?.description != '',
-                  child: 
-                  
-                  Row(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -397,20 +411,51 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       ),
                       Expanded(
                         flex: 2,
-                        child:  FutureBuilder<Widget>(
-                        future: loadImage(leafData?.imagePath ?? ''),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();
-                            } else {
-                              return const CircularProgressIndicator(); // Or another loading indicator
-                            }
-                          },
-                        ),
-                      )
+                        child: SizedBox(
+                        height: 150.0,
+                        width: 150,
+                        child: tempLeafFileImageArray.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: tempLeafFileImageArray.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      children: [
+                                        FutureBuilder<Widget>(
+                                          future: loadImageFromFile(tempLeafFileImageArray[index].path),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return snapshot.data ??
+                                                  const CircularProgressIndicator();
+                                            } else {
+                                              return const CircularProgressIndicator(); // Or another loading indicator
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : 
+                            leafData?.imagePath != null ?
+                            FutureBuilder<Widget>(
+                              future: loadImageFromFile(leafData?.imagePath ?? ''),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  return snapshot.data ?? const CircularProgressIndicator();
+                                } else {
+                                  return const CircularProgressIndicator(); // Or another loading indicator
+                                }
+                              },
+                            ) : const Text('')
+                          ),
+                      ),
                     ],
                   ),
-                  
                 ),
 
                 const SizedBox(height: 30),
@@ -453,25 +498,56 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: FutureBuilder<Widget>(
-                          future: loadImage(fruitData?.imagePath ?? ''),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();
-                            } else {
-                              return const CircularProgressIndicator(); // Or another loading indicator
-                            }
-                          },
-                        ), 
+                        child: SizedBox(
+                        height: 150.0,
+                        width: 150,
+                        child: tempFruitFileImageArray.isNotEmpty
+                            ? ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: tempFruitFileImageArray.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(
+                                      children: [
+                                        FutureBuilder<Widget>(
+                                          future: loadImageFromFile(tempFruitFileImageArray[index].path),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.done) {
+                                              return snapshot.data ??
+                                                  const CircularProgressIndicator();
+                                            } else {
+                                              return const CircularProgressIndicator(); // Or another loading indicator
+                                            }
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )
+                            : 
+                            fruitData?.imagePath != null ?
+                            FutureBuilder<Widget>(
+                              future: loadImageFromFile(fruitData?.imagePath ?? ''),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  return snapshot.data ?? const CircularProgressIndicator();
+                                } else {
+                                  return const CircularProgressIndicator(); // Or another loading indicator
+                                }
+                              },
+                            ) : const Text('')
+                          ),
                       ),
-                      
                     ],
                   ),
                 ),
 
                 const SizedBox(height: 30),
                 Visibility(
-                  // visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -483,7 +559,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                     ),
                 ),
                 Visibility(
-                  // visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
+                  visible: flowerData?.imagePath != null && flowerData?.imagePath != '' && flowerData?.description != '',
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -511,20 +587,53 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: FutureBuilder<Widget>(
-                        future: loadImage(flowerData?.imagePath ?? ''),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();
-                            } else {
-                              return const CircularProgressIndicator(); // Or another loading indicator
-                            }
-                          },
-                        ),
+                        child: SizedBox(
+                          height: 150.0,
+                          width: 150,
+                          child: tempFlowerFileImageArray.isNotEmpty
+                              ? ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: tempFlowerFileImageArray.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          FutureBuilder<Widget>(
+                                            future: loadImageFromFile(tempFlowerFileImageArray[index].path),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return snapshot.data ??
+                                                    const CircularProgressIndicator();
+                                              } else {
+                                                return const CircularProgressIndicator(); // Or another loading indicator
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : 
+                              flowerData?.imagePath != null ?
+                              FutureBuilder<Widget>(
+                                future: loadImageFromFile(flowerData?.imagePath ?? ''),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    return snapshot.data ?? const CircularProgressIndicator();
+                                  } else {
+                                    return const CircularProgressIndicator(); // Or another loading indicator
+                                  }
+                                },
+                              ) : const Text(''),
+                        )
                       )
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 30),
                 Visibility(
                   visible: rootData?.imagePath != null && rootData?.imagePath != '' && rootData?.description != '',
@@ -553,20 +662,53 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: FutureBuilder<Widget>(
-                        future: loadImage(rootData?.imagePath ?? ''),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              return snapshot.data ?? const CircularProgressIndicator();
-                            } else {
-                              return const CircularProgressIndicator(); // Or another loading indicator
-                            }
-                          },
-                        ),
-                      ) 
+                        child: SizedBox(
+                          height: 150.0,
+                          width: 150,
+                          child: tempRootFileImageArray.isNotEmpty
+                              ? ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: tempRootFileImageArray.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          FutureBuilder<Widget>(
+                                            future: loadImageFromFile(tempRootFileImageArray[index].path),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.done) {
+                                                return snapshot.data ??
+                                                    const CircularProgressIndicator();
+                                              } else {
+                                                return const CircularProgressIndicator(); // Or another loading indicator
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                )
+                              : 
+                              rootData?.imagePath != null ?
+                              FutureBuilder<Widget>(
+                                future: loadImageFromFile(rootData?.imagePath ?? ''),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.done) {
+                                    return snapshot.data ?? const CircularProgressIndicator();
+                                  } else {
+                                    return const CircularProgressIndicator(); // Or another loading indicator
+                                  }
+                                },
+                              ) : const Text(''),
+                        )
+                          ),                     
                     ],
                   ),
                 ),
+               
                 ElevatedButton(
                   onPressed: () {
                     _gotoSearchList();

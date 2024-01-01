@@ -13,6 +13,11 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/flower_images.dart';
+import '../models/fruit_images.dart';
+import '../models/leaf_images.dart';
+import '../models/root_images.dart';
+
 class MangroveDatabaseHelper {
   static final MangroveDatabaseHelper instance = MangroveDatabaseHelper._init();
   static Database? _database;
@@ -203,7 +208,103 @@ class MangroveDatabaseHelper {
     await db.delete(
       'mangrove_images',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id]
+    );
+  }
+
+  Future<FlowerImagesModel> insertFlowerImages( imageData) async {
+    final db = await database;
+    await db.insert('flower_images', imageData.toMap());
+    return imageData;
+  }
+
+  Future<List<FlowerImagesModel>> getFlowerImages(int flowerId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db
+        .query('flower_images', where: 'flowerId = ?', whereArgs: [flowerId]);
+    return List.generate(maps.length, (i) {
+      return FlowerImagesModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> deleteOneImageFromFlower(int id) async {
+    final db = await database;
+    await db.delete(
+      'flower_images',
+      where: 'id = ?',
+      whereArgs: [id]
+    );
+  }
+
+  Future<FruitImagesModel> insertFruitImages( imageData) async {
+    final db = await database;
+    await db.insert('fruit_images', imageData.toMap());
+    return imageData;
+  }
+
+  Future<List<FruitImagesModel>> getFruitImages(int fruitId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db
+        .query('fruit_images', where: 'fruitId = ?', whereArgs: [fruitId]);
+    return List.generate(maps.length, (i) {
+      return FruitImagesModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> deleteOneImageFromFruit(int id) async {
+    final db = await database;
+    await db.delete(
+      'fruit_images',
+      where: 'id = ?',
+      whereArgs: [id]
+    );
+  }
+
+  Future<LeafImagesModel> insertLeafImages( imageData) async {
+    final db = await database;
+    await db.insert('leaf_images', imageData.toMap());
+    return imageData;
+  }
+
+  Future<List<LeafImagesModel>> getLeafImages(int leafId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db
+        .query('leaf_images', where: 'leafId = ?', whereArgs: [leafId]);
+    return List.generate(maps.length, (i) {
+      return LeafImagesModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> deleteOneImageFromLeaf(int id) async {
+    final db = await database;
+    await db.delete(
+      'leaf_images',
+      where: 'id = ?',
+      whereArgs: [id]
+    );
+  }
+
+  Future<RootImagesModel> insertRootImages( imageData) async {
+    final db = await database;
+    await db.insert('root_images', imageData.toMap());
+    return imageData;
+  }
+
+  Future<List<RootImagesModel>> getRootImages(int rootId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db
+        .query('root_images', where: 'rootId = ?', whereArgs: [rootId]);
+    return List.generate(maps.length, (i) {
+      return RootImagesModel.fromMap(maps[i]);
+    });
+  }
+
+  Future<void> deleteOneImageFromRoot(int id) async {
+    final db = await database;
+    await db.delete(
+      'root_images',
+      where: 'id = ?',
+      whereArgs: [id]
     );
   }
 
@@ -231,28 +332,28 @@ class MangroveDatabaseHelper {
     return mangrooveReturnData;
   }
 
-  Future<RootModel> insertDBRootData(RootModel rootData) async {
+  Future<int> insertDBRootData(RootModel rootData) async {
     final db = await database;
-    final id = await db.insert('root', rootData.toMap());
-    return rootData;
+    final rootId = await db.insert('root', rootData.toMap());
+    return rootId;
   }
 
-  Future<FlowerModel> insertDBFlowerData(FlowerModel flowerData) async {
+  Future<int> insertDBFlowerData(FlowerModel flowerData) async {
     final db = await database;
-    final id = await db.insert('flower', flowerData.toMap());
-    return flowerData;
+    final flowerId = await db.insert('flower', flowerData.toMap());
+    return flowerId;
   }
 
-  Future<LeafModel> insertDBLeafData(LeafModel leafData) async {
+  Future<int> insertDBLeafData(LeafModel leafData) async {
     final db = await database;
-    final id = await db.insert('leaf', leafData.toMap());
-    return leafData;
+    final leafId = await db.insert('leaf', leafData.toMap());
+    return leafId;
   }
 
-  Future<FruitModel> insertDBFruitData(FruitModel fruitData) async {
+  Future<int> insertDBFruitData(FruitModel fruitData) async {
     final db = await database;
-    final id = await db.insert('fruit', fruitData.toMap());
-    return fruitData;
+    final fruitId = await db.insert('fruit', fruitData.toMap());
+    return fruitId;
   }
 
   Future<List<MangrooveModel>> getMangroveDataList() async {
@@ -553,6 +654,11 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
     List<dynamic> mangrove_datas = [
         {
           'path': 'assets/images/onetree.png',
+          'image_paths': [
+            'assets/images/onetree.png',
+            'assets/images/onetree.png',
+            'assets/images/onetree.png',
+          ],
           'name': ' Acanthaceae',
           'local_name': 'lagiwliw, ragoyroy',
           'scientific_name': 'Acanthus ebracteatus',
@@ -560,21 +666,37 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           'summary': '',
           'root': {
             'path': '',
+            'image_paths': [],
             'name': '',
             'description': ''
           },
           'flower': {
             'path': 'assets/images/oneflower.png',
+            'image_paths': [
+              'assets/images/oneflower.png',
+              'assets/images/oneflower.png',
+              'assets/images/oneflower.png',
+            ],
             'name': '',
             'description': 'The plants inflorescence presents itself as a spike emerging terminally, showcasing a striking visual display. The petals of these flowers start as a pristine white hue but gradually transition to a subtle brownish shade as they mature over time. Each petal measures between 2 to 3 centimeters in length, contributing to the delicate yet captivating appearance of the blossoms. This transformation in color adds an intriguing dimension to the overall aesthetic of the plants flowering phase, creating an engaging contrast as the petals age gracefully.'
           },
           'leaf': {
             'path': 'assets/images/oneleaf.png',
+            'image_paths': [
+              'assets/images/oneleaf.png',
+              'assets/images/oneleaf.png',
+              'assets/images/oneleaf.png',
+            ],
             'name': '',
             'description': 'The leaves of this particular plant exhibit a fascinating arrangement, alternating between simple, opposite, and decussate patterns. Their blade shape varies from elliptic to oblong, complemented by deeply lobed and serrated margins adorned with sharp spines. Tapering to an acute apex and base, these leaves measure between 10 to 20 centimeters in length and 4 to 6 centimeters in width. Their upper surface boasts a captivating dark green hue, rendering a shiny appearance, while the undersurface maintains a similarly dark green coloration. Notably stiff in texture, these leaves also possess salt crystals, adding to their unique characteristics.'
           },
           'fruit': {
             'path': 'assets/images/onefruit.png',
+            'image_paths': [
+              'assets/images/onefruit.png',
+              'assets/images/onefruit.png',
+              'assets/images/onefruit.png',
+            ],
             'name': '',
             'description': 'The capsule, slightly flattened in its shape, embodies a spectrum of green hues, ranging from a vibrant green to a deep, luscious dark green. Its surface boasts a smooth texture, inviting touch with a sleekness that glides under fingertips. Measuring between 2 to 3 centimeters in length and approximately 1 centimeter in diameter, this diminutive yet alluring form holds a quiet allure, captivating attention with its subtle curvature and rich, verdant tones. Its sleek, slender silhouette suggests a graceful presence, evoking a sense of understated elegance within its compact dimensions.'
           },
@@ -1529,6 +1651,15 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
 
         print("============newMangrooveId========");
         print(newMangrooveId);
+
+        print(mangrove['image_paths']);
+
+        if(mangrove['image_paths'] != null) {
+          for (var treeImgPath in mangrove['image_paths']) {
+            final tree = MangroveImagesModel(mangroveId: newMangrooveId, imagePath: treeImgPath);
+            await dbHelper.insertMangroveImages(tree);
+          }
+        }
 
         final newRoot = RootModel(
           mangroveId: newMangrooveId ?? 0,
