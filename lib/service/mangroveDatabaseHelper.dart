@@ -665,10 +665,10 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           'description': 'Characteristic ground flora of mangroves, Acanthus ebracteatus, A. ilicifolius and A. volubilis may form extensive shrubs up to 1.5 m high which are initially erect but recline with age, for the latter two. The closely related species are found in soft muds of the upper to middle reaches of estuarine rivers and creeks, and firm muds of back mangroves. Undergrowth is dense in open sunlight along forest margins, less so in partial shade and on mud lobster mounds. Leaves are elliptic to oblong, simple and decussate, with short petiole and a pair of spines at each leaf insertion or node - armed species have spiny leaves and stems. Flowers form a terminal spike up to 20 cm long. Oton, Iloilo folks boil the dried flowers and drink the water to relieve cough. Fruit capsules are dark green and slightly flattened. Often found together, these 3 are sometimes treated as a single variable species indicating the need for more field work on Acanthus eco-genetics. Presently, they are distin g u ish ed by the appearance of the leaves, flowers and fruits.',
           'summary': '',
           'root': {
-            'path': '',
-            'image_paths': [],
-            'name': '',
-            'description': ''
+            'path': 'assets/images/onetree.png',
+            'image_paths': ['assets/images/onetree.png','assets/images/onetree.png'],
+            'name': 'Sample Name',
+            'description': 'Sample Description'
           },
           'flower': {
             'path': 'assets/images/oneflower.png',
@@ -678,6 +678,11 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
               'assets/images/oneflower.png',
             ],
             'name': '',
+            'inflorescence':'inflorescence',
+            'petals':'petals',
+            'sepals': 'sepals',
+            'stamen': 'stamen',
+            'size': 'size',
             'description': 'The plants inflorescence presents itself as a spike emerging terminally, showcasing a striking visual display. The petals of these flowers start as a pristine white hue but gradually transition to a subtle brownish shade as they mature over time. Each petal measures between 2 to 3 centimeters in length, contributing to the delicate yet captivating appearance of the blossoms. This transformation in color adds an intriguing dimension to the overall aesthetic of the plants flowering phase, creating an engaging contrast as the petals age gracefully.'
           },
           'leaf': {
@@ -688,6 +693,14 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
               'assets/images/oneleaf.png',
             ],
             'name': '',
+            'arrangement': 'arrangement',
+            'bladeShape': 'bladeShape',
+            'margin': 'margin',
+            'apex': 'apex',
+            'base': 'base',
+            'upperSurface': 'upperSurface',
+            'underSurface': 'underSurface',
+            'size': 'size',
             'description': 'The leaves of this particular plant exhibit a fascinating arrangement, alternating between simple, opposite, and decussate patterns. Their blade shape varies from elliptic to oblong, complemented by deeply lobed and serrated margins adorned with sharp spines. Tapering to an acute apex and base, these leaves measure between 10 to 20 centimeters in length and 4 to 6 centimeters in width. Their upper surface boasts a captivating dark green hue, rendering a shiny appearance, while the undersurface maintains a similarly dark green coloration. Notably stiff in texture, these leaves also possess salt crystals, adding to their unique characteristics.'
           },
           'fruit': {
@@ -698,6 +711,10 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
               'assets/images/onefruit.png',
             ],
             'name': '',
+            'shape': 'shape',
+            'color': 'color',
+            'texture': 'texture',
+            'size': 'size',
             'description': 'The capsule, slightly flattened in its shape, embodies a spectrum of green hues, ranging from a vibrant green to a deep, luscious dark green. Its surface boasts a smooth texture, inviting touch with a sleekness that glides under fingertips. Measuring between 2 to 3 centimeters in length and approximately 1 centimeter in diameter, this diminutive yet alluring form holds a quiet allure, captivating attention with its subtle curvature and rich, verdant tones. Its sleek, slender silhouette suggests a graceful presence, evoking a sense of understated elegance within its compact dimensions.'
           },
         },
@@ -1652,8 +1669,6 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
         print("============newMangrooveId========");
         print(newMangrooveId);
 
-        print(mangrove['image_paths']);
-
         if(mangrove['image_paths'] != null) {
           for (var treeImgPath in mangrove['image_paths']) {
             final tree = MangroveImagesModel(mangroveId: newMangrooveId, imagePath: treeImgPath);
@@ -1693,10 +1708,38 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           description: mangrove['fruit']['description']
         );
 
-        final root_id = dbHelper.insertDBRootData(newRoot);
-        final flower_id = dbHelper.insertDBFlowerData(newFlower);
-        final leaf_id = dbHelper.insertDBLeafData(newLeaf);
-        final fruit_id = dbHelper.insertDBFruitData(newFruit);
+        final root_id = await dbHelper.insertDBRootData(newRoot);
+        final flower_id = await dbHelper.insertDBFlowerData(newFlower);
+        final leaf_id = await dbHelper.insertDBLeafData(newLeaf);
+        final fruit_id = await dbHelper.insertDBFruitData(newFruit);
+
+        if( mangrove['root']['image_paths'] != null) {
+          for (var rootImgPath in mangrove['root']['image_paths']) {
+            final tree = RootImagesModel(rootId: root_id, imagePath: rootImgPath);
+            await dbHelper.insertRootImages(tree);
+          }
+        }
+
+        if( mangrove['flower']['image_paths'] != null) {
+          for (var flowerImgPath in mangrove['flower']['image_paths']) {
+            final tree = FlowerImagesModel(flowerId: flower_id, imagePath: flowerImgPath);
+            await dbHelper.insertFlowerImages(tree);
+          }
+        }
+
+        if( mangrove['leaf']['image_paths'] != null) {
+          for (var leafImgPath in mangrove['leaf']['image_paths']) {
+            final tree = LeafImagesModel(leafId: leaf_id, imagePath: leafImgPath);
+            await dbHelper.insertLeafImages(tree);
+          }
+        }
+
+        if( mangrove['fruit']['image_paths'] != null) {
+          for (var fruitImgPath in mangrove['fruit']['image_paths']) {
+            final tree = FruitImagesModel(fruitId: fruit_id, imagePath: fruitImgPath);
+            await dbHelper.insertFruitImages(tree);
+          }
+        }
       }
     }
   }
