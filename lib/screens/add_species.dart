@@ -203,8 +203,6 @@ class _AddSpeciesState extends State<AddSpecies> {
 
       if(flowerImagePathList.isNotEmpty) {
         for (var flowerImgPath in flowerImagePathList) {
-          print('==== flower Id ====');
-          print(flowerId);
           final flower = FlowerImagesModel(flowerId: flowerId ?? 1, imagePath: flowerImgPath);
           await dbHelper?.insertFlowerImages(flower);
         }
@@ -212,8 +210,6 @@ class _AddSpeciesState extends State<AddSpecies> {
 
       if(leafImagePathList.isNotEmpty) {
         for (var leafImgPath in leafImagePathList) {
-          print('==== leaf Id ====');
-          print(leafId);
           final leaf = LeafImagesModel(leafId: leafId ?? 1, imagePath: leafImgPath);
           await dbHelper?.insertLeafImages(leaf);
         }
@@ -222,8 +218,6 @@ class _AddSpeciesState extends State<AddSpecies> {
 
       if(fruitImagePathList.isNotEmpty) {
         for (var fruitImgPath in fruitImagePathList) {
-          print('==== fruit Id ====');
-          print(fruitId);
           final fruit = FruitImagesModel(fruitId: fruitId ?? 1, imagePath: fruitImgPath);
           await dbHelper?.insertFruitImages(fruit);
         }
@@ -266,7 +260,7 @@ class _AddSpeciesState extends State<AddSpecies> {
           case "flower":
             flowerImage = File(pickedFileFromGallery.path);
             flowerImagePath = pickedFileFromGallery.path;
-            rootImagePathList.add( pickedFileFromGallery.path);
+            flowerImagePathList.add( pickedFileFromGallery.path);
             break;
           case "leaf":
             leafImage = File(pickedFileFromGallery.path);
@@ -529,16 +523,7 @@ class _AddSpeciesState extends State<AddSpecies> {
                             width: 150,
                           ),
                     ),
-                    // rootImage != null
-                    //     ? Image.file(
-                    //         rootImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
+
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
@@ -562,13 +547,6 @@ class _AddSpeciesState extends State<AddSpecies> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: rootNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -628,16 +606,7 @@ class _AddSpeciesState extends State<AddSpecies> {
                             width: 150,
                           ),
                     ),
-                    // flowerImage != null
-                    //     ? Image.file(
-                    //         flowerImage!,
-                    //         height: 150,
-                    //       )
-                    //     : Image.asset(
-                    //         'assets/images/default_placeholder.png',
-                    //         height: 150,
-                    //         width: 150,
-                    //       ),
+                     
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,

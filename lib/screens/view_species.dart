@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +12,7 @@ import 'package:grovievision/models/mangrove_images.dart';
 import 'package:grovievision/models/root_images.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/about_us.dart';
-import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
-import 'package:grovievision/screens/mangroove.dart';
 import 'package:grovievision/screens/search.dart';
 import 'package:grovievision/screens/update_species.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
@@ -57,16 +54,11 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   Future<void> fetchData() async {
     int mangroveId = widget.mangroveId;
-    MangrooveModel? mangroveResultData =
-        await dbHelper.getOneMangroveData(mangroveId);
+    MangrooveModel? mangroveResultData = await dbHelper.getOneMangroveData(mangroveId);
     RootModel? rootResultData = await dbHelper.getOneRootData(mangroveId);
     FlowerModel? flowerResultData = await dbHelper.getOneFlowerData(mangroveId);
     LeafModel? leafResultData = await dbHelper.getOneLeafData(mangroveId);
     FruitModel? fruitResultData = await dbHelper.getOneFruitData(mangroveId);
-  
-    print('==========flowerResultDataimagePath ========');
-    print(flowerResultData?.imagePath);
-
     List<MangroveImagesModel>? mangroveImgs = await dbHelper.getMangroveImages(mangroveId);
     List<FlowerImagesModel>? flowerImgs = await dbHelper.getFlowerImages(mangroveId);
     List<FruitImagesModel>? fruitImgs = await dbHelper.getFruitImages(mangroveId);
@@ -104,15 +96,6 @@ class _ViewSpeciesState extends State<ViewSpecies> {
       tempFruitFileImageArray = tempFruitFileImageArray;
       tempLeafFileImageArray = tempLeafFileImageArray;
       tempRootFileImageArray = tempRootFileImageArray;
-
-      print("========== flowerData  ImagePath ===========");
-      print(flowerData?.imagePath);
-
-      print("========== flowerData  ImageBlob ===========");
-      print(flowerData?.imageBlob);
-
-      print("========== flowerData  ===========");
-      print(flowerData?.inflorescence);
     });
   }
 
@@ -133,7 +116,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
 
   _gotoSearchList() {
     String pageType = widget.pageType;
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType ?? 'User')));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SearchPage(searchKey: 'TREE', pageType: pageType)));
   }
 
   _gotoUpdateSpecies() {
@@ -552,7 +535,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                        "Flower",
+                        "Flower ",
                         style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                       ],
