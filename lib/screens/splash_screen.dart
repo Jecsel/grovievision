@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/user_choice.dart';
 import 'package:grovievision/service/mangroveDatabaseHelper.dart';
@@ -28,8 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async{
-    await Future.delayed(Duration(milliseconds: 3000), (){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
+    await Future.delayed(const Duration(milliseconds: 3000), (){});
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminScreen()));
   }
 
   @override
@@ -41,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           backgroundColor: Colors.green, // Set the background color here
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

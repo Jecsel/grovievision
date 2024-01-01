@@ -1,13 +1,16 @@
-// lib/main.dart
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grovievision/models/flower_images.dart';
 import 'package:grovievision/models/flower_model.dart';
+import 'package:grovievision/models/fruit_images.dart';
 import 'package:grovievision/models/fruit_model.dart';
+import 'package:grovievision/models/leaf_images.dart';
 import 'package:grovievision/models/leaf_model.dart';
 import 'package:grovievision/models/mangroove_model.dart';
 import 'package:grovievision/models/mangrove_images.dart';
+import 'package:grovievision/models/root_images.dart';
 import 'package:grovievision/models/root_model.dart';
 import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/search.dart';
@@ -27,11 +30,21 @@ class UpdateSpecies extends StatefulWidget {
 class _UpdateSpeciesState extends State<UpdateSpecies> {
   final picker = ImagePicker();
 
-  List<File>? mangroveFileImageArray;
-  List<String> mangrovePathImageArray = [];
+  // List<File>? mangroveFileImageArray;
+  // List<String> mangrovePathImageArray = [];
+  // List<String> mangroveImagePathList = [];
+
   List<File> tempMangroveFileImageArray = [];
-  List<String> mangroveImagePathList = [];
   List<MangroveImagesModel>? mangroveImgs = [];
+
+  List<File> tempFlowerFileImageArray = [];
+  List<FlowerImagesModel>? flowerImgs = [];
+  List<File> tempFruitFileImageArray = [];
+  List<FruitImagesModel>? fruitImgs = [];
+  List<File> tempLeafFileImageArray = [];
+  List<LeafImagesModel>? leafImgs = [];
+  List<File> tempRootFileImageArray = [];
+  List<RootImagesModel>? rootImgs = [];
 
   Uint8List? mangroveImg;
   Uint8List? fruitImg;
@@ -120,9 +133,29 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
 
 
     mangroveImgs = await dbHelper.getMangroveImages(mangroveId);
+    rootImgs = await dbHelper.getRootImages(rootResultData!.id ?? 1);
+    flowerImgs = await dbHelper.getFlowerImages(flowerResultData!.id ?? 1);
+    leafImgs = await dbHelper.getLeafImages(leafResultData!.id ?? 1);
+    fruitImgs = await dbHelper.getFruitImages(fruitResultData!.id ?? 1);
 
     for (var imgPaths in mangroveImgs!) {
       tempMangroveFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in rootImgs!) {
+      tempRootFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in flowerImgs!) {
+      tempFlowerFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in leafImgs!) {
+      tempLeafFileImageArray.add(File(imgPaths.imagePath));
+    }
+
+    for (var imgPaths in fruitImgs!) {
+      tempFruitFileImageArray.add(File(imgPaths.imagePath));
     }
     
     setState(() {
@@ -292,7 +325,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       description: descriptionController.text
     );
 
-    final insertedMangrove = await dbHelper?.updateMangroveData(newMangroove);
+    final insertedMangrove = await dbHelper.updateMangroveData(newMangroove);
 
     final newRoot = RootModel(
       id: rootData?.id,
@@ -343,10 +376,10 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
       description: fruitDescInput.text
     );
 
-    final root_id = dbHelper?.updateRootData(newRoot);
-    final flower_id = dbHelper?.updateFlowerData(newFlower);
-    final leaf_id = dbHelper?.updateLeafData(newLeaf);
-    final fruit_id = dbHelper?.updateFruitData(newFruit);
+    final root_id = dbHelper.updateRootData(newRoot);
+    final flower_id = dbHelper.updateFlowerData(newFlower);
+    final leaf_id = dbHelper.updateLeafData(newLeaf);
+    final fruit_id = dbHelper.updateFruitData(newFruit);
   }
 
 
@@ -395,37 +428,77 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
             mangroveData?.imagePath =  mangroveImagePath;
 
             tempMangroveFileImageArray.add(mangroveImage!);
-            
 
-            final fav = MangroveImagesModel(
+            final newImg = MangroveImagesModel(
               mangroveId: mangroveImgs?[0].mangroveId ?? 1,
               imagePath: mangroveImagePath!
             );
+            dbHelper.insertMangroveImages(newImg);
             break;
           case "root":
             rootImage = File(pickedFileFromGallery.path);
             rootImagePath = pickedFileFromGallery.path;
             rootData?.imagePath =  rootImagePath;
+
+            tempRootFileImageArray.add(rootImage!);
+
+            final newImg = RootImagesModel(
+              rootId: rootImgs?[0].rootId ?? 1,
+              imagePath: rootImagePath!
+            );
+            dbHelper.insertRootImages(newImg);
             break;
           case "flower":
             flowerImage = File(pickedFileFromGallery.path);
             flowerImagePath = pickedFileFromGallery.path;
             flowerData?.imagePath = flowerImagePath;
+
+            tempFlowerFileImageArray.add(flowerImage!);
+
+            final newImg = FlowerImagesModel(
+              flowerId: flowerImgs?[0].flowerId ?? 1,
+              imagePath: flowerImagePath!
+            );
+            dbHelper.insertFlowerImages(newImg);
             break;
           case "leaf":
             leafImage = File(pickedFileFromGallery.path);
             leafImagePath = pickedFileFromGallery.path;
             leafData?.imagePath = leafImagePath;
+
+            tempLeafFileImageArray.add(leafImage!);
+
+            final newImg = LeafImagesModel(
+              leafId: leafImgs?[0].leafId ?? 1,
+              imagePath: leafImagePath!
+            );
+            dbHelper.insertLeafImages(newImg);
             break;
           case "fruit":
             fruitImage = File(pickedFileFromGallery.path);
             fruitImagePath = pickedFileFromGallery.path;
             fruitData?.imagePath = fruitImagePath;
+
+            tempFruitFileImageArray.add(fruitImage!);
+
+            final newImg = FruitImagesModel(
+              fruitId: fruitImgs?[0].fruitId ?? 1,
+              imagePath: fruitImagePath!
+            );
+            dbHelper.insertFruitImages(newImg);
             break;
           default:
             mangroveImage = File(pickedFileFromGallery.path);
             mangroveImagePath = pickedFileFromGallery.path;
-            mangroveData?.imagePath =  mangroveImagePath;
+            mangroveData?.imagePath = mangroveImagePath;
+
+            tempMangroveFileImageArray.add(mangroveImage!);
+
+            final newImg = MangroveImagesModel(
+              mangroveId: mangroveImgs?[0].mangroveId ?? 1,
+              imagePath: mangroveImagePath!
+            );
+            dbHelper.insertMangroveImages(newImg);
         }
         
       });
@@ -433,27 +506,53 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
   }
 
   Future<void> removeImageInArray(int index)  async {
-
-    print(mangroveImgs?[index]);
-
     int tracerImgID = mangroveImgs?[index].id ?? 1;
-    await dbHelper?.deleteOneImageFromMangrove(tracerImgID);
+    await dbHelper.deleteOneImageFromMangrove(tracerImgID);
 
     setState(() {
       tempMangroveFileImageArray.removeAt(index);
+    });
+  }
 
-      print('tempTracerFileImageArray');
-      print(tempMangroveFileImageArray);
+  Future<void> removeRootImageInArray(int index)  async {
+    int rootImgID = rootImgs?[index].id ?? 1;
+    await dbHelper.deleteOneImageFromRoot(rootImgID);
 
+    setState(() {
+      tempRootFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeFlowerImageInArray(int index)  async {
+    int flowerImgID = flowerImgs?[index].id ?? 1;
+    await dbHelper.deleteOneImageFromFlower(flowerImgID);
+
+    setState(() {
+      tempFlowerFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeFruitImageInArray(int index)  async {
+    int fruitImgID = fruitImgs?[index].id ?? 1;
+    await dbHelper.deleteOneImageFromFruit(fruitImgID);
+
+    setState(() {
+      tempFruitFileImageArray.removeAt(index);
+    });
+  }
+
+  Future<void> removeLeafImageInArray(int index)  async {
+    int leafImgID = leafImgs?[index].id ?? 1;
+    await dbHelper.deleteOneImageFromLeaf(leafImgID);
+
+    setState(() {
+      tempLeafFileImageArray.removeAt(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
 
-    print('========mangroveData====================');
-    print(mangroveData);
-    
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -611,16 +710,49 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder<Widget>(
-                      future: loadImageFromFile(rootData?.imagePath ?? ''),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? const CircularProgressIndicator();;
-                        } else {
-                          return const CircularProgressIndicator(); // Or another loading indicator
-                        }
-                      },
+                    SizedBox(
+                      height: 150.0,
+                      child: tempRootFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempRootFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempRootFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeRootImageInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                        : Image.asset(
+                            'assets/images/default_placeholder.png',
+                            height: 150,
+                            width: 150,
+                          ),
                     ),
+                  
+
                     const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -643,14 +775,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                     const SizedBox(height: 10),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: rootNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -669,16 +794,48 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder<Widget>(
-                      future: loadImageFromFile(flowerData?.imagePath ?? ''),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? const CircularProgressIndicator();;
-                        } else {
-                          return const CircularProgressIndicator(); // Or another loading indicator
-                        }
-                      },
+                    SizedBox(
+                      height: 150.0,
+                      child: tempFlowerFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempFlowerFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempFlowerFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeFlowerImageInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                        : Image.asset(
+                            'assets/images/default_placeholder.png',
+                            height: 150,
+                            width: 150,
+                          ),
                     ),
+                     
                     const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -767,16 +924,48 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder<Widget>(
-                      future: loadImageFromFile(leafData?.imagePath ?? ''),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? const CircularProgressIndicator();;
-                        } else {
-                          return const CircularProgressIndicator(); // Or another loading indicator
-                        }
-                      },
+                    SizedBox(
+                      height: 150.0,
+                      child: tempLeafFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempLeafFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempLeafFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeLeafImageInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                        : Image.asset(
+                            'assets/images/default_placeholder.png',
+                            height: 150,
+                            width: 150,
+                          ),
                     ),
+                     
                     const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -799,14 +988,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                     const SizedBox(height: 10),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: leafNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -889,16 +1071,48 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder<Widget>(
-                      future: loadImageFromFile(fruitData?.imagePath ?? ''),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data ?? const CircularProgressIndicator();;
-                        } else {
-                          return const CircularProgressIndicator(); // Or another loading indicator
-                        }
-                      },
+                    SizedBox(
+                      height: 150.0,
+                      child: tempFruitFileImageArray.isNotEmpty ? 
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: tempFruitFileImageArray.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(tempFruitFileImageArray[index],
+                                    width: 150.0, // Adjust the width as needed
+                                    height: 150.0, // Adjust the height as needed
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        removeFruitImageInArray(index);
+                                      },
+                                      child: const Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        )
+                        : Image.asset(
+                            'assets/images/default_placeholder.png',
+                            height: 150,
+                            width: 150,
+                          ),
                     ),
+                     
                     const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -921,14 +1135,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                         ),
                       ),
                     ),
-                     const SizedBox(height: 10),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: fruitNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
