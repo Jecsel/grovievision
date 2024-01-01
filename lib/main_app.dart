@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/screens/loading_screen.dart';
 
+import 'screens/splash_screen.dart';
 import 'ui/login.dart';
 
 class MainApp extends StatelessWidget {
@@ -8,12 +10,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromRGBO(32, 63, 129, 1.0),
         ),
       ),
-      home: const Login(),
+      home: const SplashScreen(),
     );
   }
 }

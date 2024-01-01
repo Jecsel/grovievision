@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grovievision/components/show_mangroove.dart';
 import 'package:grovievision/screens/about_us.dart';
 import 'package:grovievision/screens/home.dart';
+import 'package:grovievision/screens/view_species.dart';
 
 class Mangroove extends StatefulWidget {
   const Mangroove({super.key});
@@ -93,7 +94,7 @@ class _MyDropdownDemoState extends State<MyDropdownDemo> {
               onChanged: (DropdownItem? newValue) {
                 setState(() {
                   // selectedDropdownItem = newValue;
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShowMangroove()));
+                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ViewSpecies()));
                 });
               },
               items: dropdownItems.map((DropdownItem item) {
@@ -282,30 +283,20 @@ class _MyDropdownDemoState extends State<MyDropdownDemo> {
               title: 'Home',
               index: 0,
               onTap: () {
-                _drawerItemTapped(0);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'About Us',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Mangroove()));
-              },
-            ),
-            _buildDrawerItem(
-              title: 'About Us',
-              index: 2,
-              onTap: () {
-                _drawerItemTapped(2);
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AboutUs()));
               },
             ),
             _buildDrawerItem(
               title: 'Exit',
-              index: 3,
+              index: 2,
               onTap: () {
-                _drawerItemTapped(3);
                 Navigator.pop(context);
               },
             ),

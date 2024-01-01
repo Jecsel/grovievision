@@ -1,16 +1,15 @@
-
 import 'package:flutter/material.dart';
+import 'package:grovievision/screens/admin.dart';
 import 'package:grovievision/screens/home.dart';
 import 'package:grovievision/screens/mangroove.dart';
+import 'package:grovievision/ui/login.dart';
 
 class AboutUs extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => AboutUsState();
-
 }
 
-class AboutUsState extends State<AboutUs>{
+class AboutUsState extends State<AboutUs> {
   int _selectedIndex = 0;
 
   _drawerItemTapped(int index) {
@@ -18,6 +17,7 @@ class AboutUsState extends State<AboutUs>{
       _selectedIndex = index;
     });
   }
+
   Widget _buildDrawerItem({
     required String title,
     required int index,
@@ -29,30 +29,123 @@ class AboutUsState extends State<AboutUs>{
       onTap: onTap,
     );
   }
-    
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Grovievision'),
+        title: const Text('About App'),
         backgroundColor: Colors.green, // Set the background color here
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Center(
-          child: Column(
-            children:<Widget>[
-              Image.asset(
-                'assets/images/banner.png',
-              ),
-              SizedBox(height: 10),
-              Text("Description:"),
-              SizedBox(height: 10),
-              Text("Mangroves play a crucial role in coastal ecosystems, providing habitat, protecting shorelines, and sequestering carbon. Accurate identification of mangrove species is essential for monitoring their health and understanding their ecological contributions. 'Grovievision' is a novel standalone application developed to streamline and enhance the process of mangrove species identification."),
-              SizedBox(height: 10),
-              Text("This thesis explores the development and implementation of Grovievision, a user-friendly application designed to facilitate the identification of mangrove species through image recognition technology. The application harnesses the power of machine learning and computer vision algorithms to enable quick and accurate identification of mangrove species from photographs, making it an invaluable tool for researchers, conservationists, and field practitioners.")
-            ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color.fromARGB(199, 99, 177, 9),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                // Image.asset(
+                //   'assets/images/banner.jpg',
+                // ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(60, 20, 60, 20),
+                  child: Text(
+                      "The  application will be very helpful to those who struggle to identify Mangrovestree. This application uses Artificial intelligence (AI) to identify benefits of trees. The application willinclude a camera that takes a picture of a tree thenprocesses it to produce text that describes the tress’s name, leaves, flowers, and fruits.",
+                      style: TextStyle(color: Colors.white)),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        "Developers",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(199, 99, 177, 9)),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/lovely.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Lovely Gabaldon")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/angelica.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Angelica Meniano")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/john.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Jhon Reymond Fabella")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/aiza.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Aiza Padua")
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Image.asset(
+                              'assets/images/mika.jpg',
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                          Text("Mika Ella Liezel Francisco")
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -65,14 +158,16 @@ class AboutUsState extends State<AboutUs>{
               index: 0,
               onTap: () {
                 _drawerItemTapped(0);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Home()));
               },
             ),
             _buildDrawerItem(
-              title: 'Mangrooves',
+              title: 'Admin',
               index: 1,
               onTap: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Mangroove()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Login()));
               },
             ),
             _buildDrawerItem(
@@ -80,7 +175,8 @@ class AboutUsState extends State<AboutUs>{
               index: 2,
               onTap: () {
                 _drawerItemTapped(2);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AboutUs()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => AboutUs()));
               },
             ),
             _buildDrawerItem(
@@ -97,4 +193,3 @@ class AboutUsState extends State<AboutUs>{
     );
   }
 }
-

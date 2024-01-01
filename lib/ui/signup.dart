@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grovievision/models/UserModel.dart';
+import 'package:grovievision/service/mangroveDatabaseHelper.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Signup extends StatefulWidget {
@@ -9,6 +11,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  MangroveDatabaseHelper dbHelper = MangroveDatabaseHelper.instance;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodeEmail = FocusNode();
@@ -17,14 +20,27 @@ class _SignupState extends State<Signup> {
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final TextEditingController _controllerConFirmPassword =
-      TextEditingController();
+  final TextEditingController _controllerConFirmPassword = TextEditingController();
 
   final Box _boxAccounts = Hive.box("accounts");
   bool _obscurePassword = true;
 
+  Future<void> _registerUser() async {
+    final newUser = UserModel(username: _controllerUsername.text, password: _controllerPassword.text);
+    final registeredUser = await dbHelper.registerUser(newUser);
+
+    print("=========registeredUser============");
+    print(registeredUser);
+
+    // if(!isUserRegistered.isNaN) {
+    //   Navigator.pop(context);
+    // }
+  } 
+
   @override
   Widget build(BuildContext context) {
+    final dropdownWidth = MediaQuery.of(context).size.width - 60; // 30 on each side
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Form(
@@ -66,33 +82,33 @@ class _SignupState extends State<Signup> {
 
                   return null;
                 },
-                onEditingComplete: () => _focusNodeEmail.requestFocus(),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _controllerEmail,
-                focusNode: _focusNodeEmail,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter email.";
-                  } else if (!(value.contains('@') && value.contains('.'))) {
-                    return "Invalid email";
-                  }
-                  return null;
-                },
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
               ),
+              // const SizedBox(height: 10),
+              // TextFormField(
+              //   controller: _controllerEmail,
+              //   focusNode: _focusNodeEmail,
+              //   keyboardType: TextInputType.emailAddress,
+              //   decoration: InputDecoration(
+              //     labelText: "Email",
+              //     prefixIcon: const Icon(Icons.email_outlined),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              //   validator: (String? value) {
+              //     if (value == null || value.isEmpty) {
+              //       return "Please enter email.";
+              //     } else if (!(value.contains('@') && value.contains('.'))) {
+              //       return "Invalid email";
+              //     }
+              //     return null;
+              //   },
+              //   onEditingComplete: () => _focusNodePassword.requestFocus(),
+              // ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _controllerPassword,
@@ -161,8 +177,9 @@ class _SignupState extends State<Signup> {
                     return "Password doesn't match.";
                   }
                   return null;
-                },
+                 },
               ),
+
               const SizedBox(height: 50),
               Column(
                 children: [
@@ -179,6 +196,8 @@ class _SignupState extends State<Signup> {
                           _controllerUsername.text,
                           _controllerConFirmPassword.text,
                         );
+
+                        _registerUser();
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
