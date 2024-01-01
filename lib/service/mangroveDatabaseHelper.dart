@@ -805,13 +805,9 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           'description': 'Characteristic ground flora of mangroves, Acanthus ebracteatus, A. ilicifolius and A. volubilis may form extensive shrubs up to 1.5 m high which are initially erect but recline with age, for the latter two. The closely related species are found in soft muds of the upper to middle reaches of estuarine rivers and creeks, and firm muds of back mangroves. Undergrowth is dense in open sunlight along forest margins, less so in partial shade and on mud lobster mounds. Leaves are elliptic to oblong, simple and decussate, with short petiole and a pair of spines at each leaf insertion or node - armed species have spiny leaves and stems. Flowers form a terminal spike up to 20 cm long. Oton, Iloilo folks boil the dried flowers and drink the water to relieve cough. Fruit capsules are dark green and slightly flattened. Often found together, these 3 are sometimes treated as a single variable species indicating the need for more field work on Acanthus eco-genetics. Presently, they are distin g u ish ed by the appearance of the leaves, flowers and fruits.',
           'summary': '',
           'root': {
-            'path': 'assets/images/root.png',
-            'image_paths': [
-              'assets/images/root.png',
-              'assets/images/root.png',
-              'assets/images/root.png',
-              ],
-            'name': 'Sample Name',
+            'path': '',
+            'image_paths': [],
+            'name': '',
             'description': ''
           },
           'flower': {
@@ -909,6 +905,11 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           imageBlob: flowerImageBytes, 
           imagePath: mangrove['flower']['path'],
           name: mangrove['flower']['name'],
+          inflorescence: mangrove['flower']['inflorescence'],
+          petals: mangrove['flower']['petals'],
+          sepals: mangrove['flower']['sepals'],
+          stamen: mangrove['flower']['stamen'],
+          size: mangrove['flower']['size'],
           description: mangrove['flower']['description']
         );
 
@@ -917,6 +918,14 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           imageBlob: leafImageBytes, 
           imagePath: mangrove['leaf']['path'],
           name: mangrove['leaf']['name'],
+          arrangement: mangrove['leaf']['arrangement'],
+          bladeShape: mangrove['leaf']['bladeShape'],
+          margin: mangrove['leaf']['margin'],
+          apex: mangrove['leaf']['apex'],
+          base: mangrove['leaf']['base'],
+          upperSurface: mangrove['leaf']['upperSurface'],
+          underSurface: mangrove['leaf']['underSurface'],
+          size: mangrove['leaf']['size'],
           description: mangrove['leaf']['description']
         );
 
@@ -925,6 +934,10 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
           imageBlob:  fruitImageBytes, 
           imagePath: mangrove['fruit']['path'],
           name: mangrove['fruit']['name'],
+          shape: mangrove['fruit']['shape'],
+          color: mangrove['fruit']['color'],
+          texture: mangrove['fruit']['texture'],
+          size: mangrove['fruit']['size'],
           description: mangrove['fruit']['description']
         );
 
