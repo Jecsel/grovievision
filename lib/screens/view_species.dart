@@ -384,7 +384,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                               if (leafData?.upperSurface != null) _buildTableRow('Upper Surface', leafData?.upperSurface ?? ''),
                               if (leafData?.underSurface != null) _buildTableRow('Under Surface', leafData?.underSurface ?? ''),
                               if (leafData?.size != null) _buildTableRow('Size', leafData?.size ?? ''),
-                              if (leafData?.description != null) _buildTableRow('Others', leafData?.description ?? ''),
+                              if (leafData?.description != null && flowerData?.description != '') _buildTableRow('Others', leafData?.description ?? ''),
                             ],
                           ),
                           
@@ -472,7 +472,7 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                               if (fruitData?.color != null) _buildTableRow('Color: ', fruitData?.color  ?? ''),
                               if (fruitData?.texture != null) _buildTableRow('Margin', fruitData?.texture  ?? ''),
                               if (fruitData?.size != null) _buildTableRow('Apex', fruitData?.size ?? ''),
-                              if (fruitData?.description != null) _buildTableRow('Others', fruitData?.description ?? ''),
+                              if (fruitData?.description != null && flowerData?.description != '') _buildTableRow('Others', fruitData?.description ?? ''),
                             ],
                           ),
                           
@@ -559,9 +559,9 @@ class _ViewSpeciesState extends State<ViewSpecies> {
                               if (flowerData?.inflorescence != null) _buildTableRow('Inflorescence: ', flowerData?.inflorescence ?? '') ,
                               if (flowerData?.petals != null) _buildTableRow('Petals: ', flowerData?.petals  ?? ''),
                               if (flowerData?.sepals != null) _buildTableRow('Sepals', flowerData?.sepals  ?? ''),
-                              if (flowerData?.stamen != null) _buildTableRow('Stamen', flowerData?.stamen ?? ''),
+                              if (flowerData?.stamen != null && flowerData?.description != '') _buildTableRow('Stamen', flowerData?.stamen ?? ''),
                               if (flowerData?.size != null) _buildTableRow('Size', flowerData?.size ?? ''),
-                              if (flowerData?.description != null) _buildTableRow('Others', flowerData?.description ?? ''),
+                              if (flowerData?.description != null && flowerData?.description != '') _buildTableRow('Others', flowerData?.description ?? ''),
                             ],
                           ),
                           
