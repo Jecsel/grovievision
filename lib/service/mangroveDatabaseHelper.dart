@@ -2097,18 +2097,368 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
               'assets/images/21leaf.png',
             ],
             'name': '',
-            'arrangement': '',
-            'bladeShape': '',
-            'margin': '',
-            'apex': '',
-            'base': '',
-            'upperSurface': '',
-            'underSurface': '',
-            'size': '',
-            'description': ''
+            'arrangement': 'simple, alternate, spiral',
+            'bladeShape': 'obovate',
+            'margin': 'entire - smooth',
+            'apex': 'emarginate to round',
+            'base': 'sessile',
+            'upperSurface': 'smooth, light green',
+            'underSurface': 'smooth, light green',
+            'size': '6 (4-9) cm long, 2 (2-4) cm wide',
+            'description': 'succulent'
           },
           'fruit': {
-            'path': 'assets/images/fruit.png',
+            'path': 'assets/images/21fruit.png',
+            'image_paths': [
+              'assets/images/21fruit.png',
+              'assets/images/21fruit.png',
+              'assets/images/21fruit.png',
+            ],
+            'name': '',
+            'shape': 'pitcher-like',
+            'color': 'green',
+            'texture': 'smooth, waxy',
+            'size': '1.1-1.8 cm long, 0.5-0.7 cm diameter',
+            'description': 'one side slightly bulging, the other side flat'
+          },
+        },
+        {
+          'path': 'assets/images/22tree.png',
+          'image_paths': [
+            'assets/images/22tree.png',
+            'assets/images/22tree.png',
+            'assets/images/22tree.png',
+          ],
+          'name': 'Palmae',
+          'local_name': 'nipa, sapsap, sasa (Tagalog)',
+          'scientific_name': 'Nypa fruticans',
+          'description': 'The only palm among true mangrove species, Nypa fruticans forms extensive belts along muddy edges of brackish to almost freshwater creeks and rivers. Individual plants are also found in mixed mangrove communities. It has creeping stems called rhizomes from which tall (up to 8 m high) compound leaves arise. Commercially important, its products include the local drink tuba, vinegar and alcohol from the sap of the inflorescence (see opposite, bottom left photo); roofing material, native hats (salakot), raincoats, baskets, bags, mats, and wrappers from leaflets; and brooms from midribs. The fruit endosperm is eaten fresh or cooked, and the trunk pith is prepared as salad. The Sanskrit name Nypatithau was that of a generous man who gave everything of himself. Coincidentally, Nypa was first applied in Indonesia to this palm species, which gives of its every useful part so to speak (M. Vannucci, personal communication).',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/22root.png',
+            'image_paths': [
+              'assets/images/22root.png',
+              'assets/images/22root.png',
+              'assets/images/22root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/22flower.png',
+            'image_paths': [
+              'assets/images/22flower.png',
+              'assets/images/22flower.png',
+              'assets/images/22flower.png',
+            ],
+            'name': '',
+            'inflorescence':'catkin, axillary',
+            'petals':'yellow to orange',
+            'sepals': 'orange',
+            'stamen': 'yellow',
+            'size': '',
+            'description': 'dimorphic'
+          },
+          'leaf': {
+            'path': 'assets/images/22leaf.png',
+            'image_paths': [
+              'assets/images/22leaf.png',
+              'assets/images/22leaf.png',
+              'assets/images/22leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'compound, odd pinnate',
+            'bladeShape': 'lanceolate leaflet',
+            'margin': 'entire - smooth',
+            'apex': 'acute',
+            'base': 'sessile leaflet',
+            'upperSurface': 'smooth, green',
+            'underSurface': 'powdery, light green',
+            'size': '40-120 cm long, 4-9 cm wide',
+            'description': '80-120 leaflets per leaf 10-20 leaves per cluster'
+          },
+          'fruit': {
+            'path': 'assets/images/22fruit.png',
+            'image_paths': [
+              'assets/images/22fruit.png',
+              'assets/images/22fruit.png',
+              'assets/images/22fruit.png',
+            ],
+            'name': '',
+            'shape': 'ball-shaped cluster of fruits',
+            'color': 'light to dark brown',
+            'texture': 'individual fruit smooth, shiny',
+            'size': '20-40 cm diameter (cluster)',
+            'description': 'meat (endosperm) edible'
+          },
+        },
+        {
+          'path': 'assets/images/23tree.png',
+          'image_paths': [
+            'assets/images/23tree.png',
+            'assets/images/23tree.png',
+            'assets/images/23tree.png',
+          ],
+          'name': '  Myrtaceae',
+          'local_name': 'bunot-bunot, tawalis, dukduk (Negros)',
+          'scientific_name': 'Osbornia octodonta',
+          'description': 'Shrubs to small trees reaching 6 m tall with surface roots, often with multiple irregular stems. They can tolerate high salinity and are found in stands on the high tide line on exposed rocky and sandy shores or the sheltered elevated flats of the foreshore. Osbornia octodonta is sometimes associated with other high shore species like P. acidula and A. floridum, and shares a superficial resemblance with the latter. It has small, brittle leaves which emit an aroma when crushed, small white flowers, capsuleshaped fruits, deeply fissured bark and cable roots often exposed on rocky shores. Aside from fuelwood, the dried twigs (see opposite page, bottom left photo) are made into baskets and used as fish-aggregating devices by local fishers.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/23root.png',
+            'image_paths': [
+              'assets/images/23root.png',
+              'assets/images/23root.png',
+              'assets/images/23root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/23flower.png',
+            'image_paths': [
+              'assets/images/23flower.png',
+              'assets/images/23flower.png',
+              'assets/images/23flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'apetalous',
+            'sepals': 'yellow green, fused',
+            'stamen': 'numerous, white; yellow pollen',
+            'size': '0.5-1 cm long,0.2-0.5 cm diameter',
+            'description': 'usually 3 flowers per cluster'
+          },
+          'leaf': {
+            'path': 'assets/images/23leaf.png',
+            'image_paths': [
+              'assets/images/23leaf.png',
+              'assets/images/23leaf.png',
+              'assets/images/23leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite, decussate',
+            'bladeShape': 'obovate',
+            'margin': 'entire - smooth',
+            'apex': 'emarginate',
+            'base': 'sessile',
+            'upperSurface': 'smooth, pale green',
+            'underSurface': 'smooth, pale green',
+            'size': '4 (3-6) cm long, 2 (1-3) cm wide',
+            'description': 'thin, brittle'
+          },
+          'fruit': {
+            'path': 'assets/images/23fruit.png',
+            'image_paths': [
+              'assets/images/23fruit.png',
+              'assets/images/23fruit.png',
+              'assets/images/23fruit.png',
+            ],
+            'name': '',
+            'shape': 'capsule',
+            'color': 'pale green',
+            'texture': 'hairy (dense)',
+            'size': '0.7-1 cm long,0.3-0.5 cm diameter',
+            'description': 'calyx completely encases fruit'
+          },
+        },   
+        {
+          'path': 'assets/images/24tree.png',
+          'image_paths': [
+            'assets/images/24tree.png',
+            'assets/images/24tree.png',
+            'assets/images/24tree.png',
+          ],
+          'name': ' Lythraceae',
+          'local_name': 'bantigi',
+          'scientific_name': 'Pemphis acidula',
+          'description': 'Shrubs 3-5 m tall, along the high tide line of coralline-rocky and sandy foreshores, often in association with O. octodonta and A. f loridum. It has irregularly shaped branches, small leaves, and small white flowers. Distribution in Panay is limited to small stands in Carles, Iloilo; Taklong Island, Guimaras; and Anini-y, Antique. The twigs are used for fuel and also as fish-aggregating devices, like O. octodonta. Wood of Pemphis acidula is very hard and strong, hence it is used in house and fence construction. Because of its small size and sturdy nature, the species is a favorite material of bonsai enthusiasts (see opposite, bottom left photo). Some ten years ago, the Department of Environment and Natural Resources confiscated specimens collected from Nogas Is., Antique which were to be smuggled to Taiwan and sold at Philippine Pesos (PhP) 2,000 per plant.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/24root.png',
+            'image_paths': [
+              'assets/images/24root.png',
+              'assets/images/24root.png',
+              'assets/images/24root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/24flower.png',
+            'image_paths': [
+              'assets/images/24flower.png',
+              'assets/images/24flower.png',
+              'assets/images/24flower.png',
+            ],
+            'name': '',
+            'inflorescence':'single, axillary',
+            'petals':'6, white',
+            'sepals': '12, fused',
+            'stamen': '12',
+            'size': '0.7-1 cm long, 0.9-1.8 cm diameter',
+            'description': ''
+          },
+          'leaf': {
+            'path': 'assets/images/24leaf.png',
+            'image_paths': [
+              'assets/images/24leaf.png',
+              'assets/images/24leaf.png',
+              'assets/images/24leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite, decussate',
+            'bladeShape': 'elliptical',
+            'margin': 'entire - smooth',
+            'apex': 'acute to obtuse',
+            'base': 'acute',
+            'upperSurface': 'velvety, pale green',
+            'underSurface': 'velvety, whitish green',
+            'size': '2-3 cm long, 1 cm wide',
+            'description': 'covered with minute hairs'
+          },
+          'fruit': {
+            'path': 'assets/images/24fruit.png',
+            'image_paths': [
+              'assets/images/24fruit.png',
+              'assets/images/24fruit.png',
+              'assets/images/24fruit.png',
+            ],
+            'name': '',
+            'shape': 'capsule',
+            'color': 'brown',
+            'texture': 'smooth',
+            'size': '0.4-0.9 cm long, 0.3-0.6 cm diameter',
+            'description': 'fruit encased in a bell-like structure'
+          },
+        },
+        {
+          'path': 'assets/images/25tree.png',
+          'image_paths': [
+            'assets/images/25tree.png',
+            'assets/images/25tree.png',
+            'assets/images/25tree.png',
+          ],
+          'name': ' Rhizophoraceae',
+          'local_name': 'bakhaw, bakhaw lalaki, bulubaladaw (Antique)',
+          'scientific_name': 'Rhizophora apiculata',
+          'description': 'Medium to tall trees reaching 20 m on loose mud of tidal rivers and creeks, and sandy mud of the seaward zone behind the outer 5. alba-A. marina band where Rhizophoraapiculata forms monospecific stands. Its wide distribution in Panay and elsewhere in the Philippines is due to its pioneering nature and popularity for replanting. It is the preferred species for plantations because of availability of propagules and fast growth. The inflorescence usually bears 2 sessile flowers on a very short peduncle. The buds are compact and used by children as bullets for toy guns. The fruits are long, smooth and viviparous. The leaves are dark green and flat, and may be fed to pigs (see opposite page, bottom left photo); the interpetiolary stipules are dark pink to red. ',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/25root.png',
+            'image_paths': [
+              'assets/images/25root.png',
+              'assets/images/25root.png',
+              'assets/images/25root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/25flower.png',
+            'image_paths': [
+              'assets/images/25flower.png',
+              'assets/images/25flower.png',
+              'assets/images/25flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'4, white',
+            'sepals': '4, yellow to red outside',
+            'stamen': '12, brown',
+            'size': '1.2-1.4 cm long',
+            'description': '2 flowers per duster, no style'
+          },
+          'leaf': {
+            'path': 'assets/images/25leaf.png',
+            'image_paths': [
+              'assets/images/25leaf.png',
+              'assets/images/25leaf.png',
+              'assets/images/25leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'elliptic',
+            'margin': 'entire - smooth',
+            'apex': 'apiculate',
+            'base': 'acute',
+            'upperSurface': 'smooth, dark green',
+            'underSurface': 'smooth, green',
+            'size': '13 (9-10) cm long, 5 (4-7) cm wide',
+            'description': 'stipules dark red'
+          },
+          'fruit': {
+            'path': 'assets/images/25.png',
+            'image_paths': [
+              'assets/images/25fruit.png',
+              'assets/images/25fruit.png',
+              'assets/images/25fruit.png',
+            ],
+            'name': '',
+            'shape': 'cylindrical, straight',
+            'color': 'dark green',
+            'texture': 'smooth',
+            'size': '24 (22-26) cm long, 0.9-1 cm diameter',
+            'description': 'viviparous; short ( ~ 1 cm) peduncle so the upper part tends to be curved; yellowish cotelydonary collar'
+          },
+        },
+        {
+          'path': 'assets/images/26tree.png',
+          'image_paths': [
+            'assets/images/26tree.png',
+            'assets/images/26tree.png',
+            'assets/images/26tree.png',
+          ],
+          'name': ' Rhizophoraceae',
+          'local_name': 'bakhaw',
+          'scientific_name': 'Rhizophora x lamarckii',
+          'description': 'A sterile hybrid of Rhizophora apiculata x R. stylosa, this species can be found on the sandy-muddy substrate along the seaward fringe of protected islands. The trees are usually isolated but close to the parent plants. The characters are the same as R. apiculata - reddish interpetiolary stipules but slightly longer peduncles with two flowers each which never develop into fruits. The buds look like those of R. apiculataand the style is shorter than in R. stylosa. A single specimen has been found in the Taklong Island National Marine Reserve, Nueva Valencia, Guimaras (10°24’22.46” N, 122°30’46.26” E). This hybrid has also been reported by Yao (1999) from various sites in central Visayas – Okiot, Dewey Is., Bais and Tinguib, Ayongon both in Negros Oriental; Pagangan Is., Calape and Handayan Is., Getafe both in Bohol; and Taug, Carcar, Cebu.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/26root.png',
+            'image_paths': [
+              'assets/images/26root.png',
+              'assets/images/26root.png',
+              'assets/images/26root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/26flower.png',
+            'image_paths': [
+              'assets/images/26flower.png',
+              'assets/images/26flower.png',
+              'assets/images/26flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'4, white, hairy',
+            'sepals': '4, yellowish',
+            'stamen': '',
+            'size': '1.1-1.4 cm long',
+            'description': '2 flowers per cluster, longer (2-3 cm) peduncle, sterile'
+          },
+          'leaf': {
+            'path': 'assets/images/26leaf.png',
+            'image_paths': [
+              'assets/images/26leaf.png',
+              'assets/images/26leaf.png',
+              'assets/images/26leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'elliptic',
+            'margin': 'entire - smooth',
+            'apex': 'apiculate',
+            'base': 'acute',
+            'upperSurface': 'waxy, dark green',
+            'underSurface': 'smooth, yellow green',
+            'size': '13-15 cm long, 5-6 cm wide',
+            'description': 'stipules reddish'
+          },
+          'fruit': {
+            'path': '',
             'image_paths': [
               'assets/images/fruit.png',
               'assets/images/fruit.png',
@@ -2121,9 +2471,566 @@ Future<RootModel?> getOneRootData(int mangroveId) async {
             'size': '',
             'description': ''
           },
-        }   
-
-      
+        },
+           {
+          'path': 'assets/images/27tree.png',
+          'image_paths': [
+            'assets/images/27tree.png',
+            'assets/images/27tree.png',
+            'assets/images/27tree.png',
+          ],
+          'name': '  Rhizophoraceae',
+          'local_name': 'bakhaw, bakhaw babae',
+          'scientific_name': 'Rhizophora mucronata ',
+          'description': 'Medium to big trees reaching 15 m in Panay (but 30 m in Aurora and other provinces). Its wide distribution overlaps with other Rhizophora species although R. mucronata is more strongly associated with the soft muds of estuarine rivers and tidal creeks. In the seaward fringe, it is typically found behind R. apiculata, the “front-line” species. R. mucronata has broader leaves with yellow to light green stipules, pendulous flowers, and long warty propagules. It is favored for fuelwood and charcoal because of its high heating value, like other Rhizophora species. In the past, it was cultivated with R. apiculata in fuelwood plantations around Manila and sold on the street (see opposite, bottom left photo). The dried hypocotyls were smoked as cigars. In the 1950s-70s, wood chips from these two species were exported from the Philippines, Malaysia and other Southeast Asian countries to Japanese rayon fiber factories.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/27root.png',
+            'image_paths': [
+              'assets/images/27root.png',
+              'assets/images/27root.png',
+              'assets/images/27root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/27flower.png',
+            'image_paths': [
+              'assets/images/27flower.png',
+              'assets/images/27flower.png',
+              'assets/images/27flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'4, white, hairy',
+            'sepals': '4, light yellow',
+            'stamen': '8, brown',
+            'size': '1.2-2 cm long, 1-1.5 cm diameter',
+            'description': '3-5 cm long peduncle, 2-6 flowers per cluster, 1 mm style'
+          },
+          'leaf': {
+            'path': 'assets/images/27leaf.png',
+            'image_paths': [
+              'assets/images/27leaf.png',
+              'assets/images/27leaf.png',
+              'assets/images/27leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'elliptic',
+            'margin': 'entire - smooth',
+            'apex': 'mucronate',
+            'base': 'acute',
+            'upperSurface': ' smooth, dark green',
+            'underSurface': ' smooth, dark green',
+            'size': '14 (11-19) cm long, 7 (6-10) cm wide',
+            'description': 'black dots, light green stipules'
+          },
+          'fruit': {
+            'path': 'assets/images/27fruit.png',
+            'image_paths': [
+              'assets/images/27fruit.png',
+              'assets/images/27fruit.png',
+              'assets/images/27fruit.png',
+            ],
+            'name': '',
+            'shape': 'cylindrical',
+            'color': 'dark green',
+            'texture': 'warty',
+            'size': '57 (34-70) cm long, 1-2 cm diameter',
+            'description': 'viviparous; yellow collar'
+          },
+        },
+          {
+          'path': 'assets/images/28tree.png',
+          'image_paths': [
+            'assets/images/28tree.png',
+            'assets/images/28tree.png',
+            'assets/images/28tree.png',
+          ],
+          'name': '  Rhizophoraceae',
+          'local_name': 'bakhaw, bakhaw bato, bangkao',
+          'scientific_name': 'Rhizophora stylosa ',
+          'description': 'Small to medium trees up to 10 m high. Widely distributed, Rhizophora stylosa overlaps with the habitat of R. apiculata but prefers sandy and rocky intertidal shores. Leaves have sides which typically curl or roll downward, differentiating it from other Rhizophora species; the leaves on terminal branches slant or point upward. Like other mangroves, the roots are often overgrown by epiphytic algae (see opposite page, bottom right photo). Uses for fuelwood and dyes are similar to other Rhizophora species. It is also favored for planting - the provincial government of Antique provided funds for the almost yearly procurement from 1995 to 2001 of more than 70,000 R. stylosapropagules from Semirara Island for planting in Lipata, ',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/28root.png',
+            'image_paths': [
+              'assets/images/28root.png',
+              'assets/images/28root.png',
+              'assets/images/28root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/28flower.png',
+            'image_paths': [
+              'assets/images/28flower.png',
+              'assets/images/28flower.png',
+              'assets/images/28flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'4, white, hairy',
+            'sepals': '4, light yellow',
+            'stamen': '8, brown',
+            'size': '1.1-1.5 cm long, 1.4-2 cm diameter',
+            'description': '~ 7 flowers per cluster, long peduncle, 6 mm style'
+          },
+          'leaf': {
+            'path': 'assets/images/28leaf.png',
+            'image_paths': [
+              'assets/images/28leaf.png',
+              'assets/images/28leaf.png',
+              'assets/images/28leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'elliptic',
+            'margin': 'entire - smooth',
+            'apex': 'apiculate',
+            'base': 'acute',
+            'upperSurface': 'waxy, light green',
+            'underSurface': 'smooth, yellow green',
+            'size': '11 (8-14) cm long, 5 (3-7) cm wide',
+            'description': 'leaves point upward, sides curling; stipules light green'
+          },
+          'fruit': {
+            'path': 'assets/images/28fruit.png',
+            'image_paths': [
+              'assets/images/28fruit.png',
+              'assets/images/28fruit.png',
+              'assets/images/28fruit.png',
+            ],
+            'name': '',
+            'shape': 'cylindrical, straight',
+            'color': 'light green to green',
+            'texture': 'warty',
+            'size': '34 (26-42) cm long, 1-2 cm diameter',
+            'description': 'viviparous; greenish collar'
+          },
+        },
+          {
+          'path': 'assets/images/29tree.png',
+          'image_paths': [
+            'assets/images/29tree.png',
+            'assets/images/29tree.png',
+            'assets/images/29tree.png',
+          ],
+          'name': '  Sonneratiaceae',
+          'local_name': 'pagatpat',
+          'scientific_name': 'Sonneratia alba',
+          'description': 'Pioneering species of medium to large trees that co-occur with A. marina in fringing mangroves, but are dominant in more coralline-sandy substrates. Leaves are obovate to rounded, but those of seedlings and lowermost branches ~1 m aboveground are more elongated (see opposite, bottom left photo). The short-lived white flowers open at dusk and drop at dawn - standing in a Sonneratia alba grove as numerous white filaments fall from the canopy with the early morning breeze is a magical experience. This species hosts colonies of fireflies - a northern Agusan settlement was called Masawa (now Masao), meaning bright, from the insects sparkling lights that greeted seafarers on moonless nights. Likewise, the Spanish name of Siquijor Is. was Isla del Fuego, referring to the pagatpat-lined shore seemingly on fire. Past uses include housing construction materials, furnishing, and musical instruments. Due to salt content, woodwork required copper nails and screws.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/29root.png',
+            'image_paths': [
+              'assets/images/29root.png',
+              'assets/images/29root.png',
+              'assets/images/29root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/29flower.png',
+            'image_paths': [
+              'assets/images/29flower.png',
+              'assets/images/29flower.png',
+              'assets/images/29flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, terminal',
+            'petals':'4-6, white, thin',
+            'sepals': '4-7 fused, green',
+            'stamen': '300+ white filaments, 3-5 cm long',
+            'size': '5-7 cm long,6-9 cm diameter',
+            'description': 'long 5-6 cm style, light green'
+          },
+          'leaf': {
+            'path': 'assets/images/29.png',
+            'image_paths': [
+              'assets/images/29leaf.png',
+              'assets/images/29leaf.png',
+              'assets/images/29leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'obovate to rounded',
+            'margin': 'entire - smooth',
+            'apex': 'round',
+            'base': 'round',
+            'upperSurface': 'smooth, dark green',
+            'underSurface': 'smooth, light green',
+            'size': '8 (6-12) cm long, 7 (3-11) cm wide',
+            'description': 'leathery, succulent, brittle'
+          },
+          'fruit': {
+            'path': 'assets/images/29fruit.png',
+            'image_paths': [
+              'assets/images/29fruit.png',
+              'assets/images/29fruit.png',
+              'assets/images/29fruit.png',
+            ],
+            'name': '',
+            'shape': 'rounded',
+            'color': 'dark green',
+            'texture': 'smooth',
+            'size': '3-4 cm high,3-5 cm diameter',
+            'description': 'contain many V- and U-shaped seeds (see inset)'
+          },
+        },
+{
+          'path': 'assets/images/30tree.png',
+          'image_paths': [
+            'assets/images/30tree.png',
+            'assets/images/30tree.png',
+            'assets/images/30tree.png',
+          ],
+          'name': ' Sonneratiaceae',
+          'local_name': 'pedada, kalong-kalong',
+          'scientific_name': 'Sonneratia caseolaris',
+          'description': 'Prominent trees on the muddy substrate of low salinity upstream riverbanks; closely associated with N. fruticans. Sonneratia caseolaris can be distinguished from S. alba(with which it forms hybrids) by bigger pneumatophores that reach 1 m long when mature, bright red flowers, and elongated leaves with reddish petioles. Like S. alba,fireflies are also found on S. caseolaris. Heavy fruits cause the drooping branches to bend some more (see opposite, bottom left photo). Pneumatophores are used as floats for fishing nets and as corks (hence the vernacular term duol). Branches are used as firewood, the leaves as forage for goats and cows, and the bark yields tannin. The slightly acidic fruit is eaten raw or added to soups for souring, or made into vinegar. In the past, the sap was applied to the skin as cosmetic; other uses, e.g., firewood and forage, are similar to S. alba.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/30root.png',
+            'image_paths': [
+              'assets/images/30root.png',
+              'assets/images/30root.png',
+              'assets/images/30root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/30flower.png',
+            'image_paths': [
+              'assets/images/30flower.png',
+              'assets/images/30flower.png',
+              'assets/images/30flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, terminal',
+            'petals':'4-6, red, thin',
+            'sepals': '4-7 lobed, green',
+            'stamen': 'numerous (300+) filaments',
+            'size': '6-9 cm long, 5-9 cm diameter',
+            'description': 'filaments with red base and white tips'
+          },
+          'leaf': {
+            'path': 'assets/images/30leaf.png',
+            'image_paths': [
+              'assets/images/30leaf.png',
+              'assets/images/30leaf.png',
+              'assets/images/30leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'elliptic',
+            'margin': 'entire - smooth',
+            'apex': 'acute',
+            'base': 'acute',
+            'upperSurface': 'smooth, light green',
+            'underSurface': 'smooth, light green',
+            'size': '8 (6-12) cm long, 4 (3-7) cm wide',
+            'description': 'thin, petiole base reddish, leaf twigs drooping'
+          },
+          'fruit': {
+            'path': 'assets/images/30fruit.png',
+            'image_paths': [
+              'assets/images/30fruit.png',
+              'assets/images/30fruit.png',
+              'assets/images/30fruit.png',
+            ],
+            'name': '',
+            'shape': 'rounded',
+            'color': 'light green',
+            'texture': 'smooth, shiny',
+            'size': '2.8-4 csour-sweet smell when ripe, many seeds smaller than S. alba (see inset)'
+          },
+        },
+        {
+          'path': 'assets/images/31tree.png',
+          'image_paths': [
+            'assets/images/31tree.png',
+            'assets/images/31tree.png',
+            'assets/images/31tree.png',
+          ],
+          'name': ' Sonneratiaceae',
+          'local_name': ' pedada',
+          'scientific_name': 'Sonneratia ovata',
+          'description': 'Shorter trees that grow on firm mud in almost freshwater habitats located considerable distances from the shore; closely associated with N. fruticans. Areas may have access to seawater through seepage during months of higher tide. The white flowers of Sonneratia ovata are similar to those of S. alba, but the filaments fall from the tree earlier in the morning before sunrise. Leaves are bigger and more rounded, and fruits are much larger than those of S. alba and 5. caseolaris. Because their delicious sweetsour taste is much appreciated by children and local folk, fruits are plucked from trees as soon as they mature, as in Pan-ay, Capiz (see opposite page, bottom left photo). ',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/31root.png',
+            'image_paths': [
+              'assets/images/31root.png',
+              'assets/images/31root.png',
+              'assets/images/31root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/31flower.png',
+            'image_paths': [
+              'assets/images/31flower.png',
+              'assets/images/31flower.png',
+              'assets/images/31flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, terminal',
+            'petals':'white, thin',
+            'sepals': '5-6 lobed, thick, rough',
+            'stamen': 'numerous filaments, white (300+)',
+            'size': '6-8 cm long',
+            'description': ''
+          },
+          'leaf': {
+            'path': 'assets/images/31leaf.png',
+            'image_paths': [
+              'assets/images/31leaf.png',
+              'assets/images/31leaf.png',
+              'assets/images/31leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite',
+            'bladeShape': 'round to ovate',
+            'margin': 'entire - smooth',
+            'apex': 'round',
+            'base': 'round',
+            'upperSurface': 'smooth, dark green',
+            'underSurface': 'smooth, green',
+            'size': '9 (6-11) cm long, 6 (5-9) cm wide',
+            'description': 'petiole base reddish'
+          },
+          'fruit': {
+            'path': 'assets/images/31fruit.png',
+            'image_paths': [
+              'assets/images/31fruit.png',
+              'assets/images/31fruit.png',
+              'assets/images/31fruit.png',
+            ],
+            'name': '',
+            'shape': 'rounded',
+            'color': 'dark green',
+            'texture': 'smooth',
+            'size': '3-9 cm high, 5-0 cm diameter',
+            'description': 'fleshy; sour-sweet smell when ripe; seeds are irregular granules larger than S. caseolaris (inset)'
+          },
+        },
+           {
+          'path': 'assets/images/32tree.png',
+          'image_paths': [
+            'assets/images/32tree.png',
+            'assets/images/32tree.png',
+            'assets/images/32tree.png',
+          ],
+          'name': ' Rubiaceae ',
+          'local_name': 'bolaling, sagasa, hanbulali (Negros), nilad (Tag.)',
+          'scientific_name': 'Scyphiphora hydrophyllacea',
+          'description': 'Shrubs with multiple stems to trees up to 10 m tall, on firm mud near tidal creeks or sandy mud near river mouths; tolerate high salinity. The small pinkish-white flowers occur in dense clusters; fruits are deeply grooved and turn brown when ripe. Leaves have a distinct glossy or varnished appearance. Young stems and petioles are reddish and succulent like the leaves, which have been successfully tested as forage for goats and other livestock. Like other mangroves, the branches provide homes for birds (see opposite page, bottom left photo). Scyphiphora hydrophyllacea grows in monospecific stands – it was so abundant along Manila Bay and the Pasig River in pre-Hispanic times that the natives called the place “Maynilad” referring to the presence of nilad, its local name.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/32root.png',
+            'image_paths': [
+              'assets/images/32root.png',
+              'assets/images/32root.png',
+              'assets/images/32root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/32flower.png',
+            'image_paths': [
+              'assets/images/32flower.png',
+              'assets/images/32flower.png',
+              'assets/images/32flower.png',
+            ],
+            'name': '',
+            'inflorescence':'cyme, axillary',
+            'petals':'4, whitish pink',
+            'sepals': '4, fused',
+            'stamen': '4, brown',
+            'size': '0.6-1.5 cm long, 0.6-0.8 cm diameter',
+            'description': '15-20 flowers per cluster'
+          },
+          'leaf': {
+            'path': 'assets/images/32leaf.png',
+            'image_paths': [
+              'assets/images/32leaf.png',
+              'assets/images/32leaf.png',
+              'assets/images/32leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'simple, opposite, decussate',
+            'bladeShape': 'obovate',
+            'margin': 'entire - smooth',
+            'apex': 'round',
+            'base': 'acute',
+            'upperSurface': 'waxy, dark green',
+            'underSurface': 'waxy, light green',
+            'size': '7 (5-10) cm long, 4 (3-6) cm wide',
+            'description': 'succulent, pointing upward, reddish petiole and stems'
+          },
+          'fruit': {
+            'path': 'assets/images/32fruit.png',
+            'image_paths': [
+              'assets/images/32fruit.png',
+              'assets/images/32fruit.png',
+              'assets/images/32fruit.png',
+            ],
+            'name': '',
+            'shape': 'barrel-like, with longitudinal ridges',
+            'color': 'light green to brown when mature',
+            'texture': 'smooth',
+            'size': '0.7-0.9 cm long, 0.3-0.7 cm diameter',
+            'description': ''
+          },
+        },
+        {
+          'path': 'assets/images/33tree.png',
+          'image_paths': [
+            'assets/images/33tree.png',
+            'assets/images/33tree.png',
+            'assets/images/33tree.png',
+          ],
+          'name': 'Meliaceae',
+          'local_name': 'tabigi, tambigi',
+          'scientific_name': 'Xylocarpus granatum',
+          'description': '',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/33root.png',
+            'image_paths': [
+              'assets/images/33root.png',
+              'assets/images/33root.png',
+              'assets/images/33root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/33flower.png',
+            'image_paths': [
+              'assets/images/33flower.png',
+              'assets/images/33flower.png',
+              'assets/images/33flower.png',
+            ],
+            'name': '',
+            'inflorescence':'panicle, axillary (a few terminal)',
+            'petals':'4, white',
+            'sepals': '4, lobed, yellowish green',
+            'stamen': 'tubular',
+            'size': '1.1- 1.2 cm long, 1.1- 1.4 cm dia',
+            'description': 'unisexual'
+          },
+          'leaf': {
+            'path': 'assets/images/33leaf.png',
+            'image_paths': [
+              'assets/images/33leaf.png',
+              'assets/images/33leaf.png',
+              'assets/images/33leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'paripinnate compound, opposite',
+            'bladeShape': 'obovate',
+            'margin': 'entire - smooth',
+            'apex': 'round to emarginate',
+            'base': 'acute',
+            'upperSurface': 'smooth, dark green',
+            'underSurface': 'smooth, light green',
+            'size': '12 (7-19) cm long, 6 (4-9) cm wide',
+            'description': '2-3 pairs of leaflets; sometimes deciduous'
+          },
+          'fruit': {
+            'path': 'assets/images/33fruit.png',
+            'image_paths': [
+              'assets/images/33fruit.png',
+              'assets/images/33fruit.png',
+              'assets/images/33fruit.png',
+            ],
+            'name': '',
+            'shape': 'like cannon ball or bowling ball',
+            'color': 'green to brown',
+            'texture': 'smooth to slightly rough',
+            'size': '8-13 cm high, 8-14 cm diameter',
+            'description': '10-12 irregularly-shaped seeds'
+          },
+        },
+           {
+          'path': 'assets/images/34tree.png',
+          'image_paths': [
+            'assets/images/34tree.png',
+            'assets/images/34tree.png',
+            'assets/images/34tree.png',
+          ],
+          'name': '  Meliaceae',
+          'local_name': 'piagao, lagutlot',
+          'scientific_name': 'Xylocarpus moluccensis (',
+          'description': 'Smaller trees on the firm substrate of back mangroves rarely appearing along the edges of rivers or creeks; they are also identified as X. mekongensis. Their low-salinity habitats overlap with those of X. granatum, but X . moluccensis has smaller pointed leaves; dark, rough and fissured bark; peg- or cone-shaped pneumatophores; and smaller, dark green fruits. The species is deciduous - the leaves turn golden brown to red then drop (see opposite, bottom left photo); the new leaves appear together with the short-lived flowers. Seeds were used for insect bites, diarrhea and as astringent, the fruits for diarrhea, and the bark as astringent. Past uses of the wood were as poles, railroad ties, posts, beams and for interior finish, musical instruments and high grade furniture. The royal throne of the king of Malaysia is made of X . moluccensis wood because of its fine grain and deep dark color.',
+          'summary': '',
+          'root': {
+            'path': 'assets/images/34root.png',
+            'image_paths': [
+              'assets/images/34root.png',
+              'assets/images/34root.png',
+              'assets/images/34root.png',
+            ],
+            'name': '',
+            'description': ''
+          },
+          'flower': {
+            'path': 'assets/images/34flower.png',
+            'image_paths': [
+              'assets/images/34flower.png',
+              'assets/images/34flower.png',
+              'assets/images/34flower.png',
+            ],
+            'name': '',
+            'inflorescence':'panicle, mainly axillary',
+            'petals':'4, white',
+            'sepals': '4, lobed, pale yellow-green',
+            'stamen': 'fused, white',
+            'size': '0.6-0.7 cm long,0.9-1.0 cm diameter',
+            'description': 'unisexual'
+          },
+          'leaf': {
+            'path': 'assets/images/leaf.png',
+            'image_paths': [
+              'assets/images/leaf.png',
+              'assets/images/leaf.png',
+              'assets/images/leaf.png',
+            ],
+            'name': '',
+            'arrangement': 'paripinnate compound, opposite',
+            'bladeShape': 'elliptical',
+            'margin': 'entire - smooth',
+            'apex': 'acute',
+            'base': 'acute',
+            'upperSurface': 'smooth, green',
+            'underSurface': 'smooth, light green',
+            'size': '8 (5-12) cm long, 4 (2.5) cm wide',
+            'description': 'usually with 3-4 pairs of leaflets; deciduous'
+          },
+          'fruit': {
+            'path': 'assets/images/fruit.png',
+            'image_paths': [
+              'assets/images/fruit.png',
+              'assets/images/fruit.png',
+              'assets/images/fruit.png',
+            ],
+            'name': '',
+            'shape': 'like small cannon ball',
+            'color': ' light green',
+            'texture': 'smooth to slightly rough',
+            'size': '8-9 cm high, 9-10 cm diameter',
+            'description': ''
+          },
+        }  
       ];
       
 
