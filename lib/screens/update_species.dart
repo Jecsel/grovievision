@@ -553,6 +553,11 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
   @override
   Widget build(BuildContext context) {
 
+    print("======== tempRootFileImageArray ===========");
+    print(tempRootFileImageArray);
+    print(tempRootFileImageArray.length);
+
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -637,16 +642,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                           ),
                     ),
 
-                    // FutureBuilder<Widget>(
-                    //   future: loadImageFromFile(mangroveData?.imagePath ?? ''),
-                    //   builder: (context, snapshot) {
-                    //     if (snapshot.connectionState == ConnectionState.done) {
-                    //       return snapshot.data ?? const CircularProgressIndicator();;
-                    //     } else {
-                    //       return const CircularProgressIndicator(); // Or another loading indicator
-                    //     }
-                    //   },
-                    // ),
+
                     const SizedBox(height: 10),
                     Container(
                       width: double.infinity,
@@ -710,9 +706,9 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
+                    SizedBox( 
                       height: 150.0,
-                      child: tempRootFileImageArray.isNotEmpty ? 
+                      child: tempRootFileImageArray.length > 0 ? 
                         ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: tempRootFileImageArray.length,
@@ -721,10 +717,15 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                               padding: const EdgeInsets.all(8.0),
                               child: Stack(
                                 children: [
-                                  Image.file(tempRootFileImageArray[index],
-                                    width: 150.0, // Adjust the width as needed
-                                    height: 150.0, // Adjust the height as needed
-                                    fit: BoxFit.cover,
+                                  FutureBuilder<Widget>(
+                                    future: loadImageFromFile(tempRootFileImageArray[index].path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.done) {
+                                        return snapshot.data ?? CircularProgressIndicator();
+                                      } else {
+                                        return CircularProgressIndicator(); // Or another loading indicator
+                                      }
+                                    },
                                   ),
                                   Positioned(
                                     top: 0,
@@ -805,10 +806,15 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                               padding: const EdgeInsets.all(8.0),
                               child: Stack(
                                 children: [
-                                  Image.file(tempFlowerFileImageArray[index],
-                                    width: 150.0, // Adjust the width as needed
-                                    height: 150.0, // Adjust the height as needed
-                                    fit: BoxFit.cover,
+                                  FutureBuilder<Widget>(
+                                    future: loadImageFromFile(tempFlowerFileImageArray[index].path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.done) {
+                                        return snapshot.data ?? CircularProgressIndicator();
+                                      } else {
+                                        return CircularProgressIndicator(); // Or another loading indicator
+                                      }
+                                    },
                                   ),
                                   Positioned(
                                     top: 0,
@@ -859,13 +865,6 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                       ),
                     ),
                      const SizedBox(height: 10),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    //   child: TextField(
-                    //     controller: flowerNameInput,
-                    //     decoration: InputDecoration(labelText: 'Name'),
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                       child: TextField(
@@ -935,10 +934,15 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                               padding: const EdgeInsets.all(8.0),
                               child: Stack(
                                 children: [
-                                  Image.file(tempLeafFileImageArray[index],
-                                    width: 150.0, // Adjust the width as needed
-                                    height: 150.0, // Adjust the height as needed
-                                    fit: BoxFit.cover,
+                                  FutureBuilder<Widget>(
+                                    future: loadImageFromFile(tempLeafFileImageArray[index].path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.done) {
+                                        return snapshot.data ?? CircularProgressIndicator();
+                                      } else {
+                                        return CircularProgressIndicator(); // Or another loading indicator
+                                      }
+                                    },
                                   ),
                                   Positioned(
                                     top: 0,
@@ -1082,10 +1086,15 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                               padding: const EdgeInsets.all(8.0),
                               child: Stack(
                                 children: [
-                                  Image.file(tempFruitFileImageArray[index],
-                                    width: 150.0, // Adjust the width as needed
-                                    height: 150.0, // Adjust the height as needed
-                                    fit: BoxFit.cover,
+                                  FutureBuilder<Widget>(
+                                    future: loadImageFromFile(tempFruitFileImageArray[index].path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.done) {
+                                        return snapshot.data ?? CircularProgressIndicator();
+                                      } else {
+                                        return CircularProgressIndicator(); // Or another loading indicator
+                                      }
+                                    },
                                   ),
                                   Positioned(
                                     top: 0,
@@ -1179,6 +1188,7 @@ class _UpdateSpeciesState extends State<UpdateSpecies> {
                     const SizedBox(
                       height: 20.0,
                     ),
+                    
                     Container(
                       width: double.infinity,
                       child: Padding(
