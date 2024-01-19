@@ -1,8 +1,12 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
 import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
 
 import 'home.dart';
+import 'lessons/level_four_lessons/level_four_lesson.dart';
+import 'lessons/level_three_lessons/level_three_lesson.dart';
+import 'lessons/level_two_lessons/level_two_lesson.dart';
 
 class Level extends StatefulWidget {
   const Level({super.key});
@@ -12,13 +16,35 @@ class Level extends StatefulWidget {
 }
 
 class _LevelState extends State<Level> {
+  late AudioPlayer player;
 
-  gotoGames(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Games()));
+  @override
+  void initState(){
+    super.initState();
+    
+    player = AudioPlayer();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (player.state == PlayerState.playing) {
+        player.stop();
+      }
+    });
   }
 
   gotoLevelOneLessons(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
+  }
+
+  gotoLevelTwoLessons(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
+  }
+
+  gotoLevelThreeLessons(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
+  }
+
+  gotoLevelFourLessons(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
   }
 
   @override
@@ -41,7 +67,7 @@ class _LevelState extends State<Level> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                  'assets/images/splash.png'), // Replace with your image asset
+                  'assets/images/level_select.png'), // Replace with your image asset
               fit: BoxFit.cover,
             ),
           ),
@@ -49,7 +75,7 @@ class _LevelState extends State<Level> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const SizedBox(height: 100.0,),
+                const SizedBox(height: 140.0,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
@@ -79,7 +105,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLevelTwoLessons,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 2",
@@ -100,7 +126,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLevelThreeLessons,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 3",
@@ -121,7 +147,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLevelFourLessons,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 4",

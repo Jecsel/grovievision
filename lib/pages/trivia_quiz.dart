@@ -6,7 +6,10 @@ import '../models/question.dart';
 import 'score.dart';
 
 class TriviaQuiz extends StatefulWidget {
-  const TriviaQuiz({super.key});
+  final String instrctn;
+  final List<Question> qstns;
+
+  const TriviaQuiz({super.key, required this.instrctn, required this.qstns});
 
   @override
   State<TriviaQuiz> createState() => _TriviaQuizState();
@@ -24,75 +27,45 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   int questionIndexSelected = 0;
   int choiceIndexSelected = 0;
   bool userSelectAnAnswer = false;
+  String instruction = '';
 
   @override
   void initState() {
     super.initState();
-
-    questions = [
-      Question(
-          question: 'In which part of Baranggay Agutay is Alagau Tree located?',
-          image: 'assets/images/alakaakpula1.jpeg',
-          choices: [
-            'A. Sitio Tia-ilan',
-            'B. Sitio Kalamago',
-            'C. Sitio Malobago'
-          ],
-          correctAnswerIndex: 0,
-          explanation:
-              'The Alagau Tree is abundant in Sitio Tia-ilan in Barangay Agutay. Most of these trees grow by the seashore and there are also in the mountains.'),
-      Question(
-          question:
-              'In which Barangay in the town of Cajidiocan can the Bakan Tree be found?',
-          image: 'assets/images/bakan1.jpeg',
-          choices: [
-            'A. Barangay Cambalo',
-            'B. Barangay Cambajao',
-            'C. Barangay Danao'
-          ],
-          correctAnswerIndex: 1,
-          explanation:
-              'The Bakan Tree is found in Barangay Cambajao, Cajidiocan, Romblon. In Cambajao you can see a lot of these trees, some illegal loggers were caught there and after investigating the trees that were cut down they identified that the tree was Bakan Tree.'),
-      Question(
-          question: 'Where in Sibuyan Island can you often see the agoho tree?',
-          image: 'assets/images/agoho1.jpg',
-          choices: [
-            'A. Near the rivers at the foot of Mt. Guiting Guiting.',
-            'B. On the seashore.',
-            'C. On the upper reaches of Mt. Guiting-Guiting.'
-          ],
-          correctAnswerIndex: 1,
-          explanation:
-              'The Agoho Tree is abundant in Poblacion, Magdiwang, Romblon. It is mostly found on the seashore. There are many agoho in Poblacion, Tampayan and there is also in Barangay Ambulong.'),
-      Question(
-          question:
-              'Which part of MT. GUITING GUITING where the Apitong Tree is located?',
-          image: 'assets/images/apitong3.jpeg',
-          choices: [
-            'A. Near the rivers at the foot of Mt. Guiting Guiting.',
-            'B. In the National Parks lower elevations of Mt. Guiting-Guiting.',
-            'C. On the upper reaches of Mt. Guiting-Guiting.'
-          ],
-          correctAnswerIndex: 1,
-          explanation:
-              'Apitong Tree are usually found in the islands lowlands, particularly in Mount Guiting-Guiting National Parks lower elevations.'),
-      Question(
-          question:
-              'Which part of MT. GUITING GUITING where the Malasantol Tree is located?',
-          image: 'assets/images/malasantol1.jpeg',
-          choices: [
-            'A. Lowland areas of Mt. Guiting-Guiting National Park.',
-            'B. On the upper reaches of Mt. Guiting-Guiting.',
-            'C. Near the rivers at the foot of Mt. Guiting Guiting.'
-          ],
-          correctAnswerIndex: 0,
-          explanation:
-              'You may encounter Malasantol trees in various lowland areas, including parts of Mount Guiting-Guiting National Park. The tree may have applications in traditional medicine or local practices, although the extent of such uses can vary regionally.'),
-    ];
+    questions = widget.qstns;
+    instruction = widget.instrctn;
 
     questions.shuffle();
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showDialog(context);
+    });
 
     selectedAnswers = List.filled(questions.length, null);
+  }
+
+  void stopAudio() {
+    player.stop();
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          content: Text(instruction),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void onAnswerSelected(int questionIndex, int choiceIndex) {
@@ -122,8 +95,6 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                       builder: (context) =>
                           Score(score: finalScore.toString())));
             }
-
-            // questions[questionIndex].choices[index] = 'Wrong Answer';
           }
         });
       }
@@ -188,91 +159,102 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-                top: 20.0, bottom: 15.0, left: 10.0, right: 10.0),
-            child: Column(
-              children: [
-                Image.asset(
-                  questions[currentQuestionIndex].image,
-                  width: double.infinity,
-                  height: 300.0,
-                ),
-                const SizedBox(height: 50.0),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Text(
-                      questions.isNotEmpty
-                          ? '$currentNumber . ${questions[currentQuestionIndex].question}'
-                          : '',
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ),
-                const SizedBox(height: 15.0),
-                ...questions[currentQuestionIndex].choices.map((choice) {
-                  int index =
-                      questions[currentQuestionIndex].choices.indexOf(choice);
-                  return Padding(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/grovie_quiz.png'), // Replace with your image asset
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 100.0, bottom: 15.0, left: 10.0, right: 10.0),
+              child: Column(
+                children: [
+                  Image.asset(
+                    questions[currentQuestionIndex].image,
+                    width: double.infinity,
+                    height: 300.0,
+                  ),
+                  const SizedBox(height: 50.0),
+                  Padding(
                     padding: const EdgeInsets.only(top: 15.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.green),
-                        ),
-                        onPressed: () {
-                          onAnswerSelected(currentQuestionIndex, index);
-                        },
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                          child: Text(
-                            choice,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-                showExplanation
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 30.0),
-                        child: Text(
-                          questions.isNotEmpty
-                              ? questions[currentQuestionIndex].explanation
-                              : '',
-                          style: const TextStyle(
-                              fontStyle: FontStyle.italic, fontSize: 15.0),
-                        ),
-                      )
-                    : const Text(''),
-                showExplanation
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
+                    child: Text(
+                        questions.isNotEmpty
+                            ? '$currentNumber . ${questions[currentQuestionIndex].question}'
+                            : '',
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white)),
+                  ),
+                  const SizedBox(height: 15.0),
+                  ...questions[currentQuestionIndex].choices.map((choice) {
+                    int index =
+                        questions[currentQuestionIndex].choices.indexOf(choice);
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: SizedBox(
+                        width: double.infinity,
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.green),
                           ),
-                          onPressed: nextQuestion,
-                          child: const Padding(
-                            padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                          onPressed: () {
+                            onAnswerSelected(currentQuestionIndex, index);
+                          },
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 15.0, bottom: 15.0),
                             child: Text(
-                              'NEXT',
+                              choice,
                               textAlign: TextAlign.justify,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                      )
-                    : const Text(''),
-              ],
+                      ),
+                    );
+                  }).toList(),
+                  showExplanation
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 30.0),
+                          child: Text(
+                            questions.isNotEmpty
+                                ? questions[currentQuestionIndex].explanation
+                                : '',
+                            style: const TextStyle(
+                                fontStyle: FontStyle.italic, fontSize: 15.0),
+                          ),
+                        )
+                      : const Text(''),
+                  showExplanation
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 12.0),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.green),
+                            ),
+                            onPressed: nextQuestion,
+                            child: const Padding(
+                              padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                              child: Text(
+                                'NEXT',
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const Text(''),
+                ],
+              ),
             ),
           ),
         ));

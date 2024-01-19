@@ -12,6 +12,11 @@ class Score extends StatefulWidget {
 }
 
 class _ScoreState extends State<Score> {
+  
+  @override
+  void initState() {
+    super.initState();
+  }
 
   _goToQuiz() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));

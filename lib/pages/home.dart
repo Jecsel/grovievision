@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/about.dart';
 import 'package:grovie/pages/level.dart';
@@ -12,16 +13,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late AudioPlayer player;
+
+  @override
+  void initState(){
+    super.initState();
+    
+    // player = AudioPlayer();
+    // player.stop();
+
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (player.state != PlayerState.playing) {
+    //     player.play(AssetSource('home.mp3'));
+    //   }
+    // });
+  }
+
+  gotoLevel() {
+  //   player.dispose();
+  //   player.stop();
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
+  }
+
+  gotoAbout(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
+  }
+
+
   @override
   Widget build(BuildContext context) {
-
-    gotoLevel() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
-    }
-
-    gotoAbout(){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
-    }
 
     return MaterialApp(
       home: Scaffold(
@@ -41,7 +61,7 @@ class _HomeState extends State<Home> {
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/splash.png'), // Replace with your image asset
+                image: AssetImage('assets/images/main_menu.png'), // Replace with your image asset
                 fit: BoxFit.cover,
               ),
             ),
@@ -54,17 +74,13 @@ class _HomeState extends State<Home> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(color: Colors.white, width: 2.0),
-                      ),
-                      backgroundColor: Colors.green),
-                    onPressed: () {},
+                      backgroundColor: Colors.transparent),
+                    onPressed: gotoLevel,
                     child: const Padding(
                       padding: EdgeInsets.all(15.0),
                       child: Text("Let's Grovie",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 25.0
                         )
@@ -75,17 +91,13 @@ class _HomeState extends State<Home> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(color: Colors.white, width: 2.0),
-                      ),
-                      backgroundColor: Colors.green),
+                      backgroundColor: Colors.transparent),
                     onPressed: () {},
                     child: const Padding(
                       padding: EdgeInsets.all(15.0),
                       child: Text("About Us",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 25.0
                         )
@@ -96,17 +108,13 @@ class _HomeState extends State<Home> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(color: Colors.white, width: 2.0),
-                      ),
-                      backgroundColor: Colors.green),
+                      backgroundColor: Colors.transparent),
                     onPressed: () {},
                     child: const Padding(
                       padding: EdgeInsets.all(15.0),
                       child: Text("Exit",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 25.0
                         )
@@ -132,14 +140,14 @@ class _HomeState extends State<Home> {
                     title: 'Let\'s Grovie',
                     index: 1,
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+                      gotoLevel();
                     },
                   ),
                   _buildDrawerItem(
                     title: 'Abouts Us',
                     index: 2,
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+                      gotoAbout();
                     },
                   ),
                   _buildDrawerItem(
@@ -156,6 +164,7 @@ class _HomeState extends State<Home> {
       ),
     
     );
+  
   }
 
   Future<bool> _onBackPressed(BuildContext context) async {

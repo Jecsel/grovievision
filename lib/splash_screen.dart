@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovie/pages/home.dart';
 import 'package:grovie/pages/level.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToHome() async{
     await Future.delayed(const Duration(milliseconds: 3000), (){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Level()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const Home()));
   }
 
   @override
