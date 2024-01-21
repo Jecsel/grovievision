@@ -86,6 +86,10 @@ flutter:
     - assets/images/level4/lesson1/
     - assets/images/level4/lesson2/
     - assets/images/level4/lesson3/
+    - assets/images/level1/guess_me1/
+    - assets/images/level2/guess_me2/
+    - assets/images/level3/guess_me3/
+    - assets/images/level4/guess_me4/
     - assets/icon.png
     - assets/icon/app_icon.png
 

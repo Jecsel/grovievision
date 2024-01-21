@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/home.dart';
-import 'package:grovie/pages/level.dart';
 
 class SplashScreen extends StatefulWidget {
   

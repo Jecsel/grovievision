@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:grovie/local_data.dart';
-import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
-import 'package:grovie/pages/level.dart';
-
+import 'package:grovie/pages/games.dart';
 import '../models/question.dart';
-import 'lessons/level_four_lessons/level_four_lesson.dart';
-import 'lessons/level_three_lessons/level_three_lesson.dart';
-import 'lessons/level_two_lessons/level_two_lesson.dart';
 import 'score.dart';
 
 class TriviaQuiz extends StatefulWidget {
@@ -52,6 +47,22 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
   void stopAudio() {
     player.stop();
+  }
+
+  void saveGameScore(int scr) {
+    switch (widget.lvlNum) {
+      case 1:
+        saveData('lvl1Quiz', scr.toString());
+        break;
+      case 2:
+        saveData('lvl2Quiz', scr.toString());
+        break;
+      case 3:
+        saveData('lvl3Quiz', scr.toString());
+        break;
+      default:
+    }
+    
   }
 
   void _showDialog(BuildContext context) {
@@ -112,7 +123,8 @@ class _TriviaQuizState extends State<TriviaQuiz> {
             } else {
               int finalScore = calculateScore();
 
-              saveData('lvl1Quiz', finalScore.toString());
+              // saveData('lvl1Quiz', finalScore.toString());
+              saveGameScore(score);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -143,26 +155,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   }
 
   backTo(){
-    switch (widget.lvlNum) {
-      case 1:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
-        break;
-
-      case 2:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
-        break;
-
-      case 3:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
-        break;
-
-      case 4:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
-        break;
-      default:
-        Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Level()));
-    }
+    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 
   int calculateScore() {

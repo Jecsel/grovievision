@@ -1,10 +1,15 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:grovie/pages/guess_me.dart';
 import 'package:grovie/pages/level.dart';
 import 'package:grovie/pages/rumble.dart';
 import 'package:grovie/pages/trivia_quiz.dart';
 
 import '../models/question.dart';
+import 'lessons/level_four_lessons/level_four_lesson.dart';
+import 'lessons/level_one_lessons/level_one_lesson.dart';
+import 'lessons/level_three_lessons/level_three_lesson.dart';
+import 'lessons/level_two_lessons/level_two_lesson.dart';
 
 class Games extends StatefulWidget {
   final int levelNum;
@@ -95,7 +100,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 1,
         explanation: ''),
     Question(
-        question: 'What mangrove species are shrubs to small trees reaching 6 meters tall, with surface roots, often having multiple irregular stems.',
+        question:
+            'What mangrove species are shrubs to small trees reaching 6 meters tall, with surface roots, often having multiple irregular stems.',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Osbornia octodonta',
@@ -106,7 +112,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 0,
         explanation: ''),
     Question(
-        question: 'What mangrove species are medium trees, reaching up to 17 meters tall, found along estuarine rivers and tidal creeks, whose low buttresses extend as distinctive, snakelike plank roots?',
+        question:
+            'What mangrove species are medium trees, reaching up to 17 meters tall, found along estuarine rivers and tidal creeks, whose low buttresses extend as distinctive, snakelike plank roots?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Excoecaria agallocha ',
@@ -117,7 +124,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 2,
         explanation: ''),
     Question(
-        question: 'What mangrove species are smaller trees on the firm substrate of back mangroves, rarely appearing along the edges of rivers or creeks; they are also identified as X. mekongensis?',
+        question:
+            'What mangrove species are smaller trees on the firm substrate of back mangroves, rarely appearing along the edges of rivers or creeks; they are also identified as X. mekongensis?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Osbornia octodonta ',
@@ -128,22 +136,18 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 3,
         explanation: ''),
     Question(
-        question: '5. Which term best describes the apex of Osbornia octodonta leaves?',
+        question:
+            '5. Which term best describes the apex of Osbornia octodonta leaves?',
         image: 'assets/images/bakan1.jpeg',
-        choices: [
-          'A Acuminate',
-          'B. Emarginate',
-          'C. Obtuse',
-          'D. smooth'
-        ],
+        choices: ['A Acuminate', 'B. Emarginate', 'C. Obtuse', 'D. smooth'],
         correctAnswerIndex: 1,
         explanation: ''),
   ];
 
   List<Question> lvl3TriviaQuestions = [
     Question(
-      question:
-        'What mangrove species are Shrubs 3-5 m tall, along the high tide line of coralline-rocky and sandy foreshores, often in association with O. octodonta and A. floridum.?',
+        question:
+            'What mangrove species are Shrubs 3-5 m tall, along the high tide line of coralline-rocky and sandy foreshores, often in association with O. octodonta and A. floridum.?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Pemphis acidula',
@@ -154,7 +158,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 0,
         explanation: ''),
     Question(
-        question: 'What mangrove species are pioneering species of medium to large trees that co-occur with A. marina in fringing mangroves but are dominant in more coralline-sandy substrates?',
+        question:
+            'What mangrove species are pioneering species of medium to large trees that co-occur with A. marina in fringing mangroves but are dominant in more coralline-sandy substrates?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Sonneratia caseolaris',
@@ -165,7 +170,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 2,
         explanation: ''),
     Question(
-        question: 'What mangrove species are prominent trees on the muddy substrate of low salinity upstream riverbanks, closely associated with N. fruticans?',
+        question:
+            'What mangrove species are prominent trees on the muddy substrate of low salinity upstream riverbanks, closely associated with N. fruticans?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A.Sonneratia alba',
@@ -176,7 +182,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 2,
         explanation: ''),
     Question(
-        question: 'What mangrove species are shorter trees that grow on firm mud in almost freshwater habitats located considerable distances from the shore, closely associated with N. fruticans? Areas may have access to seawater through seepage during months of higher tide.',
+        question:
+            'What mangrove species are shorter trees that grow on firm mud in almost freshwater habitats located considerable distances from the shore, closely associated with N. fruticans? Areas may have access to seawater through seepage during months of higher tide.',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Sonneratia alba',
@@ -187,7 +194,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 1,
         explanation: ''),
     Question(
-        question: 'What type of mangrove species has creeping stems called rhizomes from which tall (up to 8 m high) compound leaves arise?',
+        question:
+            'What type of mangrove species has creeping stems called rhizomes from which tall (up to 8 m high) compound leaves arise?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Sonneratia alba ',
@@ -213,7 +221,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 0,
         explanation: ''),
     Question(
-        question: 'What mangrove species are shrubs to small trees, typically 2-3 m tall but may reach 5 m?',
+        question:
+            'What mangrove species are shrubs to small trees, typically 2-3 m tall but may reach 5 m?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Scyphiphora hydrophyllacea',
@@ -224,7 +233,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 1,
         explanation: ''),
     Question(
-        question: 'What mangrove species are medium-sized trees up to 20 m high found in back mangroves, often on dry land along forest margins?',
+        question:
+            'What mangrove species are medium-sized trees up to 20 m high found in back mangroves, often on dry land along forest margins?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Scyphiphora hydrophyllacea',
@@ -235,7 +245,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 3,
         explanation: ''),
     Question(
-        question: 'What mangrove species are small trees (4 m tall) on sandy or rocky substrate that tolerate higher salinities?',
+        question:
+            'What mangrove species are small trees (4 m tall) on sandy or rocky substrate that tolerate higher salinities?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Scyphiphora hydrophyllacea ',
@@ -246,7 +257,8 @@ class _GamesState extends State<Games> {
         correctAnswerIndex: 2,
         explanation: ''),
     Question(
-        question: 'What is the arrangement of the leaves of Heritiera littoralis?',
+        question:
+            'What is the arrangement of the leaves of Heritiera littoralis?',
         image: 'assets/images/bakan1.jpeg',
         choices: [
           'A. Simple',
@@ -258,7 +270,36 @@ class _GamesState extends State<Games> {
         explanation: ''),
   ];
 
+
   List<dynamic> lvl1RumbleQuestions = [
+    {
+      'question': 'Apex of Leaves in Acanthus Ebracteatus',
+      'answer': 'ACUTE',
+      'choices': ['A', 'R', 'B', 'O', 'C', 'U', 'D', 'N', 'E', 'T']
+    },
+    {
+      'question': 'The texture of fruits in Acanthus Ebracteatus',
+      'answer': 'SMOOTH',
+      'choices': ['S', 'R', 'H', 'O', 'C', 'M', 'D', 'N', '0', 'T']
+    },
+    {
+      'question': 'Color of the fruits of Acanthus ilicifolius',
+      'answer': 'GREEN',
+      'choices': ['N', 'R', 'B', 'O', 'E', 'U', 'D', 'G', 'E', 'T']
+    },
+    {
+      'question': 'Undersurface of leaves of Acanthus volubilis',
+      'answer': 'DARK GREEN',
+      'choices': ['A', 'D', 'R', 'G', 'K', 'R', 'E', 'N', 'E', ' ']
+    },
+    {
+      'question': 'Apex of Leaves in Acanthus Ebracteatus',
+      'answer': 'ACUTE',
+      'choices': ['A', 'R', 'B', 'O', 'C', 'U', 'D', 'N', 'E', 'T']
+    },
+  ];
+
+  List<dynamic> lvl2RumbleQuestions = [
     {
       'question': 'Shape of fruits of Excoecaria agallocha.',
       'answer': 'ROUND',
@@ -285,10 +326,161 @@ class _GamesState extends State<Games> {
       'choices': ['R', 'S', 'U', 'O', 'L', 'A', 'T', 'E', 'P', 'A']
     },
   ];
-  
-  
-  String triviaInstructions = 'Choose the correct answer being as base on a question.';
-  String rumbleInstructions = 'Arrange the jumbled letters with description of Mangrove Species base on Scientific name and characteristic of Mangrove Species.';
+
+
+  List<dynamic> lvl3RumbleQuestions = [
+    {
+      'question': ' It has irregularly shaped branches, small leaves, and small white flowers.',
+      'answer': 'PEMPIS',
+      'choices': ['P', 'S', 'M', 'O', 'I', 'A', 'T', 'E', 'P', 'A']
+    },
+    {
+      'question': 'Color of fruits in Sonneratia alba',
+      'answer': 'DARK GREEN',
+      'choices': ['R', 'D', 'G', 'K', 'R', 'A', ' ', 'E', 'N', 'E']
+    },
+    {
+      'question': 'The blade shape of leaves in Sonneratia caseolaris.',
+      'answer': 'ELLIPTIC',
+      'choices': ['R', 'P', 'I', 'L', 'L', 'A', 'C', 'E', 'I', 'T']
+    },
+    {
+      'question': 'Shape of fruits in Sonneratia ovata.',
+      'answer': 'ROUNDED',
+      'choices': ['R', 'S', 'U', 'O', 'L', 'A', 'D', 'E', 'D', 'N']
+    },
+    {
+      'question': 'It has creeping stems called rhizomes from which tall (up to 8 m high) compound leaves arise',
+      'answer': 'NYPA',
+      'choices': ['Y', 'S', 'U', 'O', 'P', 'A', 'T', 'E', 'N', 'A']
+    },
+  ];
+
+  List<dynamic> lvl4RumbleQuestions = [
+    {
+      'question': 'The blade shape of leaves in Scyphiphora hydrophyllace',
+      'answer': 'OBOVATE',
+      'choices': ['O', 'T', 'V', 'O', 'P', 'A', 'B', 'E', 'A', 'A']
+    },
+    {
+      'question': 'Inflorescence of flowers in Scyphiphora hydrophyllacea',
+      'answer': 'CYME',
+      'choices': ['Y', 'S', 'C', 'O', 'P', 'A', 'T', 'E', 'N', 'M']
+    },
+    {
+      'question': 'The base of leaves in Aegiceras floridum',
+      'answer': 'ACUTE',
+      'choices': ['C', 'A', 'U', 'O', 'P', 'U', 'T', 'E', 'N', 'A']
+    },
+    {
+      'question': 'The shape of fruits in Aegiceras corniculatum',
+      'answer': 'CYLINDRICAL',
+      'choices': ['Y', 'C', 'L', 'I', 'N', 'I', 'R', 'D', 'C', 'A', 'L']
+    },
+    {
+      'question': 'Medium-sized trees up to 20 m high found in back mangroves, often on dry land along forest margins',
+      'answer': 'HERITIERA',
+      'choices': ['Y', 'A', 'R', 'E', 'I', 'T', 'I', 'R', 'E', 'H']
+    },
+  ];
+
+  List<dynamic> lvl1GuessQuestions = [
+    {
+      'answer': 'Bruguiera cylindrical',
+      'image': 'assets/images/level1/guess_me1/0.jpg'
+    },
+    {
+      'answer': 'Ceriops tagal',
+      'image': 'assets/images/level1/guess_me1/1.jpg'
+    },
+    {
+      'answer': 'Schizophrenia apiculata',
+      'image': 'assets/images/level1/guess_me1/2.jpg'
+    },
+    {
+      'answer': 'Rhizophora mucronat',
+      'image': 'assets/images/level1/guess_me1/3.jpg'
+    },
+    {
+      'answer': 'Rhizophora stylos',
+      'image': 'assets/images/level1/guess_me1/4.jpg'
+    }
+  ];
+
+  List<dynamic> lvl2GuessQuestions = [
+    {
+      'question': 'Xylocarpus granatum',
+      'answer': 'assets/images/level2/guess_me2/0.jpg'
+    },
+    {
+      'question': 'Excoecaria agallocha',
+      'answer': 'assets/images/level2/guess_me2/1.jpg'
+    },
+    {
+      'question': 'Osbornia octodonta',
+      'answer': 'assets/images/level2/guess_me2/2.jpg'
+    },
+    {
+      'question': 'Xylocarpus moluccensis',
+      'answer': 'assets/images/level2/guess_me2/3.jpg'
+    },
+    {
+      'question': 'Granatum fruit',
+      'answer': 'assets/images/level2/guess_me2/4.jpg'
+    }
+  ];
+
+  List<dynamic> lvl3GuessQuestions = [
+    {
+      'question': 'Sonneratia alba',
+      'answer': 'assets/images/level3/guess_me3/0.jpg'
+    },
+    {
+      'question': 'Sonneratia caseolaris',
+      'answer': 'assets/images/level3/guess_me3/1.jpg'
+    },
+    {
+      'question': 'Sonneratia ovata',
+      'answer': 'assets/images/level3/guess_me3/2.jpg'
+    },
+    {
+      'question': 'Pemphis acidula',
+      'answer': 'assets/images/level3/guess_me3/3.jpg'
+    },
+    {
+      'question': 'Nypa fruticans',
+      'answer': 'assets/images/level3/guess_me3/4.jpg'
+    }
+  ];
+
+  List<dynamic> lvl4GuessQuestions = [
+    {
+      'question': 'Aegiceras corniculatum',
+      'answer': 'assets/images/level4/guess_me4/0.jpg'
+    },
+    {
+      'question': 'Aegiceras floridum',
+      'answer': 'assets/images/level4/guess_me4/1.jpg'
+    },
+    {
+      'question': 'Scyphiphora Hydrophyllacea',
+      'answer': 'assets/images/level4/guess_me4/2.jpg'
+    },
+    {
+      'question': 'Floridum leave',
+      'answer': 'assets/images/level4/guess_me4/3.jpg'
+    },
+    {
+      'question': 'Heritiera littoralis',
+      'answer': 'assets/images/level4/guess_me4/4.jpg'
+    }
+  ];
+
+  String triviaInstructions =
+      'Choose the correct answer being as base on a question.';
+  String rumbleInstructions =
+      'Arrange the jumbled letters with description of Mangrove Species base on Scientific name and characteristic of Mangrove Species.';
+  String guessInstructions = 'Identify the picture given.';
 
   @override
   void initState() {
@@ -319,9 +511,10 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl1TriviaQuestions,
-                    instrctn: triviaInstructions,
-                    lvlNum: 1,)));
+                      qstns: lvl1TriviaQuestions,
+                      instrctn: triviaInstructions,
+                      lvlNum: 1,
+                    )));
         break;
       case 2:
         player.dispose();
@@ -330,9 +523,10 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl2TriviaQuestions,
-                    instrctn: triviaInstructions,
-                    lvlNum: 2,)));
+                      qstns: lvl2TriviaQuestions,
+                      instrctn: triviaInstructions,
+                      lvlNum: 2,
+                    )));
         break;
       case 3:
         player.dispose();
@@ -341,9 +535,10 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl3TriviaQuestions,
-                    instrctn: triviaInstructions,
-                    lvlNum: 3,)));
+                      qstns: lvl3TriviaQuestions,
+                      instrctn: triviaInstructions,
+                      lvlNum: 3,
+                    )));
         break;
       case 4:
         player.dispose();
@@ -352,9 +547,10 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl4TriviaQuestions,
-                    instrctn: triviaInstructions,
-                    lvlNum: 4,)));
+                      qstns: lvl4TriviaQuestions,
+                      instrctn: triviaInstructions,
+                      lvlNum: 4,
+                    )));
         break;
 
       default:
@@ -364,18 +560,119 @@ class _GamesState extends State<Games> {
   gotoRumble() {
     switch (widget.levelNum) {
       case 1:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Rumble(
+                      lvlNum: 1,
+                      instrctn: rumbleInstructions,
+                      qstns: lvl1RumbleQuestions,
+                    )));
         break;
       case 2:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Rumble(
+                      lvlNum: 2,
+                      instrctn: rumbleInstructions,
+                      qstns: lvl2RumbleQuestions,
+                    )));
         break;
       case 3:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Rumble(
+                      lvlNum: 3,
+                      instrctn: rumbleInstructions,
+                      qstns: lvl3RumbleQuestions,
+                    )));
         break;
       case 4:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Rumble(
+                      lvlNum: 4,
+                      instrctn: rumbleInstructions,
+                      qstns: lvl4RumbleQuestions,
+                    )));
         break;
       default:
+    }
+  }
+
+  gotoGuess() {
+    switch (widget.levelNum) {
+      case 1:
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GuessMe(
+                      lvlNum: 1,
+                      instrctn: guessInstructions,
+                      qstns: lvl1GuessQuestions,
+                    )));
+        break;
+      case 2:
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GuessMe(
+                      lvlNum: 2,
+                      instrctn: guessInstructions,
+                      qstns: lvl2GuessQuestions,
+                    )));
+        break;
+      case 3:
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GuessMe(
+                      lvlNum: 3,
+                      instrctn: guessInstructions,
+                      qstns: lvl3GuessQuestions,
+                    )));
+        break;
+      case 4:
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => GuessMe(
+                      lvlNum: 4,
+                      instrctn: guessInstructions,
+                      qstns: lvl4GuessQuestions,
+                    )));
+        break;
+      default:
+    }
+  }
+
+  void _goBackTo() {
+    switch (widget.levelNum) {
+      case 1:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LevelOneLessons()));
+        break;
+
+      case 2:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
+        break;
+
+      case 3:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
+        break;
+
+      case 4:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LevelFourLessons()));
+        break;
+      default:
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const Level()));
     }
   }
 
@@ -388,10 +685,7 @@ class _GamesState extends State<Games> {
             'assets/images/back_btn.png',
             fit: BoxFit.fill,
           ),
-          onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Level()));
-          },
+          onPressed: _goBackTo,
         ),
         backgroundColor: Colors.green.shade700,
       ),
@@ -470,7 +764,7 @@ class _GamesState extends State<Games> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: Colors.red.shade300),
-                  onPressed: () {},
+                  onPressed: gotoGuess,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(

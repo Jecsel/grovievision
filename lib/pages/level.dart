@@ -42,7 +42,7 @@ class _LevelState extends State<Level> {
     Fluttertoast.showToast(
       msg: "Unlock the previous level first.",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
       backgroundColor: Colors.red,
       textColor: Colors.white,
       fontSize: 16.0,
@@ -82,7 +82,7 @@ class _LevelState extends State<Level> {
     loadData('lvl3Quiz').then((value) {
       setState(() {
         lvl3Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
-      });
+    });
       
     });
     loadData('lvl1Rumble').then((value) {
@@ -191,16 +191,28 @@ class _LevelState extends State<Level> {
                       borderRadius: BorderRadius.circular(20),
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
-                    backgroundColor: Colors.green),
-                  onPressed: lvl1Quiz > 0 ? gotoLevelTwoLessons : () => showUnlockToast(),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text("Level 2",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0
-                      )
+                    backgroundColor: const Color.fromRGBO(76, 175, 80, 1)),
+                  onPressed: lvl1_points >= 12 ? gotoLevelTwoLessons : () => showUnlockToast(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: lvl1_points <= 12,
+                          child: const Icon(Icons.lock)
+                        ),
+                        const SizedBox(width: 75.0),
+                        const Text(
+                          "Level 2",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0
+                          )
+                        ),
+                        const Text(""),
+                      ],
                     ),
                   ),
                 ),
@@ -213,15 +225,24 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: lvl2Quiz > 0 ? gotoLevelThreeLessons : () => showUnlockToast(),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text("Level 3",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0
-                      )
+                  onPressed: lvl2_points >= 12 ? gotoLevelThreeLessons : () => showUnlockToast(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: lvl2_points <= 12,
+                          child: const Icon(Icons.lock)
+                        ),
+                        const SizedBox(width: 75.0),
+                        const Text("Level 3",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0
+                          )
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -234,15 +255,24 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: lvl3Quiz > 0 ? gotoLevelFourLessons : () => showUnlockToast(),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text("Level 4",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0
-                      )
+                  onPressed: lvl3_points >= 12 ? gotoLevelFourLessons : () => showUnlockToast(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: lvl3_points <= 12,
+                          child: const Icon(Icons.lock)
+                        ),
+                        const SizedBox(width: 75.0),
+                        const Text("Level 4",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0
+                          )
+                        ),
+                      ],
                     ),
                   ),
                 ),

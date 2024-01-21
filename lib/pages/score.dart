@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grovie/pages/games.dart';
 import 'package:grovie/pages/level.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +21,7 @@ class _ScoreState extends State<Score> {
   }
 
   _goTo() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 
   Widget buildStars(int count) {

@@ -1,12 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../local_data.dart';
+import 'games.dart';
 import 'home.dart';
-import 'lessons/level_four_lessons/level_four_lesson.dart';
-import 'lessons/level_one_lessons/level_one_lesson.dart';
-import 'lessons/level_three_lessons/level_three_lesson.dart';
-import 'lessons/level_two_lessons/level_two_lesson.dart';
-import 'level.dart';
 import 'score.dart';
 
 class Rumble extends StatefulWidget {
@@ -64,6 +60,25 @@ class _RumbleState extends State<Rumble> {
     super.initState();
 
     questions = widget.qstns;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showDialog(context);
+    });
+  }
+
+  void saveGameScore(int scr) {
+    switch (widget.lvlNum) {
+      case 1:
+        saveData('lvl1Rumble', scr.toString());
+        break;
+      case 2:
+        saveData('lvl2Rumble', scr.toString());
+        break;
+      case 3:
+        saveData('lvl3Rumble', scr.toString());
+        break;
+      default:
+    }
+    
   }
 
   void showCompleteDialog() {
@@ -77,7 +92,8 @@ class _RumbleState extends State<Rumble> {
             ElevatedButton(
               onPressed: () {
                 // Navigator.of(context).pop();
-                saveData('lvl1Rumble', score.toString());
+                // saveData('lvl1Rumble', score.toString());
+                saveGameScore(score);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -122,25 +138,43 @@ class _RumbleState extends State<Rumble> {
   }
 
   void backTo(){
-    switch (widget.lvlNum) {
-      case 1:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
-        break;
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
+  }
 
-      case 2:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
-        break;
-
-      case 3:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
-        break;
-
-      case 4:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
-        break;
-      default:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Level()));
-    }
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          content: Container(
+            width: double.infinity,
+            height: 200.0,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/instruction.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Center(
+                child: Text(widget.instrctn)
+              ),
+            )
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -152,10 +186,7 @@ class _RumbleState extends State<Rumble> {
             'assets/images/back_btn.png',
             fit: BoxFit.fill,
           ),
-          onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const Home()));
-          },
+          onPressed: backTo,
         ),
         backgroundColor: Colors.green.shade700,
       ),
@@ -348,5 +379,6 @@ class _RumbleState extends State<Rumble> {
         ),
       ),
     );
+  
   }
 }
