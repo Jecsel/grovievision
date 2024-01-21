@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import '../local_data.dart';
 import 'games.dart';
-import 'home.dart';
 import 'score.dart';
 
 class Rumble extends StatefulWidget {
@@ -18,34 +17,6 @@ class Rumble extends StatefulWidget {
 }
 
 class _RumbleState extends State<Rumble> {
-  // List<dynamic> questions = [
-  //   {
-  //     'question': 'Shape of fruits of Excoecaria agallocha.',
-  //     'answer': 'ROUND',
-  //     'choices': ['A', 'R', 'B', 'O', 'C', 'U', 'D', 'N', 'E', 'D']
-  //   },
-  //   {
-  //     'question': 'Inflorescence of flowers in Excoecaria agallocha.',
-  //     'answer': 'CATKIN',
-  //     'choices': ['Q', 'R', 'T', 'K', 'C', 'U', 'A', 'N', 'E', 'I']
-  //   },
-  //   {
-  //     'question': 'The blade shape of leaves in Xylocarpus granatum.',
-  //     'answer': 'OBOVATE',
-  //     'choices': ['Q', 'O', 'T', 'A', 'V', 'U', 'O', 'N', 'E', 'B']
-  //   },
-  //   {
-  //     'question': 'Color of fruits in Xylocarpus moluccensis.',
-  //     'answer': 'GREEN',
-  //     'choices': ['R', 'E', 'G', 'A', 'V', 'N', 'O', 'N', 'E', 'B']
-  //   },
-  //   {
-  //     'question': 'Petals of flowers in Osbornia octodonta.',
-  //     'answer': 'APETALOUS',
-  //     'choices': ['R', 'S', 'U', 'O', 'L', 'A', 'T', 'E', 'P', 'A']
-  //   },
-  // ];
-
 
   int score = 0;
   int currentQuestionIndex = 0;
@@ -60,6 +31,7 @@ class _RumbleState extends State<Rumble> {
     super.initState();
 
     questions = widget.qstns;
+    questions.shuffle();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showDialog(context);
     });

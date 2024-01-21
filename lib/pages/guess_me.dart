@@ -32,6 +32,7 @@ class _GuessMeState extends State<GuessMe> {
     super.initState();
 
     questions = widget.qstns;
+    questions.shuffle();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showDialog(context);
     });

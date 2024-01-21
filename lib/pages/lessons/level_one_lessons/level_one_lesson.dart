@@ -101,14 +101,14 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
             padding: const EdgeInsets.all(20.0),
             child: Column(  
               children: [
-                Text(
-                  'Currently you have $stars stars',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
+                // Text(
+                //   'Currently you have $stars stars',
+                //   style: const TextStyle(
+                //     color: Colors.white,
+                //     fontSize: 25.0,
+                //     fontWeight: FontWeight.bold
+                //   ),
+                // ),
                 const SizedBox(height: 100.0,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(

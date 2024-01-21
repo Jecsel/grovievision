@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
 import 'package:grovie/pages/level.dart';
@@ -14,10 +15,15 @@ class Score extends StatefulWidget {
 }
 
 class _ScoreState extends State<Score> {
+  final player = AudioPlayer();
   
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      player.play(AssetSource('congrats.mp3'));
+    });
   }
 
   _goTo() {

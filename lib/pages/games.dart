@@ -294,8 +294,8 @@ class _GamesState extends State<Games> {
     },
     {
       'question': 'Apex of Leaves in Acanthus Ebracteatus',
-      'answer': 'ACUTE',
-      'choices': ['A', 'R', 'B', 'O', 'C', 'U', 'D', 'N', 'E', 'T']
+      'answer': 'SPIKE',
+      'choices': ['S', 'R', 'B', 'I', 'K', 'U', 'D', 'N', 'E', 'P']
     },
   ];
 
@@ -489,9 +489,8 @@ class _GamesState extends State<Games> {
     player = AudioPlayer();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (player.state == PlayerState.playing) {
-        player.stop();
-      }
+      player.stop();
+      player.dispose();
     });
   }
 

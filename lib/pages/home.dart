@@ -19,19 +19,17 @@ class _HomeState extends State<Home> {
   void initState(){
     super.initState();
     
-    // player = AudioPlayer();
-    // player.stop();
+    player = AudioPlayer();
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (player.state != PlayerState.playing) {
-    //     player.play(AssetSource('home.mp3'));
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (player.state != PlayerState.playing) {
+        player.play(AssetSource('home.mp3'));
+      }
+    });
   }
 
   gotoLevel() {
-  //   player.dispose();
-  //   player.stop();
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
   }
 
@@ -43,150 +41,156 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'Grovie',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white
+    return WillPopScope(
+      onWillPop: () async {
+        return _onBackPressed(context);
+      },
+      child: MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Grovie',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white
+                ),
               ),
+              centerTitle: true,
+              backgroundColor: Colors.green.shade700,
             ),
-            backgroundColor: Colors.green.shade700,
-          ),
-          backgroundColor: Colors.green.shade50,
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/lesson_bg.png'), // Replace with your image asset
-                fit: BoxFit.cover,
+            backgroundColor: Colors.green.shade50,
+            body: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/lesson_bg.png'), // Replace with your image asset
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: gotoLevel,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/button.png'),
-                          fit: BoxFit.fill
-                        )
-                      ),
-                      child: const Text(
-                        "Let's Grovie",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: gotoLevel,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 100.0,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/button.png'),
+                            fit: BoxFit.fill
+                          )
+                        ),
+                        child: const Text(
+                          "Let's Grovie",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-
-                  const SizedBox( height: 15.0),
-                  GestureDetector(
-                    onTap: gotoLevel,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/button.png'),
-                          fit: BoxFit.fill
-                        )
-                      ),
-                      child: const Text(
-                        "About Us",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+      
+                    const SizedBox( height: 15.0),
+                    GestureDetector(
+                      onTap: gotoLevel,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 100.0,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/button.png'),
+                            fit: BoxFit.fill
+                          )
+                        ),
+                        child: const Text(
+                          "About Us",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox( height: 15.0),
-                  GestureDetector(
-                    onTap: gotoLevel,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/button.png'),
-                          fit: BoxFit.fill
-                        )
-                      ),
-                      child: const Text(
-                        "Exit",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+                    const SizedBox( height: 15.0),
+                    GestureDetector(
+                      onTap: _onBackPressed(context),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 100.0,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/button.png'),
+                            fit: BoxFit.fill
+                          )
+                        ),
+                        child: const Text(
+                          "Exit",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  _buildDrawerItem(
-                    title: 'Home',
-                    index: 0,
-                    onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
-                    },
-                  ),
-                  _buildDrawerItem(
-                    title: 'Let\'s Grovie',
-                    index: 1,
-                    onTap: () {
-                      gotoLevel();
-                    },
-                  ),
-                  _buildDrawerItem(
-                    title: 'Abouts Us',
-                    index: 2,
-                    onTap: () {
-                      gotoAbout();
-                    },
-                  ),
-                  _buildDrawerItem(
-                    title: 'Exit',
-                    index: 5,
-                    onTap: () {
-                      // Navigator.pop(context);
-                      _onBackPressed(context);
-                    },
-                  ),
-                ],
+            drawer: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    _buildDrawerItem(
+                      title: 'Home',
+                      index: 0,
+                      onTap: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+                      },
+                    ),
+                    _buildDrawerItem(
+                      title: 'Let\'s Grovie',
+                      index: 1,
+                      onTap: () {
+                        gotoLevel();
+                      },
+                    ),
+                    _buildDrawerItem(
+                      title: 'Abouts Us',
+                      index: 2,
+                      onTap: () {
+                        gotoAbout();
+                      },
+                    ),
+                    _buildDrawerItem(
+                      title: 'Exit',
+                      index: 5,
+                      onTap: () {
+                        // Navigator.pop(context);
+                        _onBackPressed(context);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
+        ),
+      
       ),
-    
     );
   
   }
 
-  Future<bool> _onBackPressed(BuildContext context) async {
+  _onBackPressed(BuildContext context) async {
     final confirmed = await showDialog(
       context: context,
       builder: (context) {

@@ -21,7 +21,8 @@ class _LevelState extends State<Level> {
   int lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
     lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
     lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
-    lvl1_points = 0, lvl2_points = 0, lvl3_points = 0, lvl4_points = 0;
+    lvl1Points = 0, lvl2Points = 0, lvl3Points = 0, lvl4Points = 0,
+    lvlAllPoints = 0;
 
   @override
   void initState(){
@@ -70,66 +71,78 @@ class _LevelState extends State<Level> {
       print('=====lvl1Quiz====== $value ==========');
       setState(() {
         lvl1Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl2Quiz').then((value) {
       setState(() {
          lvl2Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+         setAllPoints();
       });
      
     });
     loadData('lvl3Quiz').then((value) {
       setState(() {
         lvl3Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
     });
       
     });
     loadData('lvl1Rumble').then((value) {
       setState(() {
         lvl1Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl2Rumble').then((value) {
       setState(() {
         lvl2Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl3Rumble').then((value) {
       setState(() {
         lvl3Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl1Guess').then((value) {
       setState(() {
         lvl1Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl2Guess').then((value) {
       setState(() {
         lvl2Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
     loadData('lvl3Guess').then((value) {
       setState(() {
         lvl3Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
       });
       
     });
 
-    setState(() {
-      lvl1_points = lvl1Guess + lvl1Quiz + lvl1Rumble;
-      lvl2_points = lvl2Guess + lvl2Quiz + lvl2Rumble;
-      lvl3_points = lvl3Guess + lvl3Quiz + lvl3Rumble;
-    });
-
-
   }
+
+  setAllPoints(){
+    setState(() {
+      lvl1Points = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      lvl2Points = lvl2Guess + lvl2Quiz + lvl2Rumble;
+      lvl3Points = lvl3Guess + lvl3Quiz + lvl3Rumble;
+      lvlAllPoints = lvl1Points + lvl2Points + lvl3Points;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +158,20 @@ class _LevelState extends State<Level> {
                 context, MaterialPageRoute(builder: (context) => const Home()));
           },
         ),
+        actions: [
+          Image.asset('assets/images/star.gif'),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Text(
+              lvlAllPoints.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          )
+        ],
         backgroundColor: Colors.green.shade700,
       ),
       body: SingleChildScrollView(
@@ -192,15 +219,12 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: const Color.fromRGBO(76, 175, 80, 1)),
-                  onPressed: lvl1_points >= 12 ? gotoLevelTwoLessons : () => showUnlockToast(),
+                  onPressed: lvlAllPoints >= 12 ? gotoLevelTwoLessons : () => showUnlockToast(),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
-                        Visibility(
-                          visible: lvl1_points <= 12,
-                          child: const Icon(Icons.lock)
-                        ),
+                        lvlAllPoints < 12 ? const Icon(Icons.lock) : const Icon(Icons.lock_open, color: Color.fromRGBO(76, 175, 80, 1),),
                         const SizedBox(width: 75.0),
                         const Text(
                           "Level 2",
@@ -225,15 +249,12 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: lvl2_points >= 12 ? gotoLevelThreeLessons : () => showUnlockToast(),
+                  onPressed: lvlAllPoints >= 24 ? gotoLevelThreeLessons : () => showUnlockToast(),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
-                        Visibility(
-                          visible: lvl2_points <= 12,
-                          child: const Icon(Icons.lock)
-                        ),
+                        lvlAllPoints < 24 ? const Icon(Icons.lock) : const Icon(Icons.lock_open, color: Color.fromRGBO(76, 175, 80, 1),),
                         const SizedBox(width: 75.0),
                         const Text("Level 3",
                           style: TextStyle(
@@ -255,15 +276,12 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: lvl3_points >= 12 ? gotoLevelFourLessons : () => showUnlockToast(),
+                  onPressed: lvlAllPoints >= 36 ? gotoLevelFourLessons : () => showUnlockToast(),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
-                        Visibility(
-                          visible: lvl3_points <= 12,
-                          child: const Icon(Icons.lock)
-                        ),
+                        lvlAllPoints < 36 ? const Icon(Icons.lock) : const Icon(Icons.lock_open, color: Color.fromRGBO(76, 175, 80, 1),),
                         const SizedBox(width: 75.0),
                         const Text("Level 4",
                           style: TextStyle(

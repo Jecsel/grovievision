@@ -124,7 +124,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               int finalScore = calculateScore();
 
               // saveData('lvl1Quiz', finalScore.toString());
-              saveGameScore(score);
+              saveGameScore(finalScore);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -145,7 +145,8 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         currentQuestionIndex++;
       } else {
         int finalScore = calculateScore();
-        saveData('lvl1Quiz', finalScore.toString());
+        // saveData('lvl1Quiz', finalScore.toString());
+        saveGameScore(finalScore);
         Navigator.push(
             context,
             MaterialPageRoute(
