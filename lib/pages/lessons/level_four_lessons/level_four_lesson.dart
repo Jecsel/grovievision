@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
 import 'package:grovie/pages/level.dart';
 
+import 'view/lesson_one.dart';
+import 'view/lesson_three.dart';
+import 'view/lesson_two.dart';
+
 class LevelFourLessons extends StatefulWidget {
   const LevelFourLessons({super.key});
 
@@ -11,8 +15,20 @@ class LevelFourLessons extends StatefulWidget {
 
 class _LevelFourLessonsState extends State<LevelFourLessons> {
 
-  gotoGames(int levelId){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelId: levelId)));
+  gotoGames(int levelNum){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: levelNum)));
+  }
+
+  gotoLessonOne(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonOne()));
+  }
+
+  gotoLessonTwo(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonTwo()));
+  }
+
+  gotoLessonThree(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonThree()));
   }
 
   @override
@@ -20,7 +36,10 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Image.asset(
+            'assets/images/back_btn.png',
+            fit: BoxFit.fill,
+          ),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Level()));
           },
@@ -51,7 +70,7 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonOne,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -83,7 +102,7 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonTwo,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -115,7 +134,7 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonThree,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -147,7 +166,7 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: const Color.fromARGB(255, 93, 0, 255)),
-                  onPressed: () => gotoGames(0),
+                  onPressed: () => gotoGames(4),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("PLAY GAME",

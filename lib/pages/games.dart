@@ -1,14 +1,15 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/level.dart';
+import 'package:grovie/pages/rumble.dart';
 import 'package:grovie/pages/trivia_quiz.dart';
 
 import '../models/question.dart';
 
 class Games extends StatefulWidget {
-  final int levelId;
+  final int levelNum;
 
-  const Games({super.key, required this.levelId});
+  const Games({super.key, required this.levelNum});
 
   @override
   State<Games> createState() => _GamesState();
@@ -257,7 +258,37 @@ class _GamesState extends State<Games> {
         explanation: ''),
   ];
 
-  String trivia_instructions = 'Choose the correct answer being as base on a question.';
+  List<dynamic> lvl1RumbleQuestions = [
+    {
+      'question': 'Shape of fruits of Excoecaria agallocha.',
+      'answer': 'ROUND',
+      'choices': ['A', 'R', 'B', 'O', 'C', 'U', 'D', 'N', 'E', 'D']
+    },
+    {
+      'question': 'Inflorescence of flowers in Excoecaria agallocha.',
+      'answer': 'CATKIN',
+      'choices': ['Q', 'R', 'T', 'K', 'C', 'U', 'A', 'N', 'E', 'I']
+    },
+    {
+      'question': 'The blade shape of leaves in Xylocarpus granatum.',
+      'answer': 'OBOVATE',
+      'choices': ['Q', 'O', 'T', 'A', 'V', 'U', 'O', 'N', 'E', 'B']
+    },
+    {
+      'question': 'Color of fruits in Xylocarpus moluccensis.',
+      'answer': 'GREEN',
+      'choices': ['R', 'E', 'G', 'A', 'V', 'N', 'O', 'N', 'E', 'B']
+    },
+    {
+      'question': 'Petals of flowers in Osbornia octodonta.',
+      'answer': 'APETALOUS',
+      'choices': ['R', 'S', 'U', 'O', 'L', 'A', 'T', 'E', 'P', 'A']
+    },
+  ];
+  
+  
+  String triviaInstructions = 'Choose the correct answer being as base on a question.';
+  String rumbleInstructions = 'Arrange the jumbled letters with description of Mangrove Species base on Scientific name and characteristic of Mangrove Species.';
 
   @override
   void initState() {
@@ -280,17 +311,7 @@ class _GamesState extends State<Games> {
   }
 
   gotoTrivia() {
-    switch (widget.levelId) {
-      case 0:
-        player.dispose();
-        player.stop();
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TriviaQuiz(
-                    qstns: lvl1TriviaQuestions,
-                    instrctn: trivia_instructions)));
-        break;
+    switch (widget.levelNum) {
       case 1:
         player.dispose();
         player.stop();
@@ -298,8 +319,9 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl2TriviaQuestions,
-                    instrctn: trivia_instructions)));
+                    qstns: lvl1TriviaQuestions,
+                    instrctn: triviaInstructions,
+                    lvlNum: 1,)));
         break;
       case 2:
         player.dispose();
@@ -308,8 +330,9 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
-                    qstns: lvl3TriviaQuestions,
-                    instrctn: trivia_instructions)));
+                    qstns: lvl2TriviaQuestions,
+                    instrctn: triviaInstructions,
+                    lvlNum: 2,)));
         break;
       case 3:
         player.dispose();
@@ -318,10 +341,40 @@ class _GamesState extends State<Games> {
             context,
             MaterialPageRoute(
                 builder: (context) => TriviaQuiz(
+                    qstns: lvl3TriviaQuestions,
+                    instrctn: triviaInstructions,
+                    lvlNum: 3,)));
+        break;
+      case 4:
+        player.dispose();
+        player.stop();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TriviaQuiz(
                     qstns: lvl4TriviaQuestions,
-                    instrctn: trivia_instructions)));
+                    instrctn: triviaInstructions,
+                    lvlNum: 4,)));
         break;
 
+      default:
+    }
+  }
+
+  gotoRumble() {
+    switch (widget.levelNum) {
+      case 1:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        break;
+      case 2:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        break;
+      case 3:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        break;
+      case 4:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Rumble(lvlNum: 1, instrctn: rumbleInstructions, qstns: lvl1RumbleQuestions,)));
+        break;
       default:
     }
   }
@@ -331,7 +384,10 @@ class _GamesState extends State<Games> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Image.asset(
+            'assets/images/back_btn.png',
+            fit: BoxFit.fill,
+          ),
           onPressed: () {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const Level()));
@@ -389,7 +445,7 @@ class _GamesState extends State<Games> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       backgroundColor: Colors.orange.shade300),
-                  onPressed: () {},
+                  onPressed: gotoRumble,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(

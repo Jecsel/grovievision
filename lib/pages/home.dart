@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/main_menu.png'), // Replace with your image asset
+                image: AssetImage('assets/images/lesson_bg.png'), // Replace with your image asset
                 fit: BoxFit.cover,
               ),
             ),
@@ -71,53 +71,72 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.transparent),
-                    onPressed: gotoLevel,
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text("Let's Grovie",
+                  GestureDetector(
+                    onTap: gotoLevel,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Let's Grovie",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0
+                          fontSize: 25.0,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox( height: 15.0),
+                  GestureDetector(
+                    onTap: gotoLevel,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
                         )
+                      ),
+                      child: const Text(
+                        "About Us",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox( height: 15.0),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.transparent),
-                    onPressed: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text("About Us",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0
+                  GestureDetector(
+                    onTap: gotoLevel,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
                         )
                       ),
-                    ),
-                  ),
-                  const SizedBox( height: 15.0),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.transparent),
-                    onPressed: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text("Exit",
+                      child: const Text(
+                        "Exit",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0
-                        )
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                   ),

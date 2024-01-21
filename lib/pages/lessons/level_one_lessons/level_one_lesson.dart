@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
+import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_four.dart';
+import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_three.dart';
+import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_two.dart';
 import 'package:grovie/pages/level.dart';
+
+import '../../../local_data.dart';
+import 'view/lesson_one.dart';
 
 class LevelOneLessons extends StatefulWidget {
   const LevelOneLessons({super.key});
@@ -10,9 +16,59 @@ class LevelOneLessons extends StatefulWidget {
 }
 
 class _LevelOneLessonsState extends State<LevelOneLessons> {
+  int stars = 0, lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0;
 
-  gotoGames(int levelId){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelId: levelId)));
+  @override
+  void initState(){
+    super.initState();
+    getStar();
+  
+  }
+
+
+  getStar() async {
+    await loadData('lvl1Quiz').then((value) {
+      setState(() {
+        lvl1Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        stars = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      });
+    });
+
+    await loadData('lvl1Rumble').then((value) {
+      setState(() {
+        lvl1Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        stars = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      });
+      
+    });
+
+    await loadData('lvl1Guess').then((value) {
+      setState(() {
+         lvl1Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+         stars = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      });
+     
+    });
+  }
+
+  gotoGames(int levelNum){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: levelNum)));
+  }
+
+  gotoLessonOne(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonOne()));
+  }
+
+  gotoLessonTwo(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonTwo()));
+  }
+
+  gotoLessonThree(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonThree()));
+  }
+
+  gotoLessonFour(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonFour()));
   }
 
   @override
@@ -20,7 +76,10 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Image.asset(
+            'assets/images/back_btn.png',
+            fit: BoxFit.fill,
+          ),
           onPressed: () {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Level()));
           },
@@ -40,18 +99,26 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
+            child: Column(  
               children: [
+                Text(
+                  'Currently you have $stars stars',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
                 const SizedBox(height: 100.0,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
+                    shape: RoundedRectangleBorder(  
                       borderRadius: BorderRadius.circular(20),
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonOne,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -83,7 +150,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonTwo,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -115,7 +182,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonThree,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -147,7 +214,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: () {},
+                  onPressed: gotoLessonFour,
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Row(
@@ -179,7 +246,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: const Color.fromARGB(255, 93, 0, 255)),
-                  onPressed: () => gotoGames(0),
+                  onPressed: () => gotoGames(1),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("PLAY GAME",

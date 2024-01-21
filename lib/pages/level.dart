@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:grovie/pages/games.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grovie/local_data.dart';
 import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
 
 import 'home.dart';
@@ -17,6 +18,10 @@ class Level extends StatefulWidget {
 
 class _LevelState extends State<Level> {
   late AudioPlayer player;
+  int lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
+    lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
+    lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
+    lvl1_points = 0, lvl2_points = 0, lvl3_points = 0, lvl4_points = 0;
 
   @override
   void initState(){
@@ -29,6 +34,19 @@ class _LevelState extends State<Level> {
         player.stop();
       }
     });
+
+    getSaveData();
+  }
+
+  showUnlockToast() {
+    Fluttertoast.showToast(
+      msg: "Unlock the previous level first.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   gotoLevelOneLessons(){
@@ -47,12 +65,81 @@ class _LevelState extends State<Level> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
   }
 
+  getSaveData() {
+    loadData('lvl1Quiz').then((value) {
+      print('=====lvl1Quiz====== $value ==========');
+      setState(() {
+        lvl1Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl2Quiz').then((value) {
+      setState(() {
+         lvl2Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+     
+    });
+    loadData('lvl3Quiz').then((value) {
+      setState(() {
+        lvl3Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl1Rumble').then((value) {
+      setState(() {
+        lvl1Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl2Rumble').then((value) {
+      setState(() {
+        lvl2Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl3Rumble').then((value) {
+      setState(() {
+        lvl3Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl1Guess').then((value) {
+      setState(() {
+        lvl1Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl2Guess').then((value) {
+      setState(() {
+        lvl2Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+    loadData('lvl3Guess').then((value) {
+      setState(() {
+        lvl3Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+      });
+      
+    });
+
+    setState(() {
+      lvl1_points = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      lvl2_points = lvl2Guess + lvl2Quiz + lvl2Rumble;
+      lvl3_points = lvl3Guess + lvl3Quiz + lvl3Rumble;
+    });
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // Add your arrow icon here
+          icon: Image.asset(
+            'assets/images/back_btn.png',
+            fit: BoxFit.fill,
+          ),
           onPressed: () {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => const Home()));
@@ -105,7 +192,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: gotoLevelTwoLessons,
+                  onPressed: lvl1Quiz > 0 ? gotoLevelTwoLessons : () => showUnlockToast(),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 2",
@@ -126,7 +213,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: gotoLevelThreeLessons,
+                  onPressed: lvl2Quiz > 0 ? gotoLevelThreeLessons : () => showUnlockToast(),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 3",
@@ -147,7 +234,7 @@ class _LevelState extends State<Level> {
                       side: const BorderSide(color: Colors.white, width: 2.0),
                     ),
                     backgroundColor: Colors.green),
-                  onPressed: gotoLevelFourLessons,
+                  onPressed: lvl3Quiz > 0 ? gotoLevelFourLessons : () => showUnlockToast(),
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text("Level 4",

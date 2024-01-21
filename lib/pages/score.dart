@@ -3,9 +3,10 @@ import 'package:grovie/pages/level.dart';
 
 // ignore: must_be_immutable
 class Score extends StatefulWidget {
+  final int lvlNum;
   String score;
 
-  Score({super.key, required this.score});
+  Score({super.key, required this.score, required this.lvlNum});
 
   @override
   State<Score> createState() => _ScoreState();
@@ -18,14 +19,14 @@ class _ScoreState extends State<Score> {
     super.initState();
   }
 
-  _goToQuiz() {
+  _goTo() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
   }
 
   Widget buildStars(int count) {
     List<Widget> stars = List.generate(
       count,
-      (index) => Image.asset('assets/images/star.gif', height: 80.0, width: 80.0,),
+      (index) => Image.asset('assets/images/star.gif', height: 70.0, width: 70.0,),
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +42,10 @@ class _ScoreState extends State<Score> {
         appBar: AppBar(
           title: const Text('Trivia'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Image.asset(
+            'assets/images/back_btn.png',
+            fit: BoxFit.fill,
+          ),
             onPressed: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => const Level()));
@@ -81,7 +85,7 @@ class _ScoreState extends State<Score> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.green),
                     ),
-                    onPressed: _goToQuiz,
+                    onPressed: _goTo,
                     child: const Padding(
                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                       child: Text(

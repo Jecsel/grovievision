@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:grovie/local_data.dart';
+import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
 import 'package:grovie/pages/level.dart';
 
 import '../models/question.dart';
+import 'lessons/level_four_lessons/level_four_lesson.dart';
+import 'lessons/level_three_lessons/level_three_lesson.dart';
+import 'lessons/level_two_lessons/level_two_lesson.dart';
 import 'score.dart';
 
 class TriviaQuiz extends StatefulWidget {
   final String instrctn;
   final List<Question> qstns;
+  final int lvlNum;
 
-  const TriviaQuiz({super.key, required this.instrctn, required this.qstns});
+  const TriviaQuiz({super.key, required this.instrctn, required this.qstns, required this.lvlNum});
 
   @override
   State<TriviaQuiz> createState() => _TriviaQuizState();
@@ -54,7 +60,23 @@ class _TriviaQuizState extends State<TriviaQuiz> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('INSTRUCTION'),
-          content: Text(instruction),
+          content: Container(
+            width: double.infinity,
+            height: 200.0,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/images/instruction.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Center(
+                child: Text(instruction)
+              ),
+            )
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -89,11 +111,13 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               currentQuestionIndex++;
             } else {
               int finalScore = calculateScore();
+
+              saveData('lvl1Quiz', finalScore.toString());
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          Score(score: finalScore.toString())));
+                          Score(score: finalScore.toString(), lvlNum: widget.lvlNum,)));
             }
           }
         });
@@ -109,12 +133,36 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         currentQuestionIndex++;
       } else {
         int finalScore = calculateScore();
+        saveData('lvl1Quiz', finalScore.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Score(score: finalScore.toString())));
+                builder: (context) => Score(score: finalScore.toString(), lvlNum: widget.lvlNum,)));
       }
     });
+  }
+
+  backTo(){
+    switch (widget.lvlNum) {
+      case 1:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
+        break;
+
+      case 2:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
+        break;
+
+      case 3:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
+        break;
+
+      case 4:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
+        break;
+      default:
+        Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const Level()));
+    }
   }
 
   int calculateScore() {
@@ -139,11 +187,11 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         appBar: AppBar(
           title: const Text('Trivia'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Level()));
-            },
+            icon: Image.asset(
+              'assets/images/back_btn.png',
+              fit: BoxFit.fill,
+            ),
+            onPressed: backTo,
           ),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -174,11 +222,11 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                 top: 100.0, bottom: 15.0, left: 10.0, right: 10.0),
               child: Column(
                 children: [
-                  Image.asset(
-                    questions[currentQuestionIndex].image,
-                    width: double.infinity,
-                    height: 300.0,
-                  ),
+                  // Image.asset(
+                  //   questions[currentQuestionIndex].image,
+                  //   width: double.infinity,
+                  //   height: 300.0,
+                  // ),
                   const SizedBox(height: 50.0),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0),
