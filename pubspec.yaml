@@ -74,6 +74,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/about/
     - assets/images/level1/lesson1/
     - assets/images/level1/lesson2/
     - assets/images/level1/lesson3/
