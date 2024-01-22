@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grovievision/screens/loading_screen.dart';
-
-import 'screens/splash_screen.dart';
-import 'ui/login.dart';
+import 'splash_screen.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
