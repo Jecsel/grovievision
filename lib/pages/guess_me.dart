@@ -23,6 +23,7 @@ class _GuessMeState extends State<GuessMe> {
   String answer = '';
   List<String> chosenLetters = [];
   AudioPlayer player = AudioPlayer();
+  AudioPlayer playerSE = AudioPlayer();
   late List<dynamic> questions;
   TextEditingController answerController = TextEditingController();
 
@@ -90,12 +91,12 @@ class _GuessMeState extends State<GuessMe> {
 
     if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
       // Correct Answer
-      player.play(AssetSource('correct.mp3'));
+      playerSE.play(AssetSource('correct.mp3'));
       showNextQuestion();
       score++;
     } else {
       // Incorrect Answer
-      player.play(AssetSource('wrong.mp3'));
+      playerSE.play(AssetSource('wrong.mp3'));
       showIncorrectDialog(correctAnswer);
     }
   }
@@ -154,6 +155,7 @@ class _GuessMeState extends State<GuessMe> {
                   onPressed: () {
                     player.stop();
                     saveGameScore(score);
+                    player.play(AssetSource('correct.mp3'), volume: 0.0);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -198,8 +200,11 @@ class _GuessMeState extends State<GuessMe> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  questions[currentQuestionIndex]['image']
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Image.asset(
+                    questions[currentQuestionIndex]['image']
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),

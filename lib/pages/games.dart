@@ -84,6 +84,7 @@ class _GamesState extends State<Games> {
         ],
         correctAnswerIndex: 0,
         explanation: ''),
+
   ];
 
   List<Question> lvl2TriviaQuestions = [
@@ -385,93 +386,93 @@ class _GamesState extends State<Games> {
 
   List<dynamic> lvl1GuessQuestions = [
     {
-      'answer': 'Bruguiera cylindrical',
-      'image': 'assets/images/level1/guess_me1/0.jpg'
+      'answer': 'Marina Flower',
+      'image': 'assets/images/level1/guess_me1/0.png'
     },
     {
-      'answer': 'Ceriops tagal',
-      'image': 'assets/images/level1/guess_me1/1.jpg'
+      'answer': 'Ilicifolius Leave',
+      'image': 'assets/images/level1/guess_me1/1.png'
     },
     {
-      'answer': 'Schizophrenia apiculata',
-      'image': 'assets/images/level1/guess_me1/2.jpg'
+      'answer': 'Volubilis Fruit',
+      'image': 'assets/images/level1/guess_me1/2.png'
     },
     {
-      'answer': 'Rhizophora mucronat',
-      'image': 'assets/images/level1/guess_me1/3.jpg'
+      'answer': 'Alba Flower',
+      'image': 'assets/images/level1/guess_me1/3.png'
     },
     {
-      'answer': 'Rhizophora stylos',
-      'image': 'assets/images/level1/guess_me1/4.jpg'
+      'answer': 'Rumphiana Fruit',
+      'image': 'assets/images/level1/guess_me1/4.png'
     }
   ];
 
   List<dynamic> lvl2GuessQuestions = [
     {
-      'question': 'Xylocarpus granatum',
-      'answer': 'assets/images/level2/guess_me2/0.jpg'
+      'question': 'Agallocha Fruit',
+      'answer': 'assets/images/level2/guess_me2/0.png'
     },
     {
-      'question': 'Excoecaria agallocha',
-      'answer': 'assets/images/level2/guess_me2/1.jpg'
+      'question': 'Granatum Flower',
+      'answer': 'assets/images/level2/guess_me2/1.png'
     },
     {
-      'question': 'Osbornia octodonta',
-      'answer': 'assets/images/level2/guess_me2/2.jpg'
+      'question': 'Moluccensis Fruit',
+      'answer': 'assets/images/level2/guess_me2/2.png'
     },
     {
-      'question': 'Xylocarpus moluccensis',
-      'answer': 'assets/images/level2/guess_me2/3.jpg'
+      'question': 'Octodonta Leave',
+      'answer': 'assets/images/level2/guess_me2/3.png'
     },
     {
-      'question': 'Granatum fruit',
-      'answer': 'assets/images/level2/guess_me2/4.jpg'
+      'question': 'Octodonta Flower',
+      'answer': 'assets/images/level2/guess_me2/4.png'
     }
   ];
 
   List<dynamic> lvl3GuessQuestions = [
     {
-      'question': 'Sonneratia alba',
-      'answer': 'assets/images/level3/guess_me3/0.jpg'
+      'question': 'Phempis Acidula',
+      'answer': 'assets/images/level3/guess_me3/0.png'
     },
     {
-      'question': 'Sonneratia caseolaris',
-      'answer': 'assets/images/level3/guess_me3/1.jpg'
+      'question': 'Acidula Flower',
+      'answer': 'assets/images/level3/guess_me3/1.png'
     },
     {
-      'question': 'Sonneratia ovata',
-      'answer': 'assets/images/level3/guess_me3/2.jpg'
+      'question': 'Alba Leave',
+      'answer': 'assets/images/level3/guess_me3/2.png'
     },
     {
-      'question': 'Pemphis acidula',
-      'answer': 'assets/images/level3/guess_me3/3.jpg'
+      'question': 'Caseolaris Fruit',
+      'answer': 'assets/images/level3/guess_me3/3.png'
     },
     {
-      'question': 'Nypa fruticans',
-      'answer': 'assets/images/level3/guess_me3/4.jpg'
+      'question': 'Fruticans Fruit',
+      'answer': 'assets/images/level3/guess_me3/4.png'
     }
   ];
 
   List<dynamic> lvl4GuessQuestions = [
     {
-      'question': 'Aegiceras corniculatum',
-      'answer': 'assets/images/level4/guess_me4/0.jpg'
+      'question': 'Hydrophyllacea Flower',
+      'answer': 'assets/images/level4/guess_me4/0.png'
     },
     {
-      'question': 'Aegiceras floridum',
-      'answer': 'assets/images/level4/guess_me4/1.jpg'
+      'question': 'Corniculatum Fruit',
+      'answer': 'assets/images/level4/guess_me4/1.png'
     },
     {
-      'question': 'Scyphiphora Hydrophyllacea',
-      'answer': 'assets/images/level4/guess_me4/2.jpg'
-    },
-    {
-      'question': 'Floridum leave',
-      'answer': 'assets/images/level4/guess_me4/3.jpg'
+      'question': 'Floridum Flower',
+      'answer': 'assets/images/level4/guess_me4/2.png'
     },
     {
       'question': 'Heritiera littoralis',
-      'answer': 'assets/images/level4/guess_me4/4.jpg'
+      'answer': 'assets/images/level4/guess_me4/3.png'
+    },
+    {
+      'question': 'Littoralis Fruit',
+      'answer': 'assets/images/level4/guess_me4/4.png'
     }
   ];
 
@@ -687,101 +688,96 @@ class _GamesState extends State<Games> {
         ),
         backgroundColor: Colors.green.shade700,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  'assets/images/lesson_bg.png'), // Replace with your image asset
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/lesson_bg.png'), // Replace with your image asset
+            fit: BoxFit.cover,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 100.0,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.yellow.shade300),
-                  onPressed: gotoTrivia,
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        top: 15.0, bottom: 15.0, left: 20.0, right: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100.0,
+              ),
+              GestureDetector(
+                    onTap: gotoTrivia,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Grovie Quest",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Grovie Quest",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.orange.shade300),
-                  onPressed: gotoRumble,
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+      
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                    onTap: gotoRumble,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Grovie Mix-up",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Grovie Mix-up",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.red.shade300),
-                  onPressed: gotoGuess,
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+      
+      
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                    onTap: gotoGuess,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Guess Me",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Guess Me     ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+              
+            ],
           ),
         ),
       ),

@@ -33,6 +33,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   bool userSelectAnAnswer = false;
   String instruction = '';
   AudioPlayer player = AudioPlayer();
+  AudioPlayer playerSE = AudioPlayer();
 
   @override
   void initState() {
@@ -55,6 +56,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
   void stopAudio() {
     player.stop();
+    player.dispose();
   }
 
   void saveGameScore(int scr) {
@@ -114,7 +116,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           questions[questionIndex].correctAnswerIndex) {
         showExplanation = true;
         isWrongAnswer = false;
-        player.play(AssetSource('correct.mp3'));
+        playerSE.play(AssetSource('correct.mp3'));
         if (currentQuestionIndex < questions.length - 1) {
           currentQuestionIndex++;
         } else {
@@ -122,6 +124,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
           saveGameScore(finalScore);
           stopAudio;
+          player.play(AssetSource('correct.mp3',),volume: 0.0);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -131,7 +134,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                       )));
         }
       } else {
-        player.play(AssetSource('wrong.mp3'));
+        playerSE.play(AssetSource('wrong.mp3'));
         questions[questionIndex].choices.asMap().forEach((index, choice) {
           if (index == choiceIndex) {
             isWrongAnswer = true;
@@ -144,6 +147,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               // saveData('lvl1Quiz', finalScore.toString());
               saveGameScore(finalScore);
               stopAudio;
+              player.play(AssetSource('correct.mp3'), volume: 0.0);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -169,6 +173,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         // saveData('lvl1Quiz', finalScore.toString());
         saveGameScore(finalScore);
         stopAudio;
+        player.play(AssetSource('correct.mp3'));
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -198,6 +203,13 @@ class _TriviaQuizState extends State<TriviaQuiz> {
       }
     }
     return score;
+  }
+
+  @override
+  void dispose() {
+    playerSE.dispose(); // Dispose of the background music player
+    player.dispose(); // Dispose of the sound effects player
+    super.dispose();
   }
 
   @override
@@ -247,22 +259,24 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                   top: 100.0, bottom: 15.0, left: 10.0, right: 10.0),
               child: Column(
                 children: [
-                  // Image.asset(
-                  //   questions[currentQuestionIndex].image,
-                  //   width: double.infinity,
-                  //   height: 300.0,
-                  // ),
                   const SizedBox(height: 50.0),
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0),
-                    child: Text(
-                        questions.isNotEmpty
-                            ? '$currentNumber . ${questions[currentQuestionIndex].question}'
-                            : '',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                            color: Colors.white)),
+                    child: RichText(
+                            textAlign: TextAlign.justify,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: questions.isNotEmpty ? '$currentNumber . ${questions[currentQuestionIndex].question}' : ''
+                                )
+                              ]
+                            )
+                          ),
+                  
                   ),
                   const SizedBox(height: 15.0),
                   ...questions[currentQuestionIndex].choices.map((choice) {
@@ -295,40 +309,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                       ),
                     );
                   }).toList(),
-                  // showExplanation
-                  //     ? Padding(
-                  //         padding: const EdgeInsets.only(top: 30.0),
-                  //         child: Text(
-                  //           questions.isNotEmpty
-                  //               ? questions[currentQuestionIndex].explanation
-                  //               : '',
-                  //           style: const TextStyle(
-                  //               fontStyle: FontStyle.italic, fontSize: 15.0),
-                  //         ),
-                  //       )
-                  //     : const Text(''),
-                  // showExplanation
-                  //     ? Padding(
-                  //         padding: const EdgeInsets.only(top: 12.0),
-                  //         child: ElevatedButton(
-                  //           style: ButtonStyle(
-                  //             backgroundColor:
-                  //                 MaterialStateProperty.all<Color>(Colors.green),
-                  //           ),
-                  //           onPressed: nextQuestion,
-                  //           child: const Padding(
-                  //             padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                  //             child: Text(
-                  //               'NEXT',
-                  //               textAlign: TextAlign.justify,
-                  //               style: TextStyle(
-                  //                 color: Colors.white,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       )
-                  //     : const Text(''),
+                  
                 ],
               ),
             ),
