@@ -10,7 +10,11 @@ class TriviaQuiz extends StatefulWidget {
   final List<Question> qstns;
   final int lvlNum;
 
-  const TriviaQuiz({super.key, required this.instrctn, required this.qstns, required this.lvlNum});
+  const TriviaQuiz(
+      {super.key,
+      required this.instrctn,
+      required this.qstns,
+      required this.lvlNum});
 
   @override
   State<TriviaQuiz> createState() => _TriviaQuizState();
@@ -37,13 +41,13 @@ class _TriviaQuizState extends State<TriviaQuiz> {
     instruction = widget.instrctn;
 
     questions.shuffle();
-    
+
     selectedAnswers = List.filled(questions.length, null);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       player.stop();
       if (player.state != PlayerState.playing) {
-        await player.play(AssetSource('quiz.mp3'));
+        player.play(AssetSource('quiz.mp3'));
       }
       _showDialog(context);
     });
@@ -66,7 +70,6 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         break;
       default:
     }
-    
   }
 
   void _showDialog(BuildContext context) {
@@ -76,22 +79,18 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         return AlertDialog(
           title: const Text('INSTRUCTION'),
           content: Container(
-            width: double.infinity,
-            height: 200.0,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/instruction.png'),
-                fit: BoxFit.cover,
+              width: double.infinity,
+              height: 200.0,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/instruction.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Center(
-                child: Text(instruction)
-              ),
-            )
-          ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Center(child: Text(instruction)),
+              )),
           actions: [
             TextButton(
               onPressed: () {
@@ -106,7 +105,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   }
 
   void onAnswerSelected(int questionIndex, int choiceIndex) {
-    setState(() async {
+    setState(() {
       selectedAnswers[questionIndex] = choiceIndex;
       questionIndexSelected = questionIndex;
       choiceIndexSelected = choiceIndex;
@@ -115,9 +114,24 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           questions[questionIndex].correctAnswerIndex) {
         showExplanation = true;
         isWrongAnswer = false;
-        await player.play(AssetSource('correct.mp3'));
+        player.play(AssetSource('correct.mp3'));
+        if (currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++;
+        } else {
+          int finalScore = calculateScore();
+
+          saveGameScore(finalScore);
+          stopAudio;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Score(
+                        score: finalScore.toString(),
+                        lvlNum: widget.lvlNum,
+                      )));
+        }
       } else {
-        await player.play(AssetSource('wrong.mp3'));
+        player.play(AssetSource('wrong.mp3'));
         questions[questionIndex].choices.asMap().forEach((index, choice) {
           if (index == choiceIndex) {
             isWrongAnswer = true;
@@ -133,8 +147,10 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          Score(score: finalScore.toString(), lvlNum: widget.lvlNum,)));
+                      builder: (context) => Score(
+                            score: finalScore.toString(),
+                            lvlNum: widget.lvlNum,
+                          )));
             }
           }
         });
@@ -156,14 +172,22 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Score(score: finalScore.toString(), lvlNum: widget.lvlNum,)));
+                builder: (context) => Score(
+                      score: finalScore.toString(),
+                      lvlNum: widget.lvlNum,
+                    )));
       }
     });
   }
 
-  backTo(){
+  backTo() {
     player.stop();
-    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Games(
+                  levelNum: widget.lvlNum,
+                )));
   }
 
   int calculateScore() {
@@ -220,7 +244,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 100.0, bottom: 15.0, left: 10.0, right: 10.0),
+                  top: 100.0, bottom: 15.0, left: 10.0, right: 10.0),
               child: Column(
                 children: [
                   // Image.asset(
@@ -235,7 +259,10 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                         questions.isNotEmpty
                             ? '$currentNumber . ${questions[currentQuestionIndex].question}'
                             : '',
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white)),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                            color: Colors.white)),
                   ),
                   const SizedBox(height: 15.0),
                   ...questions[currentQuestionIndex].choices.map((choice) {
@@ -268,40 +295,40 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                       ),
                     );
                   }).toList(),
-                  showExplanation
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: Text(
-                            questions.isNotEmpty
-                                ? questions[currentQuestionIndex].explanation
-                                : '',
-                            style: const TextStyle(
-                                fontStyle: FontStyle.italic, fontSize: 15.0),
-                          ),
-                        )
-                      : const Text(''),
-                  showExplanation
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 12.0),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.green),
-                            ),
-                            onPressed: nextQuestion,
-                            child: const Padding(
-                              padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                              child: Text(
-                                'NEXT',
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : const Text(''),
+                  // showExplanation
+                  //     ? Padding(
+                  //         padding: const EdgeInsets.only(top: 30.0),
+                  //         child: Text(
+                  //           questions.isNotEmpty
+                  //               ? questions[currentQuestionIndex].explanation
+                  //               : '',
+                  //           style: const TextStyle(
+                  //               fontStyle: FontStyle.italic, fontSize: 15.0),
+                  //         ),
+                  //       )
+                  //     : const Text(''),
+                  // showExplanation
+                  //     ? Padding(
+                  //         padding: const EdgeInsets.only(top: 12.0),
+                  //         child: ElevatedButton(
+                  //           style: ButtonStyle(
+                  //             backgroundColor:
+                  //                 MaterialStateProperty.all<Color>(Colors.green),
+                  //           ),
+                  //           onPressed: nextQuestion,
+                  //           child: const Padding(
+                  //             padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  //             child: Text(
+                  //               'NEXT',
+                  //               textAlign: TextAlign.justify,
+                  //               style: TextStyle(
+                  //                 color: Colors.white,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       )
+                  //     : const Text(''),
                 ],
               ),
             ),
