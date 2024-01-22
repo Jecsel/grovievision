@@ -22,7 +22,7 @@ class _RumbleState extends State<Rumble> {
   int currentQuestionIndex = 0;
   String answer = '';
   List<String> chosenLetters = [];
-  final player = AudioPlayer();
+  AudioPlayer player = AudioPlayer();
   late List<dynamic> questions;
 
   @override
@@ -32,7 +32,12 @@ class _RumbleState extends State<Rumble> {
 
     questions = widget.qstns;
     questions.shuffle();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      player.stop();
+      if (player.state != PlayerState.playing) {
+        await player.play(AssetSource('rumble.m4a'));
+      }
       _showDialog(context);
     });
   }
@@ -65,6 +70,7 @@ class _RumbleState extends State<Rumble> {
               onPressed: () {
                 // Navigator.of(context).pop();
                 // saveData('lvl1Rumble', score.toString());
+                player.stop();
                 saveGameScore(score);
                 Navigator.push(
                   context,
@@ -110,6 +116,7 @@ class _RumbleState extends State<Rumble> {
   }
 
   void backTo(){
+    player.stop();
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 

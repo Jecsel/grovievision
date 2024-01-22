@@ -23,12 +23,12 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   late List<int?> selectedAnswers;
   bool showExplanation = false;
   bool isWrongAnswer = false;
-  final player = AudioPlayer();
 
   int questionIndexSelected = 0;
   int choiceIndexSelected = 0;
   bool userSelectAnAnswer = false;
   String instruction = '';
+  AudioPlayer player = AudioPlayer();
 
   @override
   void initState() {
@@ -38,11 +38,15 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
     questions.shuffle();
     
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    selectedAnswers = List.filled(questions.length, null);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      player.stop();
+      if (player.state != PlayerState.playing) {
+        await player.play(AssetSource('quiz.mp3'));
+      }
       _showDialog(context);
     });
-
-    selectedAnswers = List.filled(questions.length, null);
   }
 
   void stopAudio() {
@@ -102,7 +106,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   }
 
   void onAnswerSelected(int questionIndex, int choiceIndex) {
-    setState(() {
+    setState(() async {
       selectedAnswers[questionIndex] = choiceIndex;
       questionIndexSelected = questionIndex;
       choiceIndexSelected = choiceIndex;
@@ -111,9 +115,9 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           questions[questionIndex].correctAnswerIndex) {
         showExplanation = true;
         isWrongAnswer = false;
-        player.play(AssetSource('correct.mp3'));
+        await player.play(AssetSource('correct.mp3'));
       } else {
-        player.play(AssetSource('wrong.mp3'));
+        await player.play(AssetSource('wrong.mp3'));
         questions[questionIndex].choices.asMap().forEach((index, choice) {
           if (index == choiceIndex) {
             isWrongAnswer = true;
@@ -125,6 +129,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
               // saveData('lvl1Quiz', finalScore.toString());
               saveGameScore(finalScore);
+              stopAudio;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -147,6 +152,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         int finalScore = calculateScore();
         // saveData('lvl1Quiz', finalScore.toString());
         saveGameScore(finalScore);
+        stopAudio;
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -156,6 +162,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   }
 
   backTo(){
+    player.stop();
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 

@@ -22,7 +22,7 @@ class _GuessMeState extends State<GuessMe> {
   int currentQuestionIndex = 0;
   String answer = '';
   List<String> chosenLetters = [];
-  final player = AudioPlayer();
+  AudioPlayer player = AudioPlayer();
   late List<dynamic> questions;
   TextEditingController answerController = TextEditingController();
 
@@ -33,7 +33,11 @@ class _GuessMeState extends State<GuessMe> {
 
     questions = widget.qstns;
     questions.shuffle();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      player.stop();
+      if (player.state != PlayerState.playing) {
+        await player.play(AssetSource('guess_me.mp3'));
+      }
       _showDialog(context);
     });
   }
@@ -75,6 +79,7 @@ class _GuessMeState extends State<GuessMe> {
   }
 
   backTo(){
+    player.stop();
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 
@@ -147,6 +152,7 @@ class _GuessMeState extends State<GuessMe> {
               actions: [
                 TextButton(
                   onPressed: () {
+                    player.stop();
                     saveGameScore(score);
                     Navigator.push(
                       context,

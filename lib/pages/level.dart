@@ -17,7 +17,7 @@ class Level extends StatefulWidget {
 }
 
 class _LevelState extends State<Level> {
-  late AudioPlayer player;
+  AudioPlayer player = AudioPlayer();
   int lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
     lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
     lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
@@ -27,12 +27,11 @@ class _LevelState extends State<Level> {
   @override
   void initState(){
     super.initState();
-    
-    player = AudioPlayer();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (player.state == PlayerState.playing) {
-        player.stop();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      player.stop();
+      if (player.state != PlayerState.playing) {
+        await player.play(AssetSource('home.mp3'));
       }
     });
 
@@ -51,18 +50,22 @@ class _LevelState extends State<Level> {
   }
 
   gotoLevelOneLessons(){
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
   }
 
   gotoLevelTwoLessons(){
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
   }
 
   gotoLevelThreeLessons(){
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
   }
 
   gotoLevelFourLessons(){
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
   }
 
@@ -154,6 +157,7 @@ class _LevelState extends State<Level> {
             fit: BoxFit.fill,
           ),
           onPressed: () {
+            player.stop();
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => const Home()));
           },

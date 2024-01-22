@@ -21,7 +21,7 @@ class Games extends StatefulWidget {
 }
 
 class _GamesState extends State<Games> {
-  late AudioPlayer player;
+  AudioPlayer player = AudioPlayer();
 
   List<Question> lvl1TriviaQuestions = [
     Question(
@@ -270,7 +270,6 @@ class _GamesState extends State<Games> {
         explanation: ''),
   ];
 
-
   List<dynamic> lvl1RumbleQuestions = [
     {
       'question': 'Apex of Leaves in Acanthus Ebracteatus',
@@ -486,11 +485,11 @@ class _GamesState extends State<Games> {
   void initState() {
     super.initState();
 
-    player = AudioPlayer();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       player.stop();
-      player.dispose();
+      if (player.state != PlayerState.playing) {
+        await player.play(AssetSource('home.mp3'));
+      }
     });
   }
 
@@ -502,10 +501,10 @@ class _GamesState extends State<Games> {
   }
 
   gotoTrivia() {
+    // player.stop();
     switch (widget.levelNum) {
       case 1:
         player.dispose();
-        player.stop();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -517,7 +516,6 @@ class _GamesState extends State<Games> {
         break;
       case 2:
         player.dispose();
-        player.stop();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -529,7 +527,6 @@ class _GamesState extends State<Games> {
         break;
       case 3:
         player.dispose();
-        player.stop();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -541,7 +538,6 @@ class _GamesState extends State<Games> {
         break;
       case 4:
         player.dispose();
-        player.stop();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -557,6 +553,7 @@ class _GamesState extends State<Games> {
   }
 
   gotoRumble() {
+    // player.stop();
     switch (widget.levelNum) {
       case 1:
         Navigator.pushReplacement(
@@ -603,6 +600,7 @@ class _GamesState extends State<Games> {
   }
 
   gotoGuess() {
+    // player.stop();
     switch (widget.levelNum) {
       case 1:
         Navigator.pushReplacement(
@@ -649,6 +647,7 @@ class _GamesState extends State<Games> {
   }
 
   void _goBackTo() {
+    // player.stop();
     switch (widget.levelNum) {
       case 1:
         Navigator.pushReplacement(context,

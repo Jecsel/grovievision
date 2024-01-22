@@ -13,27 +13,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late AudioPlayer player;
+  AudioPlayer player = AudioPlayer();
 
   @override
   void initState(){
     super.initState();
     
-    player = AudioPlayer();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      player.stop();
       if (player.state != PlayerState.playing) {
-        player.play(AssetSource('home.mp3'));
+        await player.play(AssetSource('home.mp3'));
       }
     });
   }
 
-  gotoLevel() {
+  gotoLevel() async {
     player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const Level()));
   }
 
   gotoAbout(){
+    player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
   }
 
@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
       
                     const SizedBox( height: 15.0),
                     GestureDetector(
-                      onTap: gotoLevel,
+                      onTap: gotoAbout,
                       child: Container(
                         alignment: Alignment.center,
                         width: double.infinity,
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                     ),
                     const SizedBox( height: 15.0),
                     GestureDetector(
-                      onTap: _onBackPressed(context),
+                      onTap: () => _onBackPressed(context),
                       child: Container(
                         alignment: Alignment.center,
                         width: double.infinity,
