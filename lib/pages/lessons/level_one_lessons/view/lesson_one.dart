@@ -53,7 +53,7 @@ class _LessonOneState extends State<LessonOne> {
           itemBuilder: (context, index) {
             return Image.asset(
               imageUrls[index],
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             );
           },
         ),
