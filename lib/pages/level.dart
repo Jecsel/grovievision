@@ -163,18 +163,23 @@ class _LevelState extends State<Level> {
           },
         ),
         actions: [
-          Image.asset('assets/images/star.gif'),
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: Text(
-              lvlAllPoints.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-          )
+          Row(
+            children: [
+              Image.asset('assets/images/star.gif'),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Text(
+                  lvlAllPoints.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              )
+            ],
+          ),
+          
         ],
         backgroundColor: Colors.green.shade700,
       ),
