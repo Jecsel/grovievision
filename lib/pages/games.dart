@@ -705,6 +705,16 @@ class _GamesState extends State<Games> {
               const SizedBox(
                 height: 100.0,
               ),
+              const Text(
+                'Game Category',
+                style: TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
               GestureDetector(
                     onTap: gotoTrivia,
                     child: Container(
