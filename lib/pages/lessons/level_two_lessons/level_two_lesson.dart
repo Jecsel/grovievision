@@ -62,6 +62,14 @@ class _LevelTwoLessonsState extends State<LevelTwoLessons> {
             child: Column(
               children: [
                 const SizedBox(height: 100.0,),
+                const Text(
+                  'Mangroves Family',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                const SizedBox(height: 50.0,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),

@@ -23,6 +23,7 @@ class _RumbleState extends State<Rumble> {
   String answer = '';
   List<String> chosenLetters = [];
   AudioPlayer player = AudioPlayer();
+  AudioPlayer playerSE = AudioPlayer();
   late List<dynamic> questions;
 
   @override
@@ -71,6 +72,7 @@ class _RumbleState extends State<Rumble> {
                 // Navigator.of(context).pop();
                 // saveData('lvl1Rumble', score.toString());
                 player.stop();
+                player.play(AssetSource('correct.mp3'), volume: 0.0);
                 saveGameScore(score);
                 Navigator.push(
                   context,
@@ -288,7 +290,7 @@ class _RumbleState extends State<Rumble> {
                     onPressed: () {
                       // Check if selected letters match the correct answer
                       if (chosenLetters.join() == questions[currentQuestionIndex]['answer']) {
-                        player.play(AssetSource('correct.mp3'));
+                        playerSE.play(AssetSource('correct.mp3'));
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -308,7 +310,7 @@ class _RumbleState extends State<Rumble> {
                           },
                         );
                       } else {
-                        player.play(AssetSource('wrong.mp3'));
+                        playerSE.play(AssetSource('wrong.mp3'));
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {

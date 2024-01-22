@@ -387,92 +387,92 @@ class _GamesState extends State<Games> {
   List<dynamic> lvl1GuessQuestions = [
     {
       'answer': 'Marina Flower',
-      'image': 'assets/images/level1/guess_me1/0.jpg'
+      'image': 'assets/images/level1/guess_me1/0.png'
     },
     {
       'answer': 'Ilicifolius Leave',
-      'image': 'assets/images/level1/guess_me1/1.jpg'
+      'image': 'assets/images/level1/guess_me1/1.png'
     },
     {
       'answer': 'Volubilis Fruit',
-      'image': 'assets/images/level1/guess_me1/2.jpg'
+      'image': 'assets/images/level1/guess_me1/2.png'
     },
     {
       'answer': 'Alba Flower',
-      'image': 'assets/images/level1/guess_me1/3.jpg'
+      'image': 'assets/images/level1/guess_me1/3.png'
     },
     {
       'answer': 'Rumphiana Fruit',
-      'image': 'assets/images/level1/guess_me1/4.jpg'
+      'image': 'assets/images/level1/guess_me1/4.png'
     }
   ];
 
   List<dynamic> lvl2GuessQuestions = [
     {
       'question': 'Agallocha Fruit',
-      'answer': 'assets/images/level2/guess_me2/0.jpg'
+      'answer': 'assets/images/level2/guess_me2/0.png'
     },
     {
       'question': 'Granatum Flower',
-      'answer': 'assets/images/level2/guess_me2/1.jpg'
+      'answer': 'assets/images/level2/guess_me2/1.png'
     },
     {
       'question': 'Moluccensis Fruit',
-      'answer': 'assets/images/level2/guess_me2/2.jpg'
+      'answer': 'assets/images/level2/guess_me2/2.png'
     },
     {
       'question': 'Octodonta Leave',
-      'answer': 'assets/images/level2/guess_me2/3.jpg'
+      'answer': 'assets/images/level2/guess_me2/3.png'
     },
     {
       'question': 'Octodonta Flower',
-      'answer': 'assets/images/level2/guess_me2/4.jpg'
+      'answer': 'assets/images/level2/guess_me2/4.png'
     }
   ];
 
   List<dynamic> lvl3GuessQuestions = [
     {
       'question': 'Phempis Acidula',
-      'answer': 'assets/images/level3/guess_me3/0.jpg'
+      'answer': 'assets/images/level3/guess_me3/0.png'
     },
     {
       'question': 'Acidula Flower',
-      'answer': 'assets/images/level3/guess_me3/1.jpg'
+      'answer': 'assets/images/level3/guess_me3/1.png'
     },
     {
       'question': 'Alba Leave',
-      'answer': 'assets/images/level3/guess_me3/2.jpg'
+      'answer': 'assets/images/level3/guess_me3/2.png'
     },
     {
       'question': 'Caseolaris Fruit',
-      'answer': 'assets/images/level3/guess_me3/3.jpg'
+      'answer': 'assets/images/level3/guess_me3/3.png'
     },
     {
       'question': 'Fruticans Fruit',
-      'answer': 'assets/images/level3/guess_me3/4.jpg'
+      'answer': 'assets/images/level3/guess_me3/4.png'
     }
   ];
 
   List<dynamic> lvl4GuessQuestions = [
     {
       'question': 'Hydrophyllacea Flower',
-      'answer': 'assets/images/level4/guess_me4/0.jpg'
+      'answer': 'assets/images/level4/guess_me4/0.png'
     },
     {
       'question': 'Corniculatum Fruit',
-      'answer': 'assets/images/level4/guess_me4/1.jpg'
+      'answer': 'assets/images/level4/guess_me4/1.png'
     },
     {
       'question': 'Floridum Flower',
-      'answer': 'assets/images/level4/guess_me4/2.jpg'
+      'answer': 'assets/images/level4/guess_me4/2.png'
     },
     {
       'question': 'Heritiera littoralis',
-      'answer': 'assets/images/level4/guess_me4/3.jpg'
+      'answer': 'assets/images/level4/guess_me4/3.png'
     },
     {
       'question': 'Littoralis Fruit',
-      'answer': 'assets/images/level4/guess_me4/4.jpg'
+      'answer': 'assets/images/level4/guess_me4/4.png'
     }
   ];
 
@@ -688,101 +688,96 @@ class _GamesState extends State<Games> {
         ),
         backgroundColor: Colors.green.shade700,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                  'assets/images/lesson_bg.png'), // Replace with your image asset
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/lesson_bg.png'), // Replace with your image asset
+            fit: BoxFit.cover,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 100.0,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.yellow.shade300),
-                  onPressed: gotoTrivia,
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        top: 15.0, bottom: 15.0, left: 20.0, right: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100.0,
+              ),
+              GestureDetector(
+                    onTap: gotoTrivia,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Grovie Quest",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Grovie Quest",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.orange.shade300),
-                  onPressed: gotoRumble,
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+      
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                    onTap: gotoRumble,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Grovie Mix-up",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Grovie Mix-up",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      backgroundColor: Colors.red.shade300),
-                  onPressed: gotoGuess,
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.gamepad_outlined,
-                          color: Colors.white,
-                          size: 30.0,
+      
+      
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                    onTap: gotoGuess,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/button.png'),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                      child: const Text(
+                        "Guess Me",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
                         ),
-                        Text("Guess Me     ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0)),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+              
+            ],
           ),
         ),
       ),
