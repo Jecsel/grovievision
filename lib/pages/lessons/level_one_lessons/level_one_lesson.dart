@@ -100,7 +100,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
           padding: const EdgeInsets.all(20.0),
           child: Column(  
             children: [
-              const SizedBox(height: 100.0,),
+              const SizedBox(height: 50.0,),
               const Text(
                 'Mangroves Family',
                 style: TextStyle(
