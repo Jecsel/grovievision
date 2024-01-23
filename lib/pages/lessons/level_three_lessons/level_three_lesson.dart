@@ -44,6 +44,15 @@ class _LevelThreeLessonsState extends State<LevelThreeLessons> {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Level()));
           },
         ),
+        title: const Text(
+          'Mangroves Family',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.green.shade700,
       ),
       body: SingleChildScrollView(
@@ -62,14 +71,6 @@ class _LevelThreeLessonsState extends State<LevelThreeLessons> {
             child: Column(
               children: [
                 const SizedBox(height: 100.0,),
-                const Text(
-                  'Mangroves Family',
-                  style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-                const SizedBox(height: 50.0,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),

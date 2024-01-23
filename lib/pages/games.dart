@@ -293,7 +293,7 @@ class _GamesState extends State<Games> {
       'choices': ['A', 'D', 'R', 'G', 'K', 'R', 'E', 'N', 'E', ' ']
     },
     {
-      'question': 'Apex of Leaves in Acanthus Ebracteatus',
+      'question': 'Inflorescene of flowers of Acanthus volubilis',
       'answer': 'SPIKE',
       'choices': ['S', 'R', 'B', 'I', 'K', 'U', 'D', 'N', 'E', 'P']
     },
@@ -686,6 +686,15 @@ class _GamesState extends State<Games> {
           ),
           onPressed: _goBackTo,
         ),
+        title: const Text(
+          'Game Category',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.green.shade700,
       ),
       body: Container(
@@ -703,17 +712,7 @@ class _GamesState extends State<Games> {
           child: Column(
             children: [
               const SizedBox(
-                height: 100.0,
-              ),
-              const Text(
-                'Game Category',
-                style: TextStyle(
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              const SizedBox(
-                height: 30.0,
+                height: 130.0,
               ),
               GestureDetector(
                     onTap: gotoTrivia,

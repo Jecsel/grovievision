@@ -179,8 +179,16 @@ class _LevelState extends State<Level> {
               )
             ],
           ),
-          
         ],
+        title: const Text(
+          'Select Level',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.green.shade700,
       ),
       body: Container(
@@ -197,15 +205,7 @@ class _LevelState extends State<Level> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              const SizedBox(height: 100.0,),
-              const Text(
-                'Select Level',
-                style: TextStyle(
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              const SizedBox(height: 120.0,),
+              const SizedBox(height: 200.0,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),

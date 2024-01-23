@@ -139,9 +139,15 @@ class _RumbleState extends State<Rumble> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 45.0),
               child: Center(
-                child: Text(widget.instrctn)
+                child: Text(
+                  widget.instrctn,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 9.0
+                  ),
+                )
               ),
             )
           ),
