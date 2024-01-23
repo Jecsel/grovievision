@@ -91,7 +91,10 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Center(child: Text(instruction)),
+                child: Center(child: Text(
+                  instruction,
+                  textAlign: TextAlign.center,
+                )),
               )),
           actions: [
             TextButton(

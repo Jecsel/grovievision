@@ -44,6 +44,15 @@ class _LevelFourLessonsState extends State<LevelFourLessons> {
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Level()));
           },
         ),
+        title: const Text(
+          'Mangroves Family',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.green.shade700,
       ),
       body: SingleChildScrollView(
