@@ -293,7 +293,7 @@ class _GamesState extends State<Games> {
       'choices': ['A', 'D', 'R', 'G', 'K', 'R', 'E', 'N', 'E', ' ']
     },
     {
-      'question': 'Apex of Leaves in Acanthus Ebracteatus',
+      'question': 'Inflorescene of flowers of Acanthus volubilis',
       'answer': 'SPIKE',
       'choices': ['S', 'R', 'B', 'I', 'K', 'U', 'D', 'N', 'E', 'P']
     },
