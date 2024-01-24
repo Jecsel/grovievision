@@ -119,7 +119,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           questions[questionIndex].correctAnswerIndex) {
         showExplanation = true;
         isWrongAnswer = false;
-        playerSE.play(AssetSource('correct.mp3'));
+        playerSE.play(AssetSource('correct.wav'));
         if (currentQuestionIndex < questions.length - 1) {
           currentQuestionIndex++;
         } else {
@@ -127,7 +127,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
           saveGameScore(finalScore);
           stopAudio;
-          player.play(AssetSource('correct.mp3',),volume: 0.0);
+          player.play(AssetSource('correct.wav',),volume: 0.0);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -137,7 +137,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                       )));
         }
       } else {
-        playerSE.play(AssetSource('wrong.mp3'));
+        playerSE.play(AssetSource('wrong.wav'));
         questions[questionIndex].choices.asMap().forEach((index, choice) {
           if (index == choiceIndex) {
             isWrongAnswer = true;
@@ -150,7 +150,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               // saveData('lvl1Quiz', finalScore.toString());
               saveGameScore(finalScore);
               stopAudio;
-              player.play(AssetSource('correct.mp3'), volume: 0.0);
+              player.play(AssetSource('correct.wav'), volume: 0.0);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -176,7 +176,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         // saveData('lvl1Quiz', finalScore.toString());
         saveGameScore(finalScore);
         stopAudio;
-        player.play(AssetSource('correct.mp3'));
+        player.play(AssetSource('correct.wav'));
         Navigator.push(
             context,
             MaterialPageRoute(
