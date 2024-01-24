@@ -91,12 +91,12 @@ class _GuessMeState extends State<GuessMe> {
 
     if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
       // Correct Answer
-      playerSE.play(AssetSource('correct.mp3'));
+      playerSE.play(AssetSource('correct.wav'));
       showNextQuestion();
       score++;
     } else {
       // Incorrect Answer
-      playerSE.play(AssetSource('wrong.mp3'));
+      playerSE.play(AssetSource('wrong.wav'));
       showIncorrectDialog(correctAnswer);
     }
   }
@@ -155,7 +155,7 @@ class _GuessMeState extends State<GuessMe> {
                   onPressed: () {
                     player.stop();
                     saveGameScore(score);
-                    player.play(AssetSource('correct.mp3'), volume: 0.0);
+                    player.play(AssetSource('correct.wav'), volume: 0.0);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
