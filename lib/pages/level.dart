@@ -33,9 +33,191 @@ class _LevelState extends State<Level> {
       if (player.state != PlayerState.playing) {
         await player.play(AssetSource('home.mp3'));
       }
+      showInstructionOne();
     });
 
     getSaveData();
+  }
+
+showInstructionOne() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                'Tap Level 1 To Display Family of Mangroves and Play Game \n',
+                style: TextStyle(fontSize: 16.0),
+              ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
+  }
+
+  showInstructionTwo() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'Level 2 Unlock the previous level first with at least 12 star\n'
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
+  }
+
+  showInstructionThree() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'Level 3 Unlock the previous level first with at least 24 star \n'
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
+  }
+
+  showInstructionFour() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child:  const Text(
+                    'Level 4 Unlock the previous level first with at least 48 star\n'
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
   }
 
   showUnlockToast() {
@@ -149,6 +331,8 @@ class _LevelState extends State<Level> {
 
   @override
   Widget build(BuildContext context) {
+    // showInstruction();
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -235,7 +419,7 @@ class _LevelState extends State<Level> {
                     side: const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   backgroundColor: const Color.fromRGBO(76, 175, 80, 1)),
-                onPressed: lvlAllPoints >= 12 ? gotoLevelTwoLessons : () => showUnlockToast(),
+                onPressed: lvlAllPoints >= 12 ? gotoLevelTwoLessons : () => showInstructionTwo(),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
@@ -265,7 +449,7 @@ class _LevelState extends State<Level> {
                     side: const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   backgroundColor: Colors.green),
-                onPressed: lvlAllPoints >= 24 ? gotoLevelThreeLessons : () => showUnlockToast(),
+                onPressed: lvlAllPoints >= 24 ? gotoLevelThreeLessons : () => showInstructionThree(),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(
@@ -292,7 +476,7 @@ class _LevelState extends State<Level> {
                     side: const BorderSide(color: Colors.white, width: 2.0),
                   ),
                   backgroundColor: Colors.green),
-                onPressed: lvlAllPoints >= 36 ? gotoLevelFourLessons : () => showUnlockToast(),
+                onPressed: lvlAllPoints >= 36 ? gotoLevelFourLessons : () => showInstructionFour(),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Row(

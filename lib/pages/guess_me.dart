@@ -84,7 +84,38 @@ class _GuessMeState extends State<GuessMe> {
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
   }
 
+  showCheck() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/check.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: const Text('')
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
 
+    return confirmed ?? false;
+  }
 
   void checkAnswer(String userAnswer) {
     String correctAnswer = questions[currentQuestionIndex]['answer'];
@@ -92,6 +123,7 @@ class _GuessMeState extends State<GuessMe> {
     if (userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
       // Correct Answer
       playerSE.play(AssetSource('correct.wav'));
+      showCheck();
       showNextQuestion();
       score++;
     } else {
@@ -107,7 +139,22 @@ class _GuessMeState extends State<GuessMe> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Incorrect'),
-          content: Text('The correct answer is: $correctAnswer'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Column(
+              children: [
+                Text('The correct answer is: $correctAnswer'),
+                Image.asset(
+                  'assets/images/wrong.png',
+                  width: 200,
+                  height: 200,
+                )
+              ],
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () {

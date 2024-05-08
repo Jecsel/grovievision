@@ -5,6 +5,7 @@ import 'package:grovie/pages/level.dart';
 import 'package:grovie/pages/rumble.dart';
 import 'package:grovie/pages/trivia_quiz.dart';
 
+import '../local_data.dart';
 import '../models/question.dart';
 import 'lessons/level_four_lessons/level_four_lesson.dart';
 import 'lessons/level_one_lessons/level_one_lesson.dart';
@@ -22,6 +23,12 @@ class Games extends StatefulWidget {
 
 class _GamesState extends State<Games> {
   AudioPlayer player = AudioPlayer();
+
+  int stars = 0, lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
+    lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
+    lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
+    lvl1Points = 0, lvl2Points = 0, lvl3Points = 0, lvl4Points = 0,
+    lvlAllPoints = 0;
 
   List<Question> lvl1TriviaQuestions = [
     Question(
@@ -327,7 +334,6 @@ class _GamesState extends State<Games> {
     },
   ];
 
-
   List<dynamic> lvl3RumbleQuestions = [
     {
       'question': ' It has irregularly shaped branches, small leaves, and small white flowers.',
@@ -477,7 +483,7 @@ class _GamesState extends State<Games> {
   ];
 
   String triviaInstructions =
-      'Choose the correct answer being as base on a question.';
+      'Choose the correct answer being ask base on a question.';
   String rumbleInstructions =
       'Arrange the jumbled letters with description of Mangrove Species base on Scientific name and characteristic of Mangrove Species.';
   String guessInstructions = 'Identify the picture given.';
@@ -491,7 +497,136 @@ class _GamesState extends State<Games> {
       if (player.state != PlayerState.playing) {
         await player.play(AssetSource('home.mp3'));
       }
+
+      showInstruction();
     });
+
+    getSaveData();
+  }
+
+  setAllPoints(){
+    setState(() {
+      lvl1Points = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      lvl2Points = lvl2Guess + lvl2Quiz + lvl2Rumble;
+      lvl3Points = lvl3Guess + lvl3Quiz + lvl3Rumble;
+      lvlAllPoints = lvl1Points + lvl2Points + lvl3Points;
+    });
+  }
+
+  getSaveData() {
+    loadData('lvl1Quiz').then((value) {
+      print('=====lvl1Quiz====== $value ==========');
+      setState(() {
+        lvl1Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Quiz').then((value) {
+      setState(() {
+         lvl2Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+         setAllPoints();
+      });
+     
+    });
+    loadData('lvl3Quiz').then((value) {
+      setState(() {
+        lvl3Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+    });
+      
+    });
+    loadData('lvl1Rumble').then((value) {
+      setState(() {
+        lvl1Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Rumble').then((value) {
+      setState(() {
+        lvl2Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl3Rumble').then((value) {
+      setState(() {
+        lvl3Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl1Guess').then((value) {
+      setState(() {
+        lvl1Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Guess').then((value) {
+      setState(() {
+        lvl2Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl3Guess').then((value) {
+      setState(() {
+        lvl3Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+
+  }
+
+  
+  showInstruction() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+          // Adding Background Image
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                        'Choose any Game Category \n',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    return confirmed ?? false;
   }
 
   @override
@@ -694,6 +829,24 @@ class _GamesState extends State<Games> {
               color: Colors.white
           ),
         ),
+        actions: [
+          Row(
+            children: [
+              Image.asset('assets/images/star.gif'),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Text(
+                  lvlAllPoints.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
         centerTitle: true,
         backgroundColor: Colors.green.shade700,
       ),
