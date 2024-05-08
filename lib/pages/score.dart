@@ -94,11 +94,11 @@ class _ScoreState extends State<Score> {
                     ),
                     onPressed: _goTo,
                     child: const Padding(
-                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                      padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
                       child: Text(
-                        'PLAY AGAIN',
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        'RETURN TO FAMILY MANGROVES',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),

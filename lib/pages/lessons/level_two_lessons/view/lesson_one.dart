@@ -39,9 +39,34 @@ class _LessonOneState extends State<LessonOne> {
                 currentIndex = index + 1;
                 return Column(
                   children: [
-                    Image.asset(
-                      imageUrls[index],
-                      fit: BoxFit.fill,
+                    Stack(
+                      children: [
+                        Image.asset(
+                          imageUrls[index],
+                          fit: BoxFit.fill,
+                        ),
+
+                        Positioned(
+                          left: 0.0,
+                          bottom: 50.0,
+                          child: index + 1 == imageUrls.length ? const Text('') : Image.asset(
+                            'assets/images/swipe.png',
+                            width: 250.0,
+                            height: 150.0,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+
+                        Positioned(
+                          top: 0.0,
+                          left: 0.0,
+                          child: index + 1 == imageUrls.length ? Image.asset(
+                            'assets/images/point_up.gif',
+                            width: 80.0,
+                            height: 80.0,
+                          ) : const Text('')
+                        ),
+                      ],
                     ),
                   ],
                 );

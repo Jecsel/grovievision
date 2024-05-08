@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
 import 'package:grovie/pages/level.dart';
 
+import '../../../local_data.dart';
 import 'view/lesson_one.dart';
 import 'view/lesson_three.dart';
 import 'view/lesson_two.dart';
@@ -14,6 +15,99 @@ class LevelTwoLessons extends StatefulWidget {
 }
 
 class _LevelTwoLessonsState extends State<LevelTwoLessons> {
+  int stars = 0, lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
+    lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
+    lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
+    lvl1Points = 0, lvl2Points = 0, lvl3Points = 0, lvl4Points = 0,
+    lvlAllPoints = 0;
+
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      showInstruction();
+    });
+
+    getSaveData();
+  }
+
+  setAllPoints(){
+    setState(() {
+      lvl1Points = lvl1Guess + lvl1Quiz + lvl1Rumble;
+      lvl2Points = lvl2Guess + lvl2Quiz + lvl2Rumble;
+      lvl3Points = lvl3Guess + lvl3Quiz + lvl3Rumble;
+      lvlAllPoints = lvl1Points + lvl2Points + lvl3Points;
+    });
+  }
+
+  getSaveData() {
+    loadData('lvl1Quiz').then((value) {
+      print('=====lvl1Quiz====== $value ==========');
+      setState(() {
+        lvl1Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Quiz').then((value) {
+      setState(() {
+         lvl2Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+         setAllPoints();
+      });
+     
+    });
+    loadData('lvl3Quiz').then((value) {
+      setState(() {
+        lvl3Quiz = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+    });
+      
+    });
+    loadData('lvl1Rumble').then((value) {
+      setState(() {
+        lvl1Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Rumble').then((value) {
+      setState(() {
+        lvl2Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl3Rumble').then((value) {
+      setState(() {
+        lvl3Rumble = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl1Guess').then((value) {
+      setState(() {
+        lvl1Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl2Guess').then((value) {
+      setState(() {
+        lvl2Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+    loadData('lvl3Guess').then((value) {
+      setState(() {
+        lvl3Guess = value != null ? int.tryParse(value) ?? 0 : 0;
+        setAllPoints();
+      });
+      
+    });
+
+  }
+
 
   gotoGames(int levelNum){
     Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: levelNum)));
@@ -29,6 +123,53 @@ class _LevelTwoLessonsState extends State<LevelTwoLessons> {
 
   gotoLessonThree(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => const LessonThree()));
+  }
+
+  showInstruction() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('INSTRUCTION'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/paper_bg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'Tap One Family to view Mangroves Information and Also read about them in order to have answer in the game \n'
+                    ' \n'
+                    'Tap Play Game To Display Games \n'
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
   }
 
   @override
@@ -52,6 +193,24 @@ class _LevelTwoLessonsState extends State<LevelTwoLessons> {
               color: Colors.white
           ),
         ),
+        actions: [
+          Row(
+            children: [
+              Image.asset('assets/images/star.gif'),
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: Text(
+                  lvlAllPoints.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
         backgroundColor: Colors.green.shade700,
       ),
       body: SingleChildScrollView(

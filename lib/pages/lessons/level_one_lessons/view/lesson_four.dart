@@ -35,9 +35,13 @@ class _LessonFourState extends State<LessonFour> {
         child: PageView.builder(
           itemCount: imageUrls.length,
           itemBuilder: (context, index) {
-            return Image.asset(
-              imageUrls[index],
-              fit: BoxFit.fill,
+            return Stack(
+              children: [
+                Image.asset(
+                  imageUrls[index],
+                  fit: BoxFit.fill,
+                ),
+              ],
             );
           },
         ),
