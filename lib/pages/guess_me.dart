@@ -17,7 +17,7 @@ class GuessMe extends StatefulWidget {
   State<GuessMe> createState() => _GuessMeState();
 }
 
-class _GuessMeState extends State<GuessMe> {
+class _GuessMeState extends State<GuessMe> with WidgetsBindingObserver {
 
   int score = 0;
   int currentQuestionIndex = 0;
@@ -33,6 +33,7 @@ class _GuessMeState extends State<GuessMe> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     questions = widget.qstns;
     questions.shuffle();
@@ -53,6 +54,28 @@ class _GuessMeState extends State<GuessMe> {
         await prefs.setBool('instructionsDialogShown', true);
       }
     });
+  }
+
+@override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   void _showDialog(BuildContext context) {

@@ -1,6 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:grovie/pages/games.dart';
+import 'package:grovie/pages/lessons/level_four_lessons/level_four_lesson.dart';
+import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
+import 'package:grovie/pages/lessons/level_three_lessons/level_three_lesson.dart';
+import 'package:grovie/pages/lessons/level_two_lessons/level_two_lesson.dart';
 import 'package:grovie/pages/level.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +31,25 @@ class _ScoreState extends State<Score> {
   }
 
   _goTo() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => Games(levelNum: widget.lvlNum,)));
+    switch ( widget.lvlNum) {
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelOneLessons()));
+        break;
+      
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelTwoLessons()));
+        break;
+
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelThreeLessons()));
+        break;
+
+      case 4:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LevelFourLessons()));
+        break;
+      default:
+    }
   }
 
   Widget buildStars(int count) {

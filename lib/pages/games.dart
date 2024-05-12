@@ -21,7 +21,7 @@ class Games extends StatefulWidget {
   State<Games> createState() => _GamesState();
 }
 
-class _GamesState extends State<Games> {
+class _GamesState extends State<Games> with WidgetsBindingObserver {
   AudioPlayer player = AudioPlayer();
 
   int stars = 0, lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
@@ -491,6 +491,7 @@ class _GamesState extends State<Games> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       player.stop();
@@ -502,6 +503,28 @@ class _GamesState extends State<Games> {
     });
 
     getSaveData();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   setAllPoints(){
@@ -627,13 +650,6 @@ class _GamesState extends State<Games> {
     );
 
     return confirmed ?? false;
-  }
-
-  @override
-  void dispose() {
-    player.dispose();
-    player.stop();
-    super.dispose();
   }
 
   gotoTrivia() {

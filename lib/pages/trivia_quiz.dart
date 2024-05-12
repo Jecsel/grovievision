@@ -21,7 +21,7 @@ class TriviaQuiz extends StatefulWidget {
   State<TriviaQuiz> createState() => _TriviaQuizState();
 }
 
-class _TriviaQuizState extends State<TriviaQuiz> {
+class _TriviaQuizState extends State<TriviaQuiz> with WidgetsBindingObserver {
   var score = 0;
   int currentQuestionIndex = 0;
   late List<Question> questions;
@@ -42,6 +42,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
     super.initState();
     questions = widget.qstns;
     instruction = widget.instrctn;
+    WidgetsBinding.instance.addObserver(this);
 
     questions.shuffle();
 
@@ -62,6 +63,28 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         await prefs.setBool('instructionsDialogShown', true);
       }
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   void stopAudio() {
@@ -153,7 +176,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
     return confirmed ?? false;
   }
 
-    void showIncorrectDialog() {
+  void showIncorrectDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -169,7 +192,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
                 Image.asset(
                   'assets/images/wrong.png',
                   width: 180,
-                  height: 1800,
+                  height: 180,
                 )
               ],
             ),
@@ -290,13 +313,6 @@ class _TriviaQuizState extends State<TriviaQuiz> {
       }
     }
     return score;
-  }
-
-  @override
-  void dispose() {
-    playerSE.dispose(); // Dispose of the background music player
-    player.dispose(); // Dispose of the sound effects player
-    super.dispose();
   }
 
   @override

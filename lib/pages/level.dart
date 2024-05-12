@@ -17,7 +17,7 @@ class Level extends StatefulWidget {
   State<Level> createState() => _LevelState();
 }
 
-class _LevelState extends State<Level> {
+class _LevelState extends State<Level> with WidgetsBindingObserver {
   AudioPlayer player = AudioPlayer();
    bool _instructionsDialogShown = false;
   int lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
@@ -29,6 +29,7 @@ class _LevelState extends State<Level> {
   @override
   void initState(){
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       player.stop();
@@ -48,6 +49,28 @@ class _LevelState extends State<Level> {
     });
 
     getSaveData();
+  }
+
+    @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
 showInstructionOne() async {

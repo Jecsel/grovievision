@@ -8,14 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../local_data.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatefulWidget{
   const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   AudioPlayer player = AudioPlayer();
   bool _instructionsDialogShown = false;
 
@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
   @override
   void initState(){
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       player.stop();
@@ -50,7 +51,34 @@ class _HomeState extends State<Home> {
     getSaveData();
   }
 
-    setAllPoints(){
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // if (state == AppLifecycleState.paused) {
+    //   player.stop();
+    // }
+
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+
+  setAllPoints(){
     setState(() {
       lvl1Points = lvl1Guess + lvl1Quiz + lvl1Rumble;
       lvl2Points = lvl2Guess + lvl2Quiz + lvl2Rumble;
@@ -136,12 +164,6 @@ class _HomeState extends State<Home> {
   gotoAbout(){
     player.stop();
     Navigator.push(context, MaterialPageRoute(builder: (context) => const About()));
-  }
-
-  @override
-  void dispose() {
-    player.dispose(); // Dispose the player when done
-    super.dispose();
   }
 
   _showInstructionsDialog(BuildContext context) {

@@ -17,7 +17,7 @@ class Rumble extends StatefulWidget {
   State<Rumble> createState() => _RumbleState();
 }
 
-class _RumbleState extends State<Rumble> {
+class _RumbleState extends State<Rumble> with WidgetsBindingObserver {
 
   int score = 0;
   int currentQuestionIndex = 0;
@@ -32,6 +32,7 @@ class _RumbleState extends State<Rumble> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     questions = widget.qstns;
     questions.shuffle();
@@ -51,6 +52,28 @@ class _RumbleState extends State<Rumble> {
         await prefs.setBool('instructionsDialogShown', true);
       }
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        player.pause();
+        break;
+      case AppLifecycleState.resumed:
+        player.resume();
+        break;
+      default:
+        player.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   void saveGameScore(int scr) {
