@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../local_data.dart';
 import 'games.dart';
 import 'score.dart';
@@ -25,6 +26,7 @@ class _RumbleState extends State<Rumble> {
   AudioPlayer player = AudioPlayer();
   AudioPlayer playerSE = AudioPlayer();
   late List<dynamic> questions;
+  bool _instructionsDialogShown = false;
 
   @override
   void initState() {
@@ -39,7 +41,15 @@ class _RumbleState extends State<Rumble> {
       if (player.state != PlayerState.playing) {
         await player.play(AssetSource('rumble.m4a'));
       }
-      _showDialog(context);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      
+      if (!_instructionsDialogShown) {
+        _showDialog(context);
+        _instructionsDialogShown = true;
+        await prefs.setBool('instructionsDialogShown', true);
+      }
     });
   }
 
@@ -302,7 +312,23 @@ class _RumbleState extends State<Rumble> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text('Correct!'),
-                              content: const Text('Very Good, you got it right!'),
+                              content: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 0.3,
+                                child: Column(
+                                  children: [
+                                    const Text('Very Good, you got it right!'),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10.0),
+                                      child: Image.asset(
+                                        'assets/images/check.png',
+                                        width: 180,
+                                        height: 180,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                               actions: [
                                 ElevatedButton(
                                   onPressed: () {
@@ -323,7 +349,23 @@ class _RumbleState extends State<Rumble> {
                             String ans = questions[currentQuestionIndex]['answer'];
                             return AlertDialog(
                               title: const Text('Incorrect'),
-                              content: Text("The correct answer is: $ans"),
+                              content: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 0.3,
+                                child: Column(
+                                  children: [
+                                    Text('The correct answer is: $ans'),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10.0),
+                                      child: Image.asset(
+                                        'assets/images/wrong.png',
+                                        width: 180,
+                                        height: 180,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                               actions: [
                                 ElevatedButton(
                                   onPressed: () {

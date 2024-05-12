@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:grovie/local_data.dart';
 import 'package:grovie/pages/games.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/question.dart';
 import 'score.dart';
 
@@ -34,6 +35,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
   String instruction = '';
   AudioPlayer player = AudioPlayer();
   AudioPlayer playerSE = AudioPlayer();
+  bool _instructionsDialogShown = false;
 
   @override
   void initState() {
@@ -45,12 +47,20 @@ class _TriviaQuizState extends State<TriviaQuiz> {
 
     selectedAnswers = List.filled(questions.length, null);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       player.stop();
       if (player.state != PlayerState.playing) {
         player.play(AssetSource('quiz.mp3'));
       }
-      _showDialog(context);
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      
+      if (!_instructionsDialogShown) {
+        _showDialog(context);
+        _instructionsDialogShown = true;
+        await prefs.setBool('instructionsDialogShown', true);
+      }
     });
   }
 
@@ -109,6 +119,75 @@ class _TriviaQuizState extends State<TriviaQuiz> {
     );
   }
 
+  showCheck() async {
+    final confirmed = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Correct'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/check.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: const Text('')
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    return confirmed ?? false;
+  }
+
+    void showIncorrectDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Incorrect'),
+          backgroundColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20.0),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/wrong.png',
+                  width: 180,
+                  height: 1800,
+                )
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Next Question'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   void onAnswerSelected(int questionIndex, int choiceIndex) {
     setState(() {
       selectedAnswers[questionIndex] = choiceIndex;
@@ -120,6 +199,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         showExplanation = true;
         isWrongAnswer = false;
         playerSE.play(AssetSource('correct.wav'));
+        showCheck();
         if (currentQuestionIndex < questions.length - 1) {
           currentQuestionIndex++;
         } else {
@@ -128,6 +208,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
           saveGameScore(finalScore);
           stopAudio;
           player.play(AssetSource('correct.wav',),volume: 0.0);
+          showCheck();
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -138,6 +219,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         }
       } else {
         playerSE.play(AssetSource('wrong.wav'));
+        showIncorrectDialog();
         questions[questionIndex].choices.asMap().forEach((index, choice) {
           if (index == choiceIndex) {
             isWrongAnswer = true;
@@ -151,6 +233,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
               saveGameScore(finalScore);
               stopAudio;
               player.play(AssetSource('correct.wav'), volume: 0.0);
+              showCheck();
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -177,6 +260,7 @@ class _TriviaQuizState extends State<TriviaQuiz> {
         saveGameScore(finalScore);
         stopAudio;
         player.play(AssetSource('correct.wav'));
+        showCheck();
         Navigator.push(
             context,
             MaterialPageRoute(

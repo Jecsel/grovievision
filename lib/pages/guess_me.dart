@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../local_data.dart';
 import 'games.dart';
@@ -26,6 +27,7 @@ class _GuessMeState extends State<GuessMe> {
   AudioPlayer playerSE = AudioPlayer();
   late List<dynamic> questions;
   TextEditingController answerController = TextEditingController();
+  bool _instructionsDialogShown = false;
 
 
   @override
@@ -39,7 +41,17 @@ class _GuessMeState extends State<GuessMe> {
       if (player.state != PlayerState.playing) {
         await player.play(AssetSource('guess_me.mp3'));
       }
-      _showDialog(context);
+      
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      
+      
+      if (!_instructionsDialogShown) {
+        _showDialog(context);
+        _instructionsDialogShown = true;
+        await prefs.setBool('instructionsDialogShown', true);
+      }
     });
   }
 

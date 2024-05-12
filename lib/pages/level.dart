@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grovie/local_data.dart';
 import 'package:grovie/pages/lessons/level_one_lessons/level_one_lesson.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
 import 'lessons/level_four_lessons/level_four_lesson.dart';
@@ -18,6 +19,7 @@ class Level extends StatefulWidget {
 
 class _LevelState extends State<Level> {
   AudioPlayer player = AudioPlayer();
+   bool _instructionsDialogShown = false;
   int lvl1Quiz = 0, lvl1Rumble = 0, lvl1Guess = 0, 
     lvl2Quiz = 0, lvl2Rumble = 0, lvl2Guess = 0,
     lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
@@ -33,7 +35,16 @@ class _LevelState extends State<Level> {
       if (player.state != PlayerState.playing) {
         await player.play(AssetSource('home.mp3'));
       }
-      showInstructionOne();
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      
+      
+      if (!_instructionsDialogShown) {
+        showInstructionOne();
+        _instructionsDialogShown = true;
+        await prefs.setBool('instructionsDialogShown', true);
+      }
     });
 
     getSaveData();

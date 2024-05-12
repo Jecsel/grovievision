@@ -4,6 +4,7 @@ import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_four.dart';
 import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_three.dart';
 import 'package:grovie/pages/lessons/level_one_lessons/view/lesson_two.dart';
 import 'package:grovie/pages/level.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../local_data.dart';
 import 'view/lesson_one.dart';
@@ -21,6 +22,7 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
     lvl3Quiz = 0, lvl3Rumble = 0, lvl3Guess = 0,
     lvl1Points = 0, lvl2Points = 0, lvl3Points = 0, lvl4Points = 0,
     lvlAllPoints = 0;
+    bool _instructionsDialogShown = false;
 
   @override
   void initState(){
@@ -28,7 +30,15 @@ class _LevelOneLessonsState extends State<LevelOneLessons> {
     getStar();
   
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      showInstruction();
+       SharedPreferences prefs = await SharedPreferences.getInstance();
+      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      
+      
+      if (!_instructionsDialogShown) {
+        showInstruction();
+        _instructionsDialogShown = true;
+        await prefs.setBool('instructionsDialogShown', true);
+      }
     });
 
      getSaveData();
