@@ -46,11 +46,13 @@ class _RumbleState extends State<Rumble> with WidgetsBindingObserver {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
       
-      if (!_instructionsDialogShown) {
-        _showDialog(context);
-        _instructionsDialogShown = true;
-        await prefs.setBool('instructionsDialogShown', true);
-      }
+      // if (!_instructionsDialogShown) {
+      //   _showDialog(context);
+      //   _instructionsDialogShown = true;
+      //   await prefs.setBool('instructionsDialogShown', true);
+      // }
+
+      _showDialog(context);
     });
   }
 

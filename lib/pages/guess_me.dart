@@ -27,7 +27,7 @@ class _GuessMeState extends State<GuessMe> with WidgetsBindingObserver {
   AudioPlayer playerSE = AudioPlayer();
   late List<dynamic> questions;
   TextEditingController answerController = TextEditingController();
-  bool _instructionsDialogShown = false;
+  final bool _instructionsDialogShown = false;
 
 
   @override
@@ -44,15 +44,17 @@ class _GuessMeState extends State<GuessMe> with WidgetsBindingObserver {
       }
       
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // _instructionsDialogShown = prefs.getBool('instructionsDialogShown') ?? false; 
       
       
-      if (!_instructionsDialogShown) {
-        _showDialog(context);
-        _instructionsDialogShown = true;
-        await prefs.setBool('instructionsDialogShown', true);
-      }
+      // if (!_instructionsDialogShown) {
+      //   _showDialog(context);
+      //   _instructionsDialogShown = true;
+      //   await prefs.setBool('instructionsDialogShown', true);
+      // }
+
+      _showDialog(context);
     });
   }
 
